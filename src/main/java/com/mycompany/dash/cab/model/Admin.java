@@ -10,7 +10,7 @@ package com.mycompany.dash.cab.model;
  */
 public class Admin extends User {
     
-    public Admin(int id, String name, String password, String email, String contact, String address, boolean enabled, int type) {
+    public Admin(int id, String name, String password, String email, String contact, String address, int enabled, int type) {
         super(id, name, password, email, contact, address, enabled, type);
     }
 

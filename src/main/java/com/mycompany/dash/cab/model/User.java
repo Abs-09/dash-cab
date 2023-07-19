@@ -8,10 +8,10 @@ public abstract class User {
     private String email;
     private String contact;
     private String address;
-    private boolean enabled;
+    private int enabled;
     private int type;
 
-    public User(int id, String name, String password, String email, String contact, String address, boolean enabled, int type) {
+    public User(int id, String name, String password, String email, String contact, String address, int enabled, int type) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -70,11 +70,11 @@ public abstract class User {
         this.address = address;
     }
 
-    public boolean isEnabled() {
+    public int isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(int enabled) {
         this.enabled = enabled;
     }
 

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+import com.mycompany.dash.cab.dao.UserDao;
 import com.mycompany.dash.cab.model.Admin;
 import com.mycompany.dash.cab.model.User;
 import jakarta.servlet.RequestDispatcher;
@@ -19,17 +20,48 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class UserServelet extends HttpServlet {
 
-    
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        User user;
+        int id = Integer.parseInt(request.getParameter("id"));
+        String typedPassword = request.getParameter("password");
+
+        PrintWriter out = response.getWriter();
+        UserDao dao = new UserDao();
+
+        int type = dao.getType(id);
+
+        if (type == 1) {
+            user = dao.getAdmin(id);
+        } else if (type == 2) {
+            user = dao.getDriver(id);
+        } else if (type == 3) {
+            user = dao.getCustomer(id);
+        } else {
+            user = null;
+        }
+
+        if (user == null) {
+            out.println("<h1>User does not exist</h1>");
+        } else {
+            if (validatePassword(typedPassword, user.getPassword())) {
+                request.setAttribute("user", user);
+                RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+                rd.forward(request, response);
+            } else {
+                out.println("<h1>Incorrect password</h1>");
+            }
+        }
         
-            User adminUser = new Admin(1, "Absal", "password", "abs@asd", "753423", "hmale", true, 1);
-            
-            request.setAttribute("user", adminUser);
-            
-            RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
-            rd.forward(request, response);
+    }
+
+    private boolean validatePassword(String typedPassword, String actualPassword) {
+        if(typedPassword.contentEquals(actualPassword)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

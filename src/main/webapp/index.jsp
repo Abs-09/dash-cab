@@ -30,14 +30,14 @@
             <h2>Login</h2>
 
             <div class="input_box">
-              <input type="text" placeholder="user_id" name="id" required />
+              <input type="number" placeholder="user_id" name="id" required />
               <i class="uil uil-envelope-alt email"></i>
             </div>
-<!--            <div class="input_box">
-              <input type="password" placeholder="Enter your password" required />
+            <div class="input_box">
+              <input type="password" placeholder="Enter your password" name="password" required />
               <i class="uil uil-lock password"></i>
               <i class="uil uil-eye-slash pw_hide"></i>
-            </div>-->
+            </div>
 
             <button class="button">Login Now</button>
           </form>

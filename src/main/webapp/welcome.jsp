@@ -17,8 +17,12 @@
     <body>
         <h1>This is the welcome page</h1>
         <%
-            Admin u1 = (Admin) request.getAttribute("user");
-            out.println("<h1>"+u1.getName()+"</h1>");
+            User u1 = (User) request.getAttribute("user");
+            if(u1 != null){
+                out.println("<h1>"+u1.getName()+"</h1>");
+            }else{
+                out.println("<h1>User Not Found</h1>");
+            }
         %>
     </body>
 </html>
