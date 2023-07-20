@@ -31,10 +31,10 @@ public class UserDao {
         this.con = Database.getDatabase().getConnection();
     }
 
-    public int getType(int id) {
+    public int getType(String email) {
         try {
-            pst = con.prepareStatement("select * from users where id = ?");
-            pst.setString(1, Integer.toString(id));
+            pst = con.prepareStatement("select * from users where email = ?");
+            pst.setString(1, email);
 
             ResultSet rs = pst.executeQuery();
 
@@ -52,10 +52,10 @@ public class UserDao {
         }
     }
     
-    public Admin getAdmin(int id) {
+    public Admin getAdmin(String email) {
         try {
-            pst = con.prepareStatement("select * from users where id = ?");
-            pst.setString(1, Integer.toString(id));
+            pst = con.prepareStatement("select * from users where email = ?");
+            pst.setString(1, email);
 
             ResultSet rs = pst.executeQuery();
 
@@ -73,10 +73,10 @@ public class UserDao {
         }
     }
 
-    public Driver getDriver(int id) {
+    public Driver getDriver(String email) {
         try {
-            pst = con.prepareStatement("select * from users where id = ?");
-            pst.setString(1, Integer.toString(id));
+            pst = con.prepareStatement("select * from users where email = ?");
+            pst.setString(1, email);
 
             ResultSet rs = pst.executeQuery();
 
@@ -94,10 +94,10 @@ public class UserDao {
         }
     }
 
-    public Customer getCustomer(int id) {
+    public Customer getCustomer(String email) {
         try {
-            pst = con.prepareStatement("select * from users where id = ?");
-            pst.setString(1, Integer.toString(id));
+            pst = con.prepareStatement("select * from users where email = ?");
+            pst.setString(1, email);
 
             ResultSet rs = pst.executeQuery();
 

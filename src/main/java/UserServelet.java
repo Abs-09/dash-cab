@@ -24,20 +24,20 @@ public class UserServelet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         User user;
-        int id = Integer.parseInt(request.getParameter("id"));
+        String email = request.getParameter("email");
         String typedPassword = request.getParameter("password");
 
         PrintWriter out = response.getWriter();
         UserDao dao = new UserDao();
 
-        int type = dao.getType(id);
+        int type = dao.getType(email);
 
         if (type == 1) {
-            user = dao.getAdmin(id);
+            user = dao.getAdmin(email);
         } else if (type == 2) {
-            user = dao.getDriver(id);
+            user = dao.getDriver(email);
         } else if (type == 3) {
-            user = dao.getCustomer(id);
+            user = dao.getCustomer(email);
         } else {
             user = null;
         }

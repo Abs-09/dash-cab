@@ -20,18 +20,18 @@
             </div>
             <h1>Login to Dash Cab</h1>
             <div class="input-box">
-                <input type="text" placeholder="username" required>
+                <input type="text" placeholder="username" name="email" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Password" name="password" required>
                 <i class='bx bxs-lock-open-alt'></i>
             </div>
 
-            <div class="remember-forgot">
+<!--            <div class="remember-forgot">
                 <label><input type="checkbox">Remember me</label>
                 <a href="#">Forgot password?</a>
-            </div>
+            </div>-->
 
             <button type="submit" class="btn">Login</button>
 
