@@ -1,49 +1,43 @@
 <!DOCTYPE html>
-<!-- Coding by CodingLab || www.codinglabweb.com -->
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Website with Login & Registration Form</title>
-    <!--<link rel="stylesheet" type="text/css" href="http://localhost:8080/Dash-Cab/css/style.css" />-->
-     <!--Unicons--> 
-    <!--<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />-->
-  </head>
-  <body>
-    <!-- Header -->
-    <header class="header">
-      <nav class="nav">
-        <a href="#" class="nav_logo">DASH CAB</a>
 
-        <button class="button" id="form-open">Login</button>
-      </nav>
-    </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dash Cab Login Form</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
 
-    <!-- Home -->
-    <section class="home">
-      <div class="form_container">
-        <i class="uil uil-times form_close"></i>
-        <!-- Login From -->
-        <div class="form login_form">
-          <form action="userservelet" method="POST">
-            <h2>Login</h2>
+<body>
 
-            <div class="input_box">
-              <input type="number" placeholder="user_id" name="id" required />
-              <i class="uil uil-envelope-alt email"></i>
+    <!-- login -->
+    <div class="wrapper">
+        <!--<form action="">-->
+         <form action="userservelet" method="POST"> 
+            <div class="logo-area">
+                <img src="${pageContext.request.contextPath}/img/logo.PNG" alt="logo" width="150px">
             </div>
-            <div class="input_box">
-              <input type="password" placeholder="Enter your password" name="password" required />
-              <i class="uil uil-lock password"></i>
-              <i class="uil uil-eye-slash pw_hide"></i>
+            <h1>Login to Dash Cab</h1>
+            <div class="input-box">
+                <input type="text" placeholder="username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Password" required>
+                <i class='bx bxs-lock-open-alt'></i>
             </div>
 
-            <button class="button">Login Now</button>
-          </form>
-        </div>
-    </section>
+            <div class="remember-forgot">
+                <label><input type="checkbox">Remember me</label>
+                <a href="#">Forgot password?</a>
+            </div>
 
-    <!--<script src="script.js"></script>-->
-  </body>
+            <button type="submit" class="btn">Login</button>
+
+        </form>
+    </div>
+    
+</body>
+
 </html>

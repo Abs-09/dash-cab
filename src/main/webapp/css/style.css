@@ -1,206 +1,108 @@
-/* Import Google font - Poppins */
-/*@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  /*font-family: "Poppins", sans-serif;*/
-}
-a {
-  text-decoration: none;
-}
-.header {
-  position: fixed;
-  height: 80px;
-  width: 100%;
-  z-index: 100;
-  padding: 0 20px;
-}
-.nav {
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-}
-.nav,
-.nav_item {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: space-between;
-}
-.nav_logo,
-.nav_link,
-.button {
-  color: #fff;
-}
-.nav_logo {
-  font-size: 25px;
-}
-.nav_item {
-  column-gap: 25px;
-}
-.nav_link:hover {
-  color: #d9d9d9;
-}
-.button {
-  padding: 6px 24px;
-  border: 2px solid #fff;
-  background: transparent;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.button:active {
-  transform: scale(0.98);
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Home */
-.home {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-/*  background-image: url("bg.jpg");
-  background-size: cover;
-  background-position: center;*/
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("../img/car.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
 }
-.home::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 100;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.5s ease-out;
+
+.wrapper {
+    width: 420px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .1);
+    backdrop-filter: blur(40px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
 }
-.home.show::before {
-  opacity: 1;
-  pointer-events: auto;
+
+.wrapper .logo-area {
+    text-align: center;
+    margin: 0 auto; /* Center the image horizontally */
 }
-/* From */
-.form_container {
-  position: fixed;
-  max-width: 320px;
-  width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1.2);
-  z-index: 101;
-  background: #fff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.4s ease-out;
+  
+.wrapper h1 {
+    font-size: 30px;
+    text-align: center;
 }
-.home.show .form_container {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
+
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
 }
-.signup_form {
-  display: none;
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
 }
-.form_container.active .signup_form {
-  display: block;
+
+.input-box input::placeholder {
+    color: #fff;
 }
-.form_container.active .login_form {
-  display: none;
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
 }
-.form_close {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  color: #0b0217;
-  font-size: 22px;
-  opacity: 0.7;
-  cursor: pointer;
+
+.wrapper .remember-forgot{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
 }
-.form_container h2 {
-  font-size: 22px;
-  color: #0b0217;
-  text-align: center;
+
+.remember-forgot label input {
+    accent-color: #fff;
+    margin-right: 3px;
 }
-.input_box {
-  position: relative;
-  margin-top: 30px;
-  width: 100%;
-  height: 40px;
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
 }
-.input_box input {
-  height: 100%;
-  width: 100%;
-  border: none;
-  outline: none;
-  padding: 0 30px;
-  color: #333;
-  transition: all 0.2s ease;
-  border-bottom: 1.5px solid #aaaaaa;
+
+.remember-forgot a:hover {
+    text-decoration: underline;
 }
-.input_box input:focus {
-  border-color: #E0B856;
-}
-.input_box i {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
-  color: #707070;
-}
-.input_box i.email,
-.input_box i.userinfo,
-.input_box i.password {
-  left: 0;
-}
-.input_box input:focus ~ i.email,
-.input_box input:focus ~ i.userinfo,
-.input_box input:focus ~ i.password {
-  color: #E0B856;
-}
-.input_box i.pw_hide {
-  right: 0;
-  font-size: 18px;
-  cursor: pointer;
-}
-.option_field {
-  margin-top: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.form_container a {
-  color: #E0B856;
-  font-size: 12px;
-}
-.form_container a:hover {
-  text-decoration: underline;
-}
-.checkbox {
-  display: flex;
-  column-gap: 8px;
-  white-space: nowrap;
-}
-.checkbox input {
-  accent-color: #E0B856;
-}
-.checkbox label {
-  font-size: 12px;
-  cursor: pointer;
-  user-select: none;
-  color: #0b0217;
-}
-.form_container .button {
-  background: #E0B856;
-  margin-top: 30px;
-  width: 100%;
-  padding: 10px 0;
-  border-radius: 10px;
-}
-.login_signup {
-  font-size: 12px;
-  text-align: center;
-  margin-top: 15px;
+
+.wrapper .btn {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
 }
 
 
