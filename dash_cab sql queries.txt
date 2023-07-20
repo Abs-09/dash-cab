@@ -7,18 +7,17 @@ CREATE SCHEMA `dash_cab` DEFAULT CHARACTER SET utf8mb4 ;
 //User Table
 CREATE TABLE `dash_cab`.`users` (
   `id` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `contact` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(45) NOT NULL,
+  `availability` TINYINT NULL,
   `license_number` VARCHAR(45) NULL,
-  `availability` TINYINT NOT NULL,
-  `created_by` VARCHAR(45) NULL,
-  `is_enabled` TINYINT NULL,
+  `type` INT NOT NULL,
+  `enabled` TINYINT NOT NULL,
+  `created_by` DATETIME NULL,
   `created_at` DATETIME NULL,
-  `updated_at` DATETIME NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `contact_UNIQUE` (`contact` ASC) VISIBLE,
-  UNIQUE INDEX `lisence_number_UNIQUE` (`license_number` ASC) VISIBLE);
+  UNIQUE INDEX `license_number_UNIQUE` (`license_number` ASC) VISIBLE);
