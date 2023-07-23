@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome Page</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome_style.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Welcome_style.css" />
     </head>
     <body>
         <!-- Header -->
@@ -25,6 +25,8 @@
                         User u1 = (User) request.getAttribute("user");
                         if(u1 != null){
                             out.println("User : "+u1.getName());
+                            out.println("Type : "+u1.getTypeByName());
+
                         }
                     %>
                 </h2>

@@ -24,14 +24,17 @@ public class UserServelet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         User user;
+        //getting parameters from view
         String email = request.getParameter("email");
         String typedPassword = request.getParameter("password");
 
         PrintWriter out = response.getWriter();
+        
         UserDao dao = new UserDao();
 
         int type = dao.getType(email);
 
+        //Return Admin || Driver || Customer type object
         if (type == 1) {
             user = dao.getAdmin(email);
         } else if (type == 2) {
@@ -42,6 +45,7 @@ public class UserServelet extends HttpServlet {
             user = null;
         }
 
+        //Validation
         if (user == null) {
 //            out.println("<h1>User does not exist</h1>");  this one now changed to login page
             
@@ -49,8 +53,6 @@ public class UserServelet extends HttpServlet {
             request.setAttribute("error", "User does not exist");
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
-                
-                
         } else {
             if (validatePassword(typedPassword, user.getPassword())) {
                 request.setAttribute("user", user);

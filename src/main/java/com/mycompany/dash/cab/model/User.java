@@ -81,6 +81,18 @@ public abstract class User {
     public int getType() {
         return type;
     }
+    
+    public String getTypeByName() {
+        if(this.type == 1) {
+            return "Admin";
+        } else if (this.type == 2) {
+            return "Driver";
+        } else if (this.type == 3) {
+            return "Customer";
+        } else {
+            return "Undefined";
+        }
+    }
 
     public void setType(int type) {
         this.type = type;
