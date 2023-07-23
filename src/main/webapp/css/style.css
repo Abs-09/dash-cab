@@ -77,7 +77,14 @@ body {
     margin: -15px 0 15px;
 }
 
-.remember-forgot label input {
+/*not working*/
+.remember-forgot span {
+    color: red;
+    text-decoration: none;
+    margin-left: 22px;
+}
+
+/*.remember-forgot label input {
     accent-color: #fff;
     margin-right: 3px;
 }
@@ -89,7 +96,7 @@ body {
 
 .remember-forgot a:hover {
     text-decoration: underline;
-}
+}*/
 
 .wrapper .btn {
     width: 100%;

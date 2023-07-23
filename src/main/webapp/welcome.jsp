@@ -12,17 +12,39 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Welcome Page</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/welcome_style.css" />
     </head>
     <body>
-        <h1>This is the welcome page</h1>
-        <%
-            User u1 = (User) request.getAttribute("user");
-            if(u1 != null){
-                out.println("<h1>"+u1.getName()+"</h1>");
-            }else{
-                out.println("<h1>User Not Found</h1>");
-            }
-        %>
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav">
+                <img src="${pageContext.request.contextPath}/img/logo.PNG" alt="logo" class="nav_logo" width="125px">
+                <h2 class="user_name">
+                    <%
+                        User u1 = (User) request.getAttribute("user");
+                        if(u1 != null){
+                            out.println("User : "+u1.getName());
+                        }
+                    %>
+                </h2>
+
+                <ul class="nav_items">
+                    <li class="nav_item">
+                        <a href="#" class="nav_link">Home</a>
+                        <a href="#" class="nav_link">Product</a>
+                    </li>
+                </ul> 
+
+                <button class="button" id="form-open">Logout</button>
+            </nav>
+        </header>
+
+        <!-- Home -->
+        <section class="home">
+            
+        </section>
+
+        <script src="script.js"></script>
     </body>
 </html>

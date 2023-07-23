@@ -28,10 +28,13 @@
                 <i class='bx bxs-lock-open-alt'></i>
             </div>
 
-<!--            <div class="remember-forgot">
-                <label><input type="checkbox">Remember me</label>
-                <a href="#">Forgot password?</a>
-            </div>-->
+            <div class="remember-forgot">
+<!--                <label><input type="checkbox">Remember me</label>
+                <a href="#">Forgot password?</a>-->
+
+                <!--showing the error message in here-->
+                <span style="color: red; margin-left: 22px; font-weight: bold">${error}</span>
+            </div>
 
             <button type="submit" class="btn">Login</button>
 
