@@ -46,26 +46,15 @@ public class UserServelet extends HttpServlet {
         }
 
         //Validation
-        if (user == null) {
-//            out.println("<h1>User does not exist</h1>");  this one now changed to login page
-            
-//           user not found print in the login page (index.jsp)
-            request.setAttribute("error", "User does not exist");
+        if (user == null || validatePassword(typedPassword, user.getPassword()) ) {
+            request.setAttribute("error", "User or password is incorrect ");
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         } else {
-            if (validatePassword(typedPassword, user.getPassword())) {
-                request.setAttribute("user", user);
-                RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
-                rd.forward(request, response);
-            } else {
-//                out.println("<h1>Incorrect password</h1>");  this one now changed to login page
-
-//                Incorrect password error print in the login page (index.jsp)
-                request.setAttribute("error", "Incorrect password");
-                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                rd.forward(request, response);
-            }
+            request.setAttribute("user", user);
+            RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+            rd.forward(request, response);
+           
         }
         
     }
