@@ -46,7 +46,7 @@ public class UserServelet extends HttpServlet {
         }
 
         //Validation
-        if (user == null || validatePassword(typedPassword, user.getPassword()) ) {
+        if (user == null || !validatePassword(typedPassword, user.getPassword()) ) {
             request.setAttribute("error", "User or password is incorrect ");
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
