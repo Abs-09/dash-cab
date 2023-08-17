@@ -20,7 +20,7 @@
             </div>
             <h1>Login to Dash Cab</h1>
             <div class="input-box">
-                <input type="text" placeholder="username" name="email" required>
+                <input type="text" placeholder="email" name="email" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">

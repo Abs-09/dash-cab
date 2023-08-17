@@ -50,7 +50,12 @@ public class UserServelet extends HttpServlet {
             request.setAttribute("error", "User or password is incorrect ");
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
-        } else {
+        }else if (type == 1 && validatePassword(typedPassword, user.getPassword())){
+            request.setAttribute("user", user);
+            RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
+            rd.forward(request, response);
+           
+        }else {
             request.setAttribute("user", user);
             RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
             rd.forward(request, response);

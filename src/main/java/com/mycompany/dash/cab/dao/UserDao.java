@@ -47,6 +47,7 @@ public class UserDao {
 
         } catch (SQLException ex) {
             System.out.println("Data getAdmin exception occoured");
+            System.out.println("Error: " + ex);
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }
