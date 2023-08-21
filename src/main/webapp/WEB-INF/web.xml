@@ -4,9 +4,17 @@
         <servlet-name>UserServelet</servlet-name>
         <servlet-class>UserServelet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CarAddServlet</servlet-name>
+        <servlet-class>CarAddServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServelet</servlet-name>
         <url-pattern>/userservelet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CarAddServlet</servlet-name>
+        <url-pattern>/CarAddServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
