@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `id` int NOT NULL,
+  `password` varchar(54) NOT NULL,
+  `name` varchar(54) NOT NULL,
+  `address` varchar(54) NOT NULL,
+  `email` varchar(54) NOT NULL,
+  `contact` varchar(54) NOT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `type` int NOT NULL,
+  `license_number` varchar(54) DEFAULT NULL,
+  `availability` tinyint(1) DEFAULT NULL,
+  `enabled` tinyint NOT NULL,
+  `created_by` varchar(54) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  UNIQUE KEY `license_number_UNIQUE` (`license_number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `users`
 --
 
@@ -34,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-22 19:22:39
+-- Dump completed on 2023-08-22 20:05:31
