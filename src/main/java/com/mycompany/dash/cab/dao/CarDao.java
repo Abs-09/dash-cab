@@ -63,27 +63,27 @@ public class CarDao {
    //        }
    // }
     
-    public Car getCarByID(int ID){
-        try{
-            String sql = "SELECT * FROM Cars WHERE id = ?";
-            pst = con.prepareStatement(sql);
-            pst.setInt(1, ID);
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                return new Car(rs.getInt("id"), rs.getString("license_plate"), rs.getString("model"), rs.getString("created_at"));
-            } else {
-                System.out.println("Car not found");
-                return null;
-            }
-
-        } catch (SQLException ex) {
-            System.out.println("Data getCarByID exception occoured");
-            System.out.println("Error: " + ex);
-            Logger.getLogger(CarDao.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }
-    }
+//    public Car getCarByID(int ID){
+//        try{
+//            String sql = "SELECT * FROM Cars WHERE id = ?";
+//            pst = con.prepareStatement(sql);
+//            pst.setInt(1, ID);
+//            ResultSet rs = pst.executeQuery();
+//
+//            if (rs.next()) {
+//                return new Car(rs.getInt("id"), rs.getString("license_plate"), rs.getString("model"), rs.getString("created_at"));
+//            } else {
+//                System.out.println("Car not found");
+//                return null;
+//            }
+//
+//        } catch (SQLException ex) {
+//            System.out.println("Data getCarByID exception occoured");
+//            System.out.println("Error: " + ex);
+//            Logger.getLogger(CarDao.class.getName()).log(Level.SEVERE, null, ex);
+//            return 0;
+//        }
+//    }
 
     private void closePreparedStatement() {
         try {

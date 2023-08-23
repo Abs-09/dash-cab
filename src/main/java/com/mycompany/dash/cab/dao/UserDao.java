@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -113,6 +115,51 @@ public class UserDao {
             System.out.println("Data getCustomer exception occoured");
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+    
+    public List<Customer> showAllCustomers() {
+        List<Customer> customerList = new ArrayList<>();
+
+        try {
+            pst = con.prepareStatement("SELECT * from users where type = 3");
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String contact = rs.getString("contact");
+                String address = rs.getString("address");
+                int enabled = rs.getInt("enabled");
+                int type = rs.getInt("type");
+
+                Customer customer = new Customer(id, name, password, email, contact, address, enabled, type);
+
+                customerList.add(customer);
+            }
+
+//            rs.close();
+//            pst.close();
+//            con.close();
+        } catch (SQLException ex) {
+            System.out.println("Data showAllCustomer exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }finally {
+            closePreparedStatement();
+        }
+
+        return customerList;
+    }
+    
+    private void closePreparedStatement() {
+        try {
+            this.pst.close();
+        } catch (SQLException ex) {
+            System.out.println("DataAccessor PreparedStatement close failed");
+            Logger.getLogger(CarDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

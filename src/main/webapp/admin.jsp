@@ -23,7 +23,7 @@
           </a>
         </li>
         <li>
-          <a href="customer_crud_admin.jsp">
+          <a href="CustomerShowServlet">
             <i class="bx bx-list-ul"></i>
             <span class="links_name">Customers</span>
           </a>

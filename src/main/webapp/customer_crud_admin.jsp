@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Customer info</title>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-style.css" />
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link
@@ -112,121 +113,24 @@
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>NID</th>
-              <th>Address</th>
-              <th>Age</th>
               <th>Email</th>
+              <th>Contact</th>
+              <th>Address</th>
               <th>Actions</th>
             </tr>
+            <c:forEach var="user" items="${customerList}">
             <tr>
-              <td>1</td>
-              <td>John Doe</td>
-              <td>A2525252</td>
-              <td>Almaa</td>
-              <td>30</td>
-              <td>john@example.com</td>
-              <td>
+                <td><c:out value="${user.id}" /></td>
+                <td><c:out value="${user.name}" /></td>
+                <td><c:out value="${user.email}" /></td>
+                <td><c:out value="${user.contact}" /></td>
+                <td><c:out value="${user.address}" /></td>
+                <td>
                 <button class="button button-secondary">Edit</button>
                 <button class="button">Delete</button>
               </td>
             </tr>
-            <tr>
-              <td>2</td>
-              <td>Jane Smith</td>
-              <td>A123456</td>
-              <td>Muniyaage</td>
-              <td>25</td>
-              <td>jane@example.com</td>
-              <td>
-                <button class="button button-secondary">Edit</button>
-                <button class="button">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Mohamed Absal</td>
-              <td>A249660</td>
-              <td>Vaarey Villa</td>
-              <td>28</td>
-              <td>Absal@example.com</td>
-              <td>
-                <button class="button button-secondary">Edit</button>
-                <button class="button">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Mohamed Absal</td>
-              <td>A249660</td>
-              <td>Vaarey Villa</td>
-              <td>28</td>
-              <td>Absal@example.com</td>
-              <td>
-                <button class="button button-secondary">Edit</button>
-                <button class="button">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Mohamed Absal</td>
-              <td>A249660</td>
-              <td>Vaarey Villa</td>
-              <td>28</td>
-              <td>Absal@example.com</td>
-              <td>
-                <button class="button button-secondary">Edit</button>
-                <button class="button">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Mohamed Absal</td>
-              <td>A249660</td>
-              <td>Vaarey Villa</td>
-              <td>28</td>
-              <td>Absal@example.com</td>
-              <td>
-                <button class="button button-secondary">Edit</button>
-                <button class="button">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Mohamed Absal</td>
-              <td>A249660</td>
-              <td>Vaarey Villa</td>
-              <td>28</td>
-              <td>Absal@example.com</td>
-              <td>
-                <button class="button button-secondary">Edit</button>
-                <button class="button">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Mohamed Absal</td>
-              <td>A249660</td>
-              <td>Vaarey Villa</td>
-              <td>28</td>
-              <td>Absal@example.com</td>
-              <td>
-                <button class="button button-secondary">Edit</button>
-                <button class="button">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Mohamed Absal</td>
-              <td>A249660</td>
-              <td>Vaarey Villa</td>
-              <td>28</td>
-              <td>Absal@example.com</td>
-              <td>
-                <button class="button button-secondary">Edit</button>
-                <button class="button">Delete</button>
-              </td>
-            </tr>
-            <!-- Add more rows for additional customers -->
+            </c:forEach>
           </table>
           <div class="button-container">
             <button class="button">Add New Customer</button>
