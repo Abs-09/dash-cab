@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ public class UserDao {
     private Connection con;
     private Statement st;
     private PreparedStatement pst;
+    LocalDateTime currentDateTime = LocalDateTime.now();
 
     //When an object is created a connection from the database is intialized
     public UserDao() {
@@ -54,7 +56,7 @@ public class UserDao {
             return 0;
         }
     }
-    
+
     public Admin getAdmin(String email) {
         try {
             pst = con.prepareStatement("select * from users where email = ?");
@@ -117,7 +119,7 @@ public class UserDao {
             return null;
         }
     }
-    
+
     public List<Customer> showAllCustomers() {
         List<Customer> customerList = new ArrayList<>();
 
@@ -147,13 +149,40 @@ public class UserDao {
             System.out.println("Data showAllCustomer exception occoured");
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }finally {
+        } finally {
             closePreparedStatement();
         }
 
         return customerList;
     }
-    
+
+    public boolean deleteUser(int id) throws SQLException {
+        boolean rowDeleted;
+        pst = con.prepareStatement("delete from users where id = ?;");
+        pst.setInt(1, id);
+
+        rowDeleted = pst.executeUpdate() > 0;
+
+        return rowDeleted;
+    }
+
+        public void insertUser(User user) throws SQLException {          
+        String currentDateTimeAsString = currentDateTime.toString();
+        pst = con.prepareStatement("INSERT INTO users"+" (password, name, address, email, contact, type, enabled, created_by, created_at, updated_at) VALUES "+"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            pst.setString(1, user.getPassword());
+            pst.setString(2, user.getName());
+            pst.setString(3, user.getAddress());
+            pst.setString(4, user.getEmail());
+            pst.setString(5, user.getContact());
+            pst.setInt(6, user.getType());
+            pst.setInt(7, user.isEnabled());
+            pst.setString(8, "Absal");
+            pst.setString(9, currentDateTimeAsString);
+            pst.setString(10, currentDateTimeAsString);
+            System.out.println(pst);
+            pst.executeUpdate();
+    }
+        
     private void closePreparedStatement() {
         try {
             this.pst.close();
