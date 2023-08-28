@@ -20,6 +20,10 @@
         <servlet-name>CustomerAddServlet</servlet-name>
         <servlet-class>CustomerAddServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerEditServlet</servlet-name>
+        <servlet-class>CustomerEditServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServelet</servlet-name>
         <url-pattern>/userservelet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>CustomerAddServlet</servlet-name>
         <url-pattern>/CustomerAddServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerEditServlet</servlet-name>
+        <url-pattern>/CustomerEditServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

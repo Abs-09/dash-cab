@@ -110,7 +110,7 @@
                 <div class="inbox-container">
                     <div class="button-container">
                         <h1>Customer Details</h1>
-                        <button class="button" onclick="openPopup()">Add New Customer</button>
+                        <button class="button" onclick="openEditPopup(null)">Add New Customer</button>
                     </div>
                     <table>
                         <tr>
@@ -129,8 +129,8 @@
                                 <td><c:out value="${user.contact}" /></td>
                                 <td><c:out value="${user.address}" /></td>
                                 <td>
-                                    <a href="edit?id=<c:out value='${user.id}' />" class="button button-secondary">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a
-                                        href="CustomerDeleteServlet?id=<c:out value='${user.id}' />" class="button">Delete</a>
+                                    <a class="button button-secondary" onclick="openEditPopup(<c:out value='${user.id}' />)" >Edit</a>
+                                    <a href="CustomerDeleteServlet?id=<c:out value='${user.id}' />" class="button">Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -140,8 +140,8 @@
 
             <div class="overlay" id="overlay">
                 <div class="popup">
-                    <h2>Add New Customer</h2>
-                    <form action="CustomerAddServlet" method="post">
+                    <h2 id="popupTitle" >Add New Customer</h2>
+                    <form id="userForm" action="CustomerAddServlet" method="post">
                         <input type="hidden" id="id" name="id" value="" />
 
                         <label for="name">Name:</label>
@@ -197,6 +197,43 @@
             function closePopup() {
                 document.getElementById("overlay").style.display = "none";
             }
+
+
+            function openEditPopup(id) {
+                if (id !== null) {
+                    document.getElementById("userForm").action = "CustomerEditServlet";
+                    document.getElementById("popupTitle").textContent = "Editing User: " + id;
+
+                    fetch('CustomerEditServlet?id=' + id)
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById("name").value = data.name;
+                                document.getElementById("email").value = data.email;
+                                document.getElementById("password").value = data.password;
+                                document.getElementById("contact").value = data.contact;
+                                document.getElementById("address").value = data.address;
+                                document.getElementById("enabled").value = data.enabled;
+                                // Show the popup
+                                document.getElementById('overlay').style.display = "flex";
+                            });
+                } else {
+                    // Reset fields for adding new customer
+                    document.getElementById("id").value = "";
+                    document.getElementById("name").value = "";
+                    document.getElementById("email").value = "";
+                    document.getElementById("password").value = "";
+                    document.getElementById("contact").value = "";
+                    document.getElementById("address").value = "";
+                    document.getElementById("enabled").value = "";
+
+                    document.getElementById("userForm").action = "CustomerAddServlet";
+                    document.getElementById("popupTitle").textContent = "Add New Customer";
+                    // Show the popup
+                    document.getElementById('overlay').style.display = "flex";
+                }
+
+            }
+
         </script>
     </body>
 </html>

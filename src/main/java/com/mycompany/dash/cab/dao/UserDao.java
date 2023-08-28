@@ -141,10 +141,6 @@ public class UserDao {
 
                 customerList.add(customer);
             }
-
-//            rs.close();
-//            pst.close();
-//            con.close();
         } catch (SQLException ex) {
             System.out.println("Data showAllCustomer exception occoured");
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -166,11 +162,53 @@ public class UserDao {
         return rowDeleted;
     }
 
-        public void insertUser(User user) throws SQLException {          
+    public void insertUser(User user) throws SQLException {
         String currentDateTimeAsString = currentDateTime.toString();
-        pst = con.prepareStatement("INSERT INTO users"+" (password, name, address, email, contact, type, enabled, created_by, created_at, updated_at) VALUES "+"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-            pst.setString(1, user.getPassword());
-            pst.setString(2, user.getName());
+        pst = con.prepareStatement("INSERT INTO users" + " (password, name, address, email, contact, type, enabled, created_by, created_at, updated_at) VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        pst.setString(1, user.getPassword());
+        pst.setString(2, user.getName());
+        pst.setString(3, user.getAddress());
+        pst.setString(4, user.getEmail());
+        pst.setString(5, user.getContact());
+        pst.setInt(6, user.getType());
+        pst.setInt(7, user.isEnabled());
+        pst.setString(8, "Absal");
+        pst.setString(9, currentDateTimeAsString);
+        pst.setString(10, currentDateTimeAsString);
+        System.out.println(pst);
+        pst.executeUpdate();
+    }
+
+    public Customer selectCustomer(int id) throws SQLException {
+        Customer customer = null;
+        // Step 1: Establishing a Connection
+        pst = con.prepareStatement("select id, name, password, email, contact, address, enabled, type from users where id =?;");
+            pst.setInt(1, id);
+            System.out.println(pst);
+            // Step 3: Execute the query or update query
+            ResultSet rs = pst.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String contact = rs.getString("contact");
+                String address = rs.getString("address");
+                int enabled = rs.getInt("enabled");
+                int type = rs.getInt("type");
+                customer = new Customer(id, name, password, email, contact, address, enabled, type);
+            }
+        
+        return customer;
+    }
+
+        public boolean updateUser(Customer user) throws SQLException {
+        boolean rowUpdated;
+        String currentDateTimeAsString = currentDateTime.toString();
+        pst = con.prepareStatement("update users set name = ?, password= ?, address= ?, email= ?, contact= ?, type= ?, enabled= ?, created_by= ?, updated_at= ? where id = ?;");
+            pst.setString(1, user.getName());
+            pst.setString(2, user.getPassword());
             pst.setString(3, user.getAddress());
             pst.setString(4, user.getEmail());
             pst.setString(5, user.getContact());
@@ -178,9 +216,11 @@ public class UserDao {
             pst.setInt(7, user.isEnabled());
             pst.setString(8, "Absal");
             pst.setString(9, currentDateTimeAsString);
-            pst.setString(10, currentDateTimeAsString);
-            System.out.println(pst);
-            pst.executeUpdate();
+            pst.setInt(10, user.getId());
+
+            rowUpdated = pst.executeUpdate() > 0;
+       
+        return rowUpdated;
     }
         
     private void closePreparedStatement() {
