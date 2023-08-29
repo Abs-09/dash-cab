@@ -9,20 +9,20 @@
         <servlet-class>CarAddServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CustomerShowServlet</servlet-name>
-        <servlet-class>CustomerShowServlet</servlet-class>
+        <servlet-name>UserShowServlet</servlet-name>
+        <servlet-class>UserShowServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CustomerDeleteServlet</servlet-name>
         <servlet-class>CustomerDeleteServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CustomerAddServlet</servlet-name>
-        <servlet-class>CustomerAddServlet</servlet-class>
+        <servlet-name>UserAddServlet</servlet-name>
+        <servlet-class>UserAddServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CustomerEditServlet</servlet-name>
-        <servlet-class>CustomerEditServlet</servlet-class>
+        <servlet-class>UserEditServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserServelet</servlet-name>
@@ -33,20 +33,20 @@
         <url-pattern>/CarAddServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CustomerShowServlet</servlet-name>
-        <url-pattern>/CustomerShowServlet</url-pattern>
+        <servlet-name>UserShowServlet</servlet-name>
+        <url-pattern>/UserShowServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerDeleteServlet</servlet-name>
         <url-pattern>/CustomerDeleteServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CustomerAddServlet</servlet-name>
-        <url-pattern>/CustomerAddServlet</url-pattern>
+        <servlet-name>UserAddServlet</servlet-name>
+        <url-pattern>/UserAddServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CustomerEditServlet</servlet-name>
-        <url-pattern>/CustomerEditServlet</url-pattern>
+        <servlet-name>UserEditServlet</servlet-name>
+        <url-pattern>/UserEditServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

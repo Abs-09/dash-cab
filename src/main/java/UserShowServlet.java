@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author 96096
  */
-public class CustomerShowServlet extends HttpServlet {
+public class UserShowServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -38,9 +38,10 @@ public class CustomerShowServlet extends HttpServlet {
             throws ServletException, IOException {
                UserDao dao = new UserDao();
         List<Customer> customerList = dao.showAllCustomers();
+        String type = request.getParameter("type");
         request.setAttribute("customerList", customerList);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("customer_crud_admin.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("users/customer_crud_admin.jsp");
         dispatcher.forward(request, response);
     }
 }

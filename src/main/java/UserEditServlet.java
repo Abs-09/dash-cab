@@ -5,7 +5,9 @@
 
 import com.google.gson.Gson;
 import com.mycompany.dash.cab.dao.UserDao;
+import com.mycompany.dash.cab.model.Admin;
 import com.mycompany.dash.cab.model.Customer;
+import com.mycompany.dash.cab.model.Driver;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,36 +23,39 @@ import java.util.logging.Logger;
  *
  * @author 96096
  */
-public class CustomerEditServlet extends HttpServlet {
-    
+public class UserEditServlet extends HttpServlet {
+
     private int id = 0;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDao dao = new UserDao();
         Customer existingCustomer = null;
 
         id = Integer.parseInt(request.getParameter("id"));
+        int type = Integer.parseInt(request.getParameter("type"));
 
         try {
-            existingCustomer = dao.selectCustomer(id);
+            //add other types later
+            if (type == 3) {
+                existingCustomer = dao.selectCustomer(id);
+            }
+
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerEditServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserEditServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         String jsonData = new Gson().toJson(existingCustomer);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonData);
-//
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("CustomerShowServlet");
-//        request.setAttribute("user", existingCustomer);
-//        dispatcher.forward(request, response);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDao dao = new UserDao();
+        int type=0;
         try {
 //            int id = Integer.parseInt(request.getParameter("id"));
             String name = request.getParameter("name");
@@ -58,16 +63,32 @@ public class CustomerEditServlet extends HttpServlet {
             String password = request.getParameter("password");
             String contact = request.getParameter("contact");
             String address = request.getParameter("address");
+            type = Integer.parseInt(request.getParameter("type"));
             int enabled = Integer.parseInt(request.getParameter("enabled")); // Assuming 0 or 1
-            int type = 3;
+            String license = request.getParameter("license");
+            int availability = 0;
 
-            Customer customer = new Customer(id, name, password, email, contact, address, enabled, type);
+            if (type == 1) {
+                Admin user = new Admin(id, name, password, email, contact, address, enabled, type);  // 3 for customer type
+//                dao.updateAdmin(user);
+            }
 
-            dao.updateUser(customer);
+            if (type == 2) {
+                Driver user = new Driver(id, name, password, email, contact, address, enabled, type, license, availability);  // 3 for customer type
+//                dao.updatetDriver(user);
+            }
+
+            if (type == 3) {
+                Customer user = new Customer(id, name, password, email, contact, address, enabled, type);
+                dao.updateCustomer(user);
+            }
+
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerEditServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserEditServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect("CustomerShowServlet");
+        request.setAttribute("type", type);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("UserShowServlet");
+        dispatcher.forward(request, response);
     }
 
 }

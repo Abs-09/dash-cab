@@ -162,7 +162,7 @@ public class UserDao {
         return rowDeleted;
     }
 
-    public void insertUser(User user) throws SQLException {
+    public void insertCustomer(Customer user) throws SQLException {
         String currentDateTimeAsString = currentDateTime.toString();
         pst = con.prepareStatement("INSERT INTO users" + " (password, name, address, email, contact, type, enabled, created_by, created_at, updated_at) VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         pst.setString(1, user.getPassword());
@@ -203,7 +203,7 @@ public class UserDao {
         return customer;
     }
 
-        public boolean updateUser(Customer user) throws SQLException {
+        public boolean updateCustomer(Customer user) throws SQLException {
         boolean rowUpdated;
         String currentDateTimeAsString = currentDateTime.toString();
         pst = con.prepareStatement("update users set name = ?, password= ?, address= ?, email= ?, contact= ?, type= ?, enabled= ?, created_by= ?, updated_at= ? where id = ?;");
