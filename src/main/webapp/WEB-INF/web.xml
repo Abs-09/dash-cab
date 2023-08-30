@@ -13,15 +13,15 @@
         <servlet-class>UserShowServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CustomerDeleteServlet</servlet-name>
-        <servlet-class>CustomerDeleteServlet</servlet-class>
+        <servlet-name>UserDeleteServlet</servlet-name>
+        <servlet-class>UserDeleteServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserAddServlet</servlet-name>
         <servlet-class>UserAddServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CustomerEditServlet</servlet-name>
+        <servlet-name>UserEditServlet</servlet-name>
         <servlet-class>UserEditServlet</servlet-class>
     </servlet>
     <servlet-mapping>
@@ -37,8 +37,8 @@
         <url-pattern>/UserShowServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CustomerDeleteServlet</servlet-name>
-        <url-pattern>/CustomerDeleteServlet</url-pattern>
+        <servlet-name>UserDeleteServlet</servlet-name>
+        <url-pattern>/UserDeleteServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserAddServlet</servlet-name>

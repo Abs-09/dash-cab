@@ -33,13 +33,13 @@ public class UserEditServlet extends HttpServlet {
         Customer existingCustomer = null;
 
         id = Integer.parseInt(request.getParameter("id"));
-        int type = Integer.parseInt(request.getParameter("type"));
+//        int type = Integer.parseInt(request.getParameter("type"));
 
         try {
             //add other types later
-            if (type == 3) {
+            
                 existingCustomer = dao.selectCustomer(id);
-            }
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(UserEditServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,7 +75,7 @@ public class UserEditServlet extends HttpServlet {
 
             if (type == 2) {
                 Driver user = new Driver(id, name, password, email, contact, address, enabled, type, license, availability);  // 3 for customer type
-//                dao.updatetDriver(user);
+//                dao.updateDriver(user);
             }
 
             if (type == 3) {

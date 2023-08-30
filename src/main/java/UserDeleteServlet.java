@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author 96096
  */
-public class CustomerDeleteServlet extends HttpServlet {
+public class UserDeleteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,14 +31,22 @@ public class CustomerDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String url = null;
         try {
             UserDao dao = new UserDao();
             int id = Integer.parseInt(request.getParameter("id"));
-
             dao.deleteUser(id);
+            
+            //Write other types here
+            
+            if(dao.getTypebyID(id) == 3) {
+                url = "UserShowServlet";
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect("CustomerShowServlet");
+        
+        
+        response.sendRedirect(url);
     }
 }

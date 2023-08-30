@@ -12,7 +12,7 @@
           </a>
         </li>
         <li>
-          <a href="CustomerShowServlet">
+          <a href="UserShowServlet?type=3">
             <i class="bx bx-list-ul"></i>
             <span class="links_name">Customers</span>
           </a>

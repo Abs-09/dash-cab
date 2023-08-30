@@ -18,6 +18,7 @@ import java.util.List;
  * @author 96096
  */
 public class UserShowServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -36,12 +37,19 @@ public class UserShowServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-               UserDao dao = new UserDao();
-        List<Customer> customerList = dao.showAllCustomers();
-        String type = request.getParameter("type");
-        request.setAttribute("customerList", customerList);
+        UserDao dao = new UserDao();
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("users/customer_crud_admin.jsp");
+        int type = Integer.parseInt(request.getParameter("type"));
+        String url = null;
+
+        //add other types here
+        if (type == 3) {
+            List<Customer> customerList = dao.showAllCustomers();
+            request.setAttribute("customerList", customerList);
+            url = "users/customer_crud_admin.jsp";
+        }
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
 }

@@ -129,8 +129,8 @@
                                 <td><c:out value="${user.contact}" /></td>
                                 <td><c:out value="${user.address}" /></td>
                                 <td>
-                                    <a class="button button-secondary" onclick="openEditPopup(<c:out value='${user.id}' />,<c:out value='${user.type}' />)" >Edit</a>
-                                    <a href="CustomerDeleteServlet?id=<c:out value='${user.id}' />" class="button">Delete</a>
+                                    <a class="button button-secondary" onclick="openEditPopup(<c:out value='${user.id}' />, <c:out value='${user.type}' />)" >Edit</a>
+                                    <a href="UserDeleteServlet?id=<c:out value='${user.id}' />" class="button">Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -143,8 +143,9 @@
                     <h2 id="popupTitle" >Add New Customer</h2>
                     <form id="userForm" action="UserAddServlet" method="post">
                         <input type="hidden" id="id" name="id" value="" />
+                        
                         <input type="hidden" id="type" name="type" value="3" />
-
+                        
                         <label for="name">Name:</label>
                         <input type="text" id="name" name="name" value="" />
 
@@ -196,13 +197,13 @@
             }
 
 
-            function openEditPopup(id, type) {
+            function openEditPopup(id) {
                 if (id !== null) {
                     document.getElementById("userForm").action = "UserEditServlet";
                     document.getElementById("popupTitle").textContent = "Editing User: " + id;
                     
 
-                    fetch('CustomerEditServlet?id=&type=?' + id + type)
+                    fetch('UserEditServlet?' + new URLSearchParams({id: id, type: type}))
                             .then(response => response.json())
                             .then(data => {
                                 document.getElementById("name").value = data.name;

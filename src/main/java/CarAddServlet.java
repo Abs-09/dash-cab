@@ -22,10 +22,8 @@ public class CarAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("add.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/cars/add.jsp");
         rd.forward(request, response);
-        CarDao da = new CarDao();
-//        Car c1 = da.getCarByID(1);
     }
     
     @Override

@@ -44,6 +44,7 @@ public class UserAddServlet extends HttpServlet {
             String contact = request.getParameter("contact");
             String address = request.getParameter("address");
             type = Integer.parseInt(request.getParameter("type"));
+            System.out.println("Type: "+type);
             int enabled = Integer.parseInt(request.getParameter("enabled")); // Assuming 0 or 1
             String license = request.getParameter("license");            
             int availability = 0;

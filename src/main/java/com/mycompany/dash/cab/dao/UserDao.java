@@ -35,6 +35,28 @@ public class UserDao {
         this.con = Database.getDatabase().getConnection();
     }
 
+    public int getTypebyID(int id) {
+        try {
+            pst = con.prepareStatement("select * from users where id = ?");
+            pst.setInt(1, id);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("type");
+            } else {
+                System.out.println("user not found");
+                return 0;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Data getType exception occoured");
+            System.out.println("Error: " + ex);
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+    
     public int getType(String email) {
         try {
             pst = con.prepareStatement("select * from users where email = ?");
@@ -50,7 +72,7 @@ public class UserDao {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Data getAdmin exception occoured");
+            System.out.println("Data getType exception occoured");
             System.out.println("Error: " + ex);
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
