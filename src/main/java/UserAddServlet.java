@@ -46,7 +46,7 @@ public class UserAddServlet extends HttpServlet {
             type = Integer.parseInt(request.getParameter("type"));
             System.out.println("Type: "+type);
             int enabled = Integer.parseInt(request.getParameter("enabled")); // Assuming 0 or 1
-            String license = request.getParameter("license");            
+            String licenseNumber = request.getParameter("licenseNumber");            
             int availability = 0;
 
 
@@ -56,8 +56,8 @@ public class UserAddServlet extends HttpServlet {
             }
             
             if (type == 2) {
-                Driver user = new Driver(0, name, password, email, contact, address, enabled, type, license, availability);  // 3 for customer type
-//                dao.insertDriver(user);
+                Driver user = new Driver(0, name, password, email, contact, address, enabled, type, licenseNumber, availability);  // 3 for customer type
+                dao.insertDriver(user);
             }
                 
             if (type == 3) {

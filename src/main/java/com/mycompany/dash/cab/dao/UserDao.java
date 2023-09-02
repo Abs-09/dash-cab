@@ -37,7 +37,7 @@ public class UserDao {
 
     public int getTypebyID(int id) {
         try {
-            pst = con.prepareStatement("select * from users where id = ?");
+            pst = con.prepareStatement("select type from users where id = ?");
             pst.setInt(1, id);
 
             ResultSet rs = pst.executeQuery();
@@ -56,7 +56,7 @@ public class UserDao {
             return 0;
         }
     }
-    
+
     public int getType(String email) {
         try {
             pst = con.prepareStatement("select * from users where email = ?");
@@ -201,17 +201,60 @@ public class UserDao {
         pst.executeUpdate();
     }
 
-    public Customer selectCustomer(int id) throws SQLException {
-        Customer customer = null;
-        // Step 1: Establishing a Connection
-        pst = con.prepareStatement("select id, name, password, email, contact, address, enabled, type from users where id =?;");
-            pst.setInt(1, id);
-            System.out.println(pst);
-            // Step 3: Execute the query or update query
+//    public Customer selectCustomer(int id) throws SQLException {
+//        Customer customer = null;
+//        // Step 1: Establishing a Connection
+//        pst = con.prepareStatement("select id, name, password, email, contact, address, enabled, type from users where id =?;");
+//        pst.setInt(1, id);
+//        System.out.println(pst);
+//        // Step 3: Execute the query or update query
+//        ResultSet rs = pst.executeQuery();
+//
+//        // Step 4: Process the ResultSet object.
+//        while (rs.next()) {
+//            String name = rs.getString("name");
+//            String password = rs.getString("password");
+//            String email = rs.getString("email");
+//            String contact = rs.getString("contact");
+//            String address = rs.getString("address");
+//            int enabled = rs.getInt("enabled");
+//            int type = rs.getInt("type");
+//            customer = new Customer(id, name, password, email, contact, address, enabled, type);
+//        }
+//
+//        return customer;
+//    }
+
+    public boolean updateCustomer(Customer user) throws SQLException {
+        boolean rowUpdated;
+        String currentDateTimeAsString = currentDateTime.toString();
+        pst = con.prepareStatement("update users set name = ?, password= ?, address= ?, email= ?, contact= ?, type= ?, enabled= ?, created_by= ?, updated_at= ? where id = ?;");
+        pst.setString(1, user.getName());
+        pst.setString(2, user.getPassword());
+        pst.setString(3, user.getAddress());
+        pst.setString(4, user.getEmail());
+        pst.setString(5, user.getContact());
+        pst.setInt(6, user.getType());
+        pst.setInt(7, user.isEnabled());
+        pst.setString(8, "Absal");
+        pst.setString(9, currentDateTimeAsString);
+        pst.setInt(10, user.getId());
+
+        rowUpdated = pst.executeUpdate() > 0;
+
+        return rowUpdated;
+    }
+
+//---------------------------------------Driver Cruds-----------------------------------------
+    public List<Driver> showAllDrivers() {
+        List<Driver> driverList = new ArrayList<>();
+
+        try {
+            pst = con.prepareStatement("SELECT * from users where type = 2");
             ResultSet rs = pst.executeQuery();
 
-            // Step 4: Process the ResultSet object.
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
@@ -219,32 +262,96 @@ public class UserDao {
                 String address = rs.getString("address");
                 int enabled = rs.getInt("enabled");
                 int type = rs.getInt("type");
-                customer = new Customer(id, name, password, email, contact, address, enabled, type);
+                String licenseNumber = rs.getString("license_number");
+                int availability = rs.getInt("availability");
+
+                Driver driver = new Driver(id, name, password, email, contact, address, enabled, type, licenseNumber, availability);
+
+                driverList.add(driver);
             }
-        
-        return customer;
+        } catch (SQLException ex) {
+            System.out.println("Data showAllDriver exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            closePreparedStatement();
+        }
+
+        return driverList;
     }
 
-        public boolean updateCustomer(Customer user) throws SQLException {
+    public void insertDriver(Driver user) throws SQLException {
+        String currentDateTimeAsString = currentDateTime.toString();
+        pst = con.prepareStatement("INSERT INTO users" + " (password, name, address, email, contact, type, enabled, license_number, availability, created_by, created_at, updated_at) VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        pst.setString(1, user.getPassword());
+        pst.setString(2, user.getName());
+        pst.setString(3, user.getAddress());
+        pst.setString(4, user.getEmail());
+        pst.setString(5, user.getContact());
+        pst.setInt(6, user.getType());
+        pst.setInt(7, user.isEnabled());
+        pst.setString(8, user.getLicenseNumber());
+        pst.setInt(9, user.getAvailability());
+        pst.setString(10, "Absal");
+        pst.setString(11, currentDateTimeAsString);
+        pst.setString(12, currentDateTimeAsString);
+        System.out.println(pst);
+        pst.executeUpdate();
+    }
+    
+    public User selectUser(int id) throws SQLException {
+    User user = null;
+    pst = con.prepareStatement("select name, password, email, contact, address, enabled, type, license_number, availability from users where id =?;");
+    pst.setInt(1, id);
+    System.out.println(pst);
+    // Step 3: Execute the query or update query
+    ResultSet rs = pst.executeQuery();
+
+    // Step 4: Process the ResultSet object.
+    while (rs.next()) {
+        String name = rs.getString("name");
+        String password = rs.getString("password");
+        String email = rs.getString("email");
+        String contact = rs.getString("contact");
+        String address = rs.getString("address");
+        int enabled = rs.getInt("enabled");
+        int type = rs.getInt("type");
+        String licenseNumber = rs.getString("license_number");
+        int availability = rs.getInt("availability");
+        
+        // Determine the user type based on the "type" field in the database
+        if (type == 3) {
+            user = new Customer(id, name, password, email, contact, address, enabled, type);
+        } else if (type == 2) {
+            user = new Driver(id, name, password, email, contact, address, enabled, type, licenseNumber, availability);
+        }
+    }
+
+    return user;
+}
+    
+    public boolean updateDriver(Driver user) throws SQLException {
         boolean rowUpdated;
         String currentDateTimeAsString = currentDateTime.toString();
-        pst = con.prepareStatement("update users set name = ?, password= ?, address= ?, email= ?, contact= ?, type= ?, enabled= ?, created_by= ?, updated_at= ? where id = ?;");
-            pst.setString(1, user.getName());
-            pst.setString(2, user.getPassword());
-            pst.setString(3, user.getAddress());
-            pst.setString(4, user.getEmail());
-            pst.setString(5, user.getContact());
-            pst.setInt(6, user.getType());
-            pst.setInt(7, user.isEnabled());
-            pst.setString(8, "Absal");
-            pst.setString(9, currentDateTimeAsString);
-            pst.setInt(10, user.getId());
+        pst = con.prepareStatement("update users set name = ?, password= ?, address= ?, email= ?, contact= ?, type= ?, enabled= ?, license_number= ?, availability= ?, created_by= ?, updated_at= ? where id = ?;");
+        pst.setString(1, user.getName());
+        pst.setString(2, user.getPassword());
+        pst.setString(3, user.getAddress());
+        pst.setString(4, user.getEmail());
+        pst.setString(5, user.getContact());
+        pst.setInt(6, user.getType());
+        pst.setInt(7, user.isEnabled());
+        pst.setString(8, user.getLicenseNumber());
+        pst.setInt(9, user.getAvailability());
+        pst.setString(10, "Absal");
+        pst.setString(11, currentDateTimeAsString);
+        pst.setInt(12, user.getId());
 
-            rowUpdated = pst.executeUpdate() > 0;
-       
+        rowUpdated = pst.executeUpdate() > 0;
+
         return rowUpdated;
     }
-        
+
     private void closePreparedStatement() {
         try {
             this.pst.close();

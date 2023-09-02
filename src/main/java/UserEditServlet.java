@@ -8,6 +8,7 @@ import com.mycompany.dash.cab.dao.UserDao;
 import com.mycompany.dash.cab.model.Admin;
 import com.mycompany.dash.cab.model.Customer;
 import com.mycompany.dash.cab.model.Driver;
+import com.mycompany.dash.cab.model.User;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,22 +31,21 @@ public class UserEditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDao dao = new UserDao();
-        Customer existingCustomer = null;
+        User existingUser = null;
 
         id = Integer.parseInt(request.getParameter("id"));
-//        int type = Integer.parseInt(request.getParameter("type"));
 
         try {
             //add other types later
             
-                existingCustomer = dao.selectCustomer(id);
+                existingUser = dao.selectUser(id);
             
 
         } catch (SQLException ex) {
             Logger.getLogger(UserEditServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String jsonData = new Gson().toJson(existingCustomer);
+        String jsonData = new Gson().toJson(existingUser);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonData);
@@ -65,7 +65,7 @@ public class UserEditServlet extends HttpServlet {
             String address = request.getParameter("address");
             type = Integer.parseInt(request.getParameter("type"));
             int enabled = Integer.parseInt(request.getParameter("enabled")); // Assuming 0 or 1
-            String license = request.getParameter("license");
+            String licenseNumber = request.getParameter("licenseNumber");
             int availability = 0;
 
             if (type == 1) {
@@ -74,8 +74,8 @@ public class UserEditServlet extends HttpServlet {
             }
 
             if (type == 2) {
-                Driver user = new Driver(id, name, password, email, contact, address, enabled, type, license, availability);  // 3 for customer type
-//                dao.updateDriver(user);
+                Driver user = new Driver(id, name, password, email, contact, address, enabled, type, licenseNumber, availability);  // 3 for customer type
+                dao.updateDriver(user);
             }
 
             if (type == 3) {

@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="UTF-8" />
-        <title>Customer info</title>
+        <title>Driver info</title>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-style.css" />
         <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="active">
+                    <a href="UserShowServlet?type=3">
                         <i class="bx bx-list-ul"></i>
                         <span class="links_name">Customers</span>
                     </a>
@@ -36,7 +36,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="UserShowServlet?type=2"  class="active">
                         <i class="healthicons:truck-driver-outline"
                            ><iconify-icon
                                 icon="healthicons:truck-driver-outline"
@@ -109,13 +109,14 @@
             <div class="container">
                 <div class="inbox-container">
                     <div class="button-container">
-                        <h1>Customer Details</h1>
-                        <button class="button" onclick="openEditPopup(null)">Add New Customer</button>
+                        <h1>Driver Details</h1>
+                        <button class="button" onclick="openEditPopup(null)">Add New Driver</button>
                     </div>
                     <table>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>License</th>
                             <th>Email</th>
                             <th>Contact</th>
                             <th>Address</th>
@@ -125,6 +126,7 @@
                             <tr>
                                 <td><c:out value="${user.id}" /></td>
                                 <td><c:out value="${user.name}" /></td>
+                                <td><c:out value="${user.licenseNumber}" /></td>
                                 <td><c:out value="${user.email}" /></td>
                                 <td><c:out value="${user.contact}" /></td>
                                 <td><c:out value="${user.address}" /></td>
@@ -140,14 +142,17 @@
 
             <div class="overlay" id="overlay">
                 <div class="popup">
-                    <h2 id="popupTitle" >Add New Customer</h2>
+                    <h2 id="popupTitle" >Add New Driver</h2>
                     <form id="userForm" action="UserAddServlet" method="post">
                         <input type="hidden" id="id" name="id" value="" />
-                        
-                        <input type="hidden" id="type" name="type" value="3" />
+                        <input type="hidden" id="type" name="type" value="2" />
+                        <input type="hidden" id="availability" name="availability" value="0" /> <!<!-- Deafult availability as No(0) -->
                         
                         <label for="name">Name:</label>
                         <input type="text" id="name" name="name" value="" />
+                        
+                        <label for="licenseNumber">License:</label>
+                        <input type="text" id="licenseNumber" name="licenseNumber" value="" />
 
                         <label for="email">Email:</label>
                         <input
@@ -200,7 +205,7 @@
             function openEditPopup(id) {
                 if (id !== null) {
                     document.getElementById("userForm").action = "UserEditServlet";
-                    document.getElementById("popupTitle").textContent = "Editing User: " + id;
+                    document.getElementById("popupTitle").textContent = "Editing Driver: " + id;
                     
 
                     fetch('UserEditServlet?' + new URLSearchParams({id: id, type: type}))
@@ -212,6 +217,7 @@
                                 document.getElementById("contact").value = data.contact;
                                 document.getElementById("address").value = data.address;
                                 document.getElementById("enabled").value = data.enabled;
+                                document.getElementById("licenseNumber").value = data.licenseNumber;
                                 // Show the popup
                                 document.getElementById('overlay').style.display = "flex";
                             });
@@ -224,9 +230,10 @@
                     document.getElementById("contact").value = "";
                     document.getElementById("address").value = "";
                     document.getElementById("enabled").value = "";
+                    document.getElementById("licenseNumber").value = "";
 
                     document.getElementById("userForm").action = "UserAddServlet";
-                    document.getElementById("popupTitle").textContent = "Add New Customer";
+                    document.getElementById("popupTitle").textContent = "Add New Driver";
                     // Show the popup
                     document.getElementById('overlay').style.display = "flex";
                 }

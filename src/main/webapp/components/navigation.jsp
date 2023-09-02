@@ -24,7 +24,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="UserShowServlet?type=2">
             <i class="healthicons:truck-driver-outline"><iconify-icon icon="healthicons:truck-driver-outline"></iconify-icon></i>
             <span class="links_name">Drivers</span>
           </a>

@@ -35,17 +35,19 @@ public class UserDeleteServlet extends HttpServlet {
         try {
             UserDao dao = new UserDao();
             int id = Integer.parseInt(request.getParameter("id"));
-            dao.deleteUser(id);
             
             //Write other types here
             
             if(dao.getTypebyID(id) == 3) {
-                url = "UserShowServlet";
+                url = "UserShowServlet?type=3";
+            }else if (dao.getTypebyID(id) == 2) {
+                url = "UserShowServlet?type=2";
             }
+        dao.deleteUser(id);
+        
         } catch (SQLException ex) {
             Logger.getLogger(UserDeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         
         response.sendRedirect(url);
     }

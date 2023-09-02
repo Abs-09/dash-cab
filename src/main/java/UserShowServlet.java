@@ -5,6 +5,7 @@
 
 import com.mycompany.dash.cab.dao.UserDao;
 import com.mycompany.dash.cab.model.Customer;
+import com.mycompany.dash.cab.model.Driver;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -45,8 +46,12 @@ public class UserShowServlet extends HttpServlet {
         //add other types here
         if (type == 3) {
             List<Customer> customerList = dao.showAllCustomers();
-            request.setAttribute("customerList", customerList);
+            request.setAttribute("userList", customerList);
             url = "users/customer_crud_admin.jsp";
+        }else if (type == 2) {
+            List<Driver> driverList = dao.showAllDrivers();
+            request.setAttribute("userList", driverList);
+            url = "users/driver_crud_admin.jsp";
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
