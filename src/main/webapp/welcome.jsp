@@ -25,7 +25,7 @@
                         User u1 = (User) request.getAttribute("user");
                         if(u1 != null){
                             out.println("User : "+u1.getName());
-                            out.println("  Type : "+u1.getTypeByName());
+                            out.println("Type : "+u1.getTypeByName());
 
                         }
                     %>

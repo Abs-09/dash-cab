@@ -66,7 +66,7 @@
           </a>
         </li>
         <li class="log_out">
-          <a href="index.jsp">
+          <a href="LogoutServlet">
             <i class="bx bx-log-out"></i>
             <span class="links_name">Log out</span>
           </a>

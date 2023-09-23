@@ -13,12 +13,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author admin
  */
-public class UserServelet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,15 +52,13 @@ public class UserServelet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }else if (type == 1 && validatePassword(typedPassword, user.getPassword())){
-            request.setAttribute("user", user);
-            RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
-            rd.forward(request, response);
-           
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            response.sendRedirect("admin.jsp");           
         }else {
-            request.setAttribute("user", user);
-            RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
-            rd.forward(request, response);
-           
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            response.sendRedirect("welcome.jsp");
         }
         
     }

@@ -14,7 +14,7 @@
     <!-- login -->
     <div class="wrapper">
         <!--<form action="">-->
-         <form action="userservelet" method="POST"> 
+         <form action="LoginServlet" method="POST"> 
             <div class="logo-area">
                 <img src="${pageContext.request.contextPath}/img/logo.PNG" alt="logo" width="150px">
             </div>

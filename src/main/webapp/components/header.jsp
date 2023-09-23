@@ -9,6 +9,12 @@
     </div>
     <div class="profile-details">
         <i class="bx bx-user"></i>
-        <span class="admin_name">Ahzam Ahmed Asim</span>
+        <%
+            if (session.getAttribute("user") == null) {
+                response.sendRedirect("index.jsp");
+            }   
+        %>
+        
+        <span class="admin_name">${user.name}</span>
     </div>
 </nav>
