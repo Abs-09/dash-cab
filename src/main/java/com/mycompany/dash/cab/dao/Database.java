@@ -13,7 +13,7 @@ public class Database {
     private Connection con;
     private final String URL = "jdbc:mysql://localhost:3306/dash_cab?useUnicode=yes&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true";
     private final String USERNAME = "root";
-    private final String PASSWORD = "";
+    private final String PASSWORD = "password";
     
     private static Database dash_cab = new Database();
     
