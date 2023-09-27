@@ -60,7 +60,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="TestServlet">
             <i class="bx bx-cog"></i>
             <span class="links_name">Setting</span>
           </a>

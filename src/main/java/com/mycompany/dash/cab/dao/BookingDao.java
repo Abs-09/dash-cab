@@ -36,18 +36,18 @@ public class BookingDao {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                String contact = rs.getString("contact");
-                String address = rs.getString("address");
-                int enabled = rs.getInt("enabled");
-                int type = rs.getInt("type");
+//                int id = rs.getInt("id");
+//                String name = rs.getString("name");
+//                String password = rs.getString("password");
+//                String email = rs.getString("email");
+//                String contact = rs.getString("contact");
+//                String address = rs.getString("address");
+//                int enabled = rs.getInt("enabled");
+//                int type = rs.getInt("type");
+//
+//                Customer customer = new Customer(id, name, password, email, contact, address, enabled, type);
 
-                Customer customer = new Customer(id, name, password, email, contact, address, enabled, type);
-
-                customerList.add(customer);
+//                bookingRequests.add(customer);
             }
         } catch (SQLException ex) {
             System.out.println("Data showAllCustomer exception occoured");
@@ -65,7 +65,7 @@ public class BookingDao {
             this.pst.close();
         } catch (SQLException ex) {
             System.out.println("DataAccessor PreparedStatement close failed");
-            Logger.getLogger(CarDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BookingDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
