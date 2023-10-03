@@ -31,7 +31,7 @@ public class CarDao {
 
     public boolean addCar(Car car) {
         try {
-            String sql = "INSERT INTO cars (license_plate, model, created_at) VALUES (?, ?, ?,) ";
+            String sql = "INSERT INTO cars (license_plate, model, created_at) VALUES (?, ?, ?) ";
             pst = con.prepareStatement(sql);
             pst.setString(1, new String(car.getLicense_plate()));
             pst.setString(2, new String(car.getModel()));
@@ -48,42 +48,63 @@ public class CarDao {
         }
     }
     
-   // public ArrayList getCar (){
-   //        try{
-   //            String  sql = "SELECT * FROM cars";
-   //            pst = con.prepareStatement(sql);
-   //            
-   //            ResultSet rs = pst.executeQuery();
-   //            return true;
-   //        } catch (SQLException ex){
-   //            System.out.println("Failed querying car details from database in DataAccessor Level");   
-   //            return false;
-   //        } finally{
-   //            closePreparedStatement();
-   //        }
-   // }
+   public ArrayList<Car> getCar (){
+               ArrayList<Car> carList = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM cars";
+            pst = con.prepareStatement(sql);
+
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String licensePlate = rs.getString("license_plate");
+                String model = rs.getString("model");
+                String createdAt = rs.getString("created_at");
+
+                Car car = new Car(licensePlate, model, createdAt);
+                car.setId(id);
+                
+                carList.add(car);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Failed querying car details from database");
+            Logger.getLogger(CarDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closePreparedStatement();
+        }
+
+        return carList;
+    }
     
-//    public Car getCarByID(int ID){
-//        try{
-//            String sql = "SELECT * FROM Cars WHERE id = ?";
-//            pst = con.prepareStatement(sql);
-//            pst.setInt(1, ID);
-//            ResultSet rs = pst.executeQuery();
-//
-//            if (rs.next()) {
-//                return new Car(rs.getInt("id"), rs.getString("license_plate"), rs.getString("model"), rs.getString("created_at"));
-//            } else {
-//                System.out.println("Car not found");
-//                return null;
-//            }
-//
-//        } catch (SQLException ex) {
-//            System.out.println("Data getCarByID exception occoured");
-//            System.out.println("Error: " + ex);
-//            Logger.getLogger(CarDao.class.getName()).log(Level.SEVERE, null, ex);
-//            return 0;
-//        }
-//    }
+public Car getCarByID(int ID) {
+    try {
+        String sql = "SELECT * FROM cars WHERE id = ?";
+        pst = con.prepareStatement(sql);
+        pst.setInt(1, ID);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            int id = rs.getInt("id");
+            String licensePlate = rs.getString("license_plate");
+            String model = rs.getString("model");
+            String createdAt = rs.getString("created_at");
+
+            Car car = new Car(licensePlate, model, createdAt);
+            car.setId(id); // Set the ID separately
+
+            return car;
+        } else {
+            System.out.println("Car not found");
+            return null;
+        }
+    } catch (SQLException ex) {
+        System.out.println("Data getCarByID exception occurred");
+        System.out.println("Error: " + ex);
+        Logger.getLogger(CarDao.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+    }
+}
 
     private void closePreparedStatement() {
         try {
