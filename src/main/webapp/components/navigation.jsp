@@ -6,7 +6,7 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a href="#" class="active">
+          <a href="admin.jsp" class="active">
             <i class="bx bx-grid-alt"></i>
             <span class="links_name">Dashboard</span>
           </a>
@@ -18,9 +18,9 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="BookingRequestsServlet">
             <i class="bx bx-box"></i>
-            <span class="links_name">Bookings</span>
+            <span class="links_name">Booking Requests</span>
           </a>
         </li>
         <li>

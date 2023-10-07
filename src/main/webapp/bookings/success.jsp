@@ -19,6 +19,6 @@
         <p>Date & Time: ${bookingrequest.scheduled_date_time}</p>
         <p>Amount: ${distance}</p>
         
-        <a href="BookingRequestsServlet?userid=${user.id}">Go back</a>
+        <a href="BookingRequestsServlet">Go back</a>
     </body>
 </html>

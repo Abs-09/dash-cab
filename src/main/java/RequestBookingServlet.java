@@ -61,7 +61,7 @@ public class RequestBookingServlet extends HttpServlet {
         String scheduled_date_time = request.getParameter("date") + " " + request.getParameter("time");
 
         //creating new object with attributes
-        BookingRequest bookingrequest = new BookingRequest(user_id, pick_up_address, destination_address, scheduled_date_time, 2);
+        BookingRequest bookingrequest = new BookingRequest(user_id, pick_up_address, destination_address, scheduled_date_time, 1);
 
         //inserting to database
         BookingDao bdao = new BookingDao();

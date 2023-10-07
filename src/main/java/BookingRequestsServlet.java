@@ -25,14 +25,28 @@ public class BookingRequestsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        int user_id = Integer.parseInt(request.getParameter("userid"));
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
         BookingDao dao = new BookingDao();
-        List<BookingRequest> bookingRequests = dao.getBookingRequestsByID(user_id);
-        request.setAttribute("UserID", user_id);
-        request.setAttribute("bookingRequests", bookingRequests);
-        RequestDispatcher rd = request.getRequestDispatcher("bookings/index.jsp");
-        rd.forward(request, response);
+        List<BookingRequest> bookingRequests;
+
+        if (user.getType() == 1) {
+            bookingRequests = dao.getBookingRequests();
+            request.setAttribute("UserID", user.getId());
+            request.setAttribute("bookingRequests", bookingRequests);
+            RequestDispatcher rd = request.getRequestDispatcher("bookings/masterindex.jsp");
+            rd.forward(request, response);
+        }
+
+        if (user.getType() == 3) {
+            bookingRequests = dao.getBookingRequestsByID(user.getId());
+            request.setAttribute("UserID", user.getId());
+            request.setAttribute("bookingRequests", bookingRequests);
+            RequestDispatcher rd = request.getRequestDispatcher("bookings/myindex.jsp");
+            rd.forward(request, response);
+        }
+
     }
 
 //    @Override
