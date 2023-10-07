@@ -36,6 +36,14 @@
         <servlet-name>TestServlet</servlet-name>
         <servlet-class>TestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RequestBookingServlet</servlet-name>
+        <servlet-class>RequestBookingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookingRequestsServlet</servlet-name>
+        <servlet-class>BookingRequestsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestBookingServlet</servlet-name>
+        <url-pattern>/RequestBookingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingRequestsServlet</servlet-name>
+        <url-pattern>/BookingRequestsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

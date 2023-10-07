@@ -27,6 +27,7 @@ public class BookingRequest {
         this.status = status;
         this.created_at = created_at;
     }
+    
 
     public BookingRequest(int user_id, String pick_up_address, String destination_address, String scheduled_date_time, int status) {
         this.user_id = user_id;
