@@ -35,7 +35,7 @@
                     <li class="nav_item">
                         <a href="#" class="nav_link">Home</a>
                         <a href="#" class="nav_link">Product</a>                        
-                        <a href="BookingsServlet?userid=${user.id}" class="nav_link">My Bookings</a>
+                        <a href="BookingRequestsServlet?userid=${user.id}" class="nav_link">My Bookings</a>
 
                     </li>
                 </ul> 

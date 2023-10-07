@@ -15,6 +15,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -34,32 +41,57 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String apiKey = "AIzaSyAd3T6I7teyv_qI3Dy6nJf4sSw93vYb_Dk";
-        
-        // Create a GeoApiContext with your API key
-        GeoApiContext context = new GeoApiContext.Builder()
-            .apiKey(apiKey)
-            .build();
-        
-               // Define the origin and destination for the directions
-        String origin = "New York, NY";
-        String destination = "Los Angeles, CA";
-        
-        try {
-            // Create a DirectionsApiRequest
-            DirectionsApiRequest mapsrequest = DirectionsApi.newRequest(context)
-                .origin(origin)
-                .destination(destination)
-                .mode(TravelMode.DRIVING); // You can change the travel mode
+        try {            
+            String apiKey = "AIzaSyAd3T6I7teyv_qI3Dy6nJf4sSw93vYb_Dk";
 
-            // Execute the request and get the result
-            DirectionsResult result = mapsrequest.await();
-            
-            // Print the directions result
-            System.out.println(result.routes[0].summary);
+            // Create a GeoApiContext with your API key
+            GeoApiContext context = new GeoApiContext.Builder()
+                    .apiKey(apiKey)
+                    .build();
+
+//        String origin = request.getParameter("from_destination");
+//        String destination = request.getParameter("to_destination");
+            String origin = "New+York,NY";
+            String destination = "Los+Angeles,CA";
+
+            // Create the API URL
+            String apiUrl = "https://maps.googleapis.com/maps/api/distancematrix/json"
+                    + "?origins=" + origin
+                    + "&destinations=" + destination
+                    + "&key=" + apiKey;
+
+            // Create a URL object and open a connection
+            URL url = new URL(apiUrl);
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            int responseCode = connection.getResponseCode();
+
+            // Read the response data
+            if (responseCode == 200) {
+                Scanner scan = new Scanner(url.openStream());
+                StringBuilder apiresponse = new StringBuilder();
+
+                while (scan.hasNext()) {
+                    apiresponse.append(scan.nextLine());
+                }
+
+                scan.close();
+
+                JSONParser parse = new JSONParser();
+                System.out.println("info string " + apiresponse);
+                request.setAttribute("error", apiresponse);
+            } else {
+                System.out.println("Error: HTTP Response Code " + responseCode);
+            }
+
+            // Close the connection
+            connection.disconnect();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("test.jsp");
         dispatcher.forward(request, response);
