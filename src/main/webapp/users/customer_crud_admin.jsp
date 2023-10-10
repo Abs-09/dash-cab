@@ -10,7 +10,7 @@
             href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
-    <body>
+    <body onload="navigateside()">
         <%@include file = "/components/navigation.jsp"%>
         <section class="home-section">
             <%@include file = "/components/header.jsp"%>
@@ -141,7 +141,10 @@
                 }
 
             }
-
+            function navigateside() {
+               document.getElementById("customerSidebar").classList.toggle('active');
+               document.getElementById("mainName").textContent="Customers";
+            }
         </script>
     </body>
 </html>
