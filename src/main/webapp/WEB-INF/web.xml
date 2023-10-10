@@ -29,10 +29,6 @@
         <servlet-class>LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BookingsServlet</servlet-name>
-        <servlet-class>BookingsServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>TestServlet</servlet-name>
         <servlet-class>TestServlet</servlet-class>
     </servlet>
@@ -43,6 +39,14 @@
     <servlet>
         <servlet-name>BookingRequestsServlet</servlet-name>
         <servlet-class>BookingRequestsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookingServlet</servlet-name>
+        <servlet-class>BookingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AcceptOrRejectBookingRequest</servlet-name>
+        <servlet-class>AcceptOrRejectBookingRequest</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -73,10 +77,6 @@
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BookingsServlet</servlet-name>
-        <url-pattern>/BookingsServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestServlet</url-pattern>
     </servlet-mapping>
@@ -87,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>BookingRequestsServlet</servlet-name>
         <url-pattern>/BookingRequestsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingServlet</servlet-name>
+        <url-pattern>/BookingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptOrRejectBookingRequest</servlet-name>
+        <url-pattern>/AcceptOrRejectBookingRequest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
