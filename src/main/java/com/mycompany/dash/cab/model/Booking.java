@@ -9,8 +9,9 @@ package com.mycompany.dash.cab.model;
  * @author admin
  */
 public class Booking {
-    
+
     private int booking_request_id;
+    private String created_at;
     private int driver_id;
     private String assigned_date;
     private String ride_complete_at;
@@ -30,6 +31,14 @@ public class Booking {
 
     public void setBooking_request_id(int booking_request_id) {
         this.booking_request_id = booking_request_id;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 
     public int getDriver_id() {
@@ -63,7 +72,5 @@ public class Booking {
     public void setPaid_at(String paid_at) {
         this.paid_at = paid_at;
     }
-    
-    
-    
+
 }

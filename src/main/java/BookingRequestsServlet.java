@@ -35,7 +35,7 @@ public class BookingRequestsServlet extends HttpServlet {
             bookingRequests = dao.getBookingRequests();
             request.setAttribute("UserID", user.getId());
             request.setAttribute("bookingRequests", bookingRequests);
-            RequestDispatcher rd = request.getRequestDispatcher("bookings/masterindex.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("bookingrequests/masterindex.jsp");
             rd.forward(request, response);
         }
 
@@ -43,7 +43,7 @@ public class BookingRequestsServlet extends HttpServlet {
             bookingRequests = dao.getBookingRequestsByID(user.getId());
             request.setAttribute("UserID", user.getId());
             request.setAttribute("bookingRequests", bookingRequests);
-            RequestDispatcher rd = request.getRequestDispatcher("bookings/myindex.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("bookingrequests/myindex.jsp");
             rd.forward(request, response);
         }
 

@@ -82,11 +82,11 @@ public class RequestBookingServlet extends HttpServlet {
                 request.setAttribute("bookingrequest", bookingrequest);
                 request.setAttribute("user", user);
                 request.setAttribute("distance", mapsApi.getDistance());
-                RequestDispatcher rd = request.getRequestDispatcher("bookings/success.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("bookingrequests/success.jsp");
                 rd.forward(request, response);
             } catch (ParseException ex) {
                 request.setAttribute("error", "Something went wrong");
-                RequestDispatcher rd = request.getRequestDispatcher("bookings/add.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("bookingrequests/add.jsp");
                 rd.forward(request, response);
                 Logger.getLogger(RequestBookingServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
