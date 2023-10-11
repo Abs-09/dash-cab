@@ -32,6 +32,7 @@
                 <p>Status: ${bookingrequest.status}</p>
                 <p>Requested At: ${bookingrequest.created_at}</p></br>
                 <form action="AcceptBookingRequestServlet" method="post">
+                    <input type="hidden" name="booking_request_id" value="${bookingrequest.id}">
                     <label for="driver_id">Assign Driver</label>
                     <select id="driver_id" name="driver_id" required>
                         <c:forEach var="driver" items="${drivers}">

@@ -4,6 +4,7 @@
  */
 
 import com.mycompany.dash.cab.dao.BookingDao;
+import com.mycompany.dash.cab.model.Booking;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -43,16 +44,28 @@ public class AcceptBookingRequestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //retriving form  attributes
         int status = Integer.parseInt(request.getParameter("status"));
         int booking_request_id = Integer.parseInt(request.getParameter("booking_request_id"));
+        int driver_id = Integer.parseInt("driver_id");
+
         BookingDao bDao = new BookingDao();
-        boolean success = bDao.setBookingRequestStatus(booking_request_id, status);
-        
-        if (success == true) {
-            response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Rejected");
-        } else {
+        boolean setStatusSuccess = bDao.setBookingRequestStatus(booking_request_id, status);
+
+        if (!setStatusSuccess) {
             response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Something Went wrong. Contact IT admin");
         }
+
+        //creates a booking
+        Booking booking = new Booking(booking_request_id, driver_id);
+        boolean insertBookingSuccess = bDao.insertBooking(booking);
+
+        if (!insertBookingSuccess) {
+            response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Something Went wrong. Contact IT admin");
+        } else {
+            response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Rejected");
+        }
+
     }
 
 }

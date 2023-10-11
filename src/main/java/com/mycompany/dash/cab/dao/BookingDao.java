@@ -168,7 +168,7 @@ public class BookingDao {
     public boolean insertBooking(Booking b) {
         String currentDateTimeAsString = currentDateTime.toString();
         try {
-            pst = con.prepareStatement("INSERT INTO booking_requests" + "(booking_request_id, created_at, driver_id, assigned_date, ride_completed_at, paid_at) VALUES " + "(?, ?, ?, ?, ?, ?);");
+            pst = con.prepareStatement("INSERT INTO booking_requests" + "(booking_request_id, driver_id) VALUES " + "( ?, ?);");
             pst.setInt(1, b.getBooking_request_id());
             pst.setString(2, b.getCreated_at());
             pst.setInt(3, b.getDriver_id());
