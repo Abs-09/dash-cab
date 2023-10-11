@@ -48,6 +48,14 @@
         <servlet-name>AcceptOrRejectBookingRequest</servlet-name>
         <servlet-class>AcceptOrRejectBookingRequest</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AcceptBookingRequestServlet</servlet-name>
+        <servlet-class>AcceptBookingRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RejectBookingRequestServlet</servlet-name>
+        <servlet-class>RejectBookingRequestServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -95,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>AcceptOrRejectBookingRequest</servlet-name>
         <url-pattern>/AcceptOrRejectBookingRequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptBookingRequestServlet</servlet-name>
+        <url-pattern>/AcceptBookingRequestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RejectBookingRequestServlet</servlet-name>
+        <url-pattern>/RejectBookingRequestServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

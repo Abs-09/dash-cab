@@ -148,11 +148,27 @@ public class BookingDao {
         }
     }
 
+    //Adding booking request to database
+    public boolean setBookingRequestStatus(int booking_request_id, int status) {
+        String currentDateTimeAsString = currentDateTime.toString();
+        try {
+            pst = con.prepareStatement("UPDATE booking_requests SET status = ? WHERE id = ?;");
+            pst.setString(1, Integer.toString(status));
+            pst.setString(2, Integer.toString(booking_request_id));
+            System.out.println(pst);
+            pst.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
     //BOOKINGS =============================
     public boolean insertBooking(Booking b) {
         String currentDateTimeAsString = currentDateTime.toString();
         try {
-            pst = con.prepareStatement("INSERT INTO booking_requests" + " (booking_request_id, created_at, driver_id, assigned_date, ride_completed_at, paid_at) VALUES " + "(?, ?, ?, ?, ?, ?);");
+            pst = con.prepareStatement("INSERT INTO booking_requests" + "(booking_request_id, created_at, driver_id, assigned_date, ride_completed_at, paid_at) VALUES " + "(?, ?, ?, ?, ?, ?);");
             pst.setInt(1, b.getBooking_request_id());
             pst.setString(2, b.getCreated_at());
             pst.setInt(3, b.getDriver_id());

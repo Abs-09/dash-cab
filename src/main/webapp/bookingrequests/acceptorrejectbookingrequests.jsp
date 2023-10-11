@@ -25,13 +25,36 @@
                 <h3>Booking Request Detail</h3>
                 <p>Id: ${bookingrequest.id}</p>                
                 <p>USER ID: ${bookingrequest.user_id}</p>
+                <p>USER Name: ${bookedUser.name}</p>
                 <p>Pick up from: ${bookingrequest.pick_up_address}</p>
                 <p>Drop Off To: ${bookingrequest.destination_address}</p>
                 <p>Scheduled For: ${bookingrequest.scheduled_date_time}</p>
                 <p>Status: ${bookingrequest.status}</p>
-                <p>Requested At: ${bookingrequest.created_at}</p>
+                <p>Requested At: ${bookingrequest.created_at}</p></br>
+                <form action="AcceptBookingRequestServlet" method="post">
+                    <label for="driver_id">Assign Driver</label>
+                    <select id="driver_id" name="driver_id" required>
+                        <c:forEach var="driver" items="${drivers}">
+                            <option value="${driver.id}">${driver.name}</option>
+                        </c:forEach>
+                    </select>
+                    <input type="hidden" name="status" value="2"></br>
+                    <button type="submit">ACcept</button>
+                </form>
+                <form action="RejectBookingRequestServlet" method="post">
+                    <input type="hidden" name="booking_request_id" value="${bookingrequest.id}">
+                    <input type="hidden" name="status" value="3">
+                    <button type="submit">Reject</button>
+                </form>
+                <div class="remember-forgot">
+                    <span style="color: red; margin-left: 22px; font-weight: bold">${error}</span>
+                </div>
 
-
+                <% 
+                    if(request.getParameter("error") != null) {
+                        out.write(request.getParameter("error"));
+                    }
+                %>
             </div>
         </section>
     </body>

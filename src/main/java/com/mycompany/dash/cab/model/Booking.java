@@ -24,6 +24,18 @@ public class Booking {
         this.ride_complete_at = ride_complete_at;
         this.paid_at = paid_at;
     }
+    
+    public Booking(int booking_request_id, int driver_id, String assigned_date) {
+        this.booking_request_id = booking_request_id;
+        this.driver_id = driver_id;
+        this.assigned_date = assigned_date;
+    }
+    
+    public Booking(int booking_request_id, int driver_id) {
+        this.booking_request_id = booking_request_id;
+        this.driver_id = driver_id;
+        this.assigned_date = assigned_date;
+    }
 
     public int getBooking_request_id() {
         return booking_request_id;

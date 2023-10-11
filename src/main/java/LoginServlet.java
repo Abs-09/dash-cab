@@ -47,7 +47,11 @@ public class LoginServlet extends HttpServlet {
         }
 
         //Validation
-        if (user == null || !validatePassword(typedPassword, user.getPassword()) ) {
+        if(!isUserEnabled(user)){
+            request.setAttribute("error", "User is disabled");
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
+        }else if (user == null || !validatePassword(typedPassword, user.getPassword()) ) {
             request.setAttribute("error", "User or password is incorrect ");
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
@@ -63,6 +67,13 @@ public class LoginServlet extends HttpServlet {
         
     }
 
+    private boolean isUserEnabled(User user) {
+        if (user.isEnabled() == 0) {
+            return false;
+        }
+        return true;
+    }
+    
     private boolean validatePassword(String typedPassword, String actualPassword) {
         if(typedPassword.contentEquals(actualPassword)){
             return true;

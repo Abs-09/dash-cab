@@ -279,6 +279,40 @@ public class UserDao {
 
         return driverList;
     }
+    
+    public List<Driver> showEnabledAllDrivers() {
+        List<Driver> driverList = new ArrayList<>();
+
+        try {
+            pst = con.prepareStatement("SELECT * from users where type = 2 AND enabled = 1");
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String contact = rs.getString("contact");
+                String address = rs.getString("address");
+                int enabled = rs.getInt("enabled");
+                int type = rs.getInt("type");
+                String licenseNumber = rs.getString("license_number");
+                int availability = rs.getInt("availability");
+
+                Driver driver = new Driver(id, name, password, email, contact, address, enabled, type, licenseNumber, availability);
+
+                driverList.add(driver);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Data showAllDriver exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            closePreparedStatement();
+        }
+
+        return driverList;
+    }
 
     public void insertDriver(Driver user) throws SQLException {
         String currentDateTimeAsString = currentDateTime.toString();
