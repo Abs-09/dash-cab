@@ -37,16 +37,18 @@
                         <a href="#" class="nav_link">Product</a>                        
                         <a href="BookingRequestsServlet" class="nav_link">My Bookings</a>
 
+                        <a href="BookingsServlet" id="bookingSidebar" class="menu-link">Bookings</a>
+
                     </li>
                 </ul> 
 
-                <button class="button" id="form-open" onclick="location.href ='${pageContext.request.contextPath}/index.jsp'">Logout</button>
+                <button class="button" id="form-open" onclick="location.href = '${pageContext.request.contextPath}/index.jsp'">Logout</button>
             </nav>
         </header>
 
         <!-- Home -->
         <section class="home">
-            
+
         </section>
 
         <script src="script.js"></script>

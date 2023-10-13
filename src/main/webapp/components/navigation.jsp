@@ -24,6 +24,12 @@
             </a>
         </li>
         <li>
+            <a href="BookingsServlet" id="bookingSidebar" class="menu-link">
+                <i class="bx bx-box"></i>
+                <span class="links_name">Booking</span>
+            </a>
+        </li>
+        <li>
             <a href="UserShowServlet?type=2" id="driverSidebar" class="menu-link">
                 <i class="healthicons:truck-driver-outline"><iconify-icon icon="healthicons:truck-driver-outline"></iconify-icon></i>
                 <span class="links_name">Drivers</span>

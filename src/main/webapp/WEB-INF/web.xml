@@ -56,6 +56,22 @@
         <servlet-name>RejectBookingRequestServlet</servlet-name>
         <servlet-class>RejectBookingRequestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookingsServlet</servlet-name>
+        <servlet-class>BookingsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowBookingServlet</servlet-name>
+        <servlet-class>ShowBookingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompleteBooking</servlet-name>
+        <servlet-class>CompleteBooking</servlet-class>
+        <init-param>
+            <param-name>Name</param-name>
+            <param-value>Value</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -111,6 +127,18 @@
     <servlet-mapping>
         <servlet-name>RejectBookingRequestServlet</servlet-name>
         <url-pattern>/RejectBookingRequestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingsServlet</servlet-name>
+        <url-pattern>/BookingsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowBookingServlet</servlet-name>
+        <url-pattern>/ShowBookingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompleteBooking</servlet-name>
+        <url-pattern>/CompleteBooking</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

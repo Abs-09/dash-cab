@@ -47,8 +47,9 @@ public class AcceptBookingRequestServlet extends HttpServlet {
         //retriving form  attributes
         int status = Integer.parseInt(request.getParameter("status"));
         int booking_request_id = Integer.parseInt(request.getParameter("booking_request_id"));
-        int driver_id = Integer.parseInt("driver_id");
+        int driver_id = Integer.parseInt(request.getParameter("driver_id"));
 
+        System.out.println("Driver id" + driver_id);
         BookingDao bDao = new BookingDao();
         boolean setStatusSuccess = bDao.setBookingRequestStatus(booking_request_id, status);
 
@@ -63,7 +64,7 @@ public class AcceptBookingRequestServlet extends HttpServlet {
         if (!insertBookingSuccess) {
             response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Something Went wrong. Contact IT admin");
         } else {
-            response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Rejected");
+            response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Driver Assigned");
         }
 
     }

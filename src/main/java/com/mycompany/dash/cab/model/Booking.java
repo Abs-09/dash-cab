@@ -13,11 +13,20 @@ public class Booking {
     private int booking_request_id;
     private String created_at;
     private int driver_id;
-    private int cancelled_at;
+    private String cancelled_at;
     private String ride_complete_at;
     private String paid_at;
+    
+    public Booking(int booking_request_id, int driver_id, String cancelled_at, String ride_complete_at, String paid_at, String created_at) {
+        this.booking_request_id = booking_request_id;
+        this.driver_id = driver_id;
+        this.cancelled_at = cancelled_at;
+        this.ride_complete_at = ride_complete_at;
+        this.paid_at = paid_at;
+        this.created_at = created_at;
+    }
 
-    public Booking(int booking_request_id, int driver_id, int cancelled_at, String ride_complete_at, String paid_at) {
+    public Booking(int booking_request_id, int driver_id, String cancelled_at, String ride_complete_at, String paid_at) {
         this.booking_request_id = booking_request_id;
         this.driver_id = driver_id;
         this.cancelled_at = cancelled_at;
@@ -54,15 +63,13 @@ public class Booking {
         this.driver_id = driver_id;
     }
 
-    public int getCancelled_at() {
+    public String getCancelled_at() {
         return cancelled_at;
     }
 
-    public void setCancelled_at(int cancelled_at) {
+    public void setCancelled_at(String cancelled_at) {
         this.cancelled_at = cancelled_at;
     }
-
-    
 
     public String getRide_complete_at() {
         return ride_complete_at;
