@@ -53,7 +53,7 @@ public class RequestBookingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("i am hereeeeeeeeeeeeeeeeeeeee");
         //assigning attributes from form
         int user_id = Integer.parseInt(request.getParameter("user_id"));
         String pick_up_address = request.getParameter("pick_up_address");
@@ -82,11 +82,11 @@ public class RequestBookingServlet extends HttpServlet {
                 request.setAttribute("bookingrequest", bookingrequest);
                 request.setAttribute("user", user);
                 request.setAttribute("distance", mapsApi.getDistance());
-                RequestDispatcher rd = request.getRequestDispatcher("bookings/success.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("bookingrequests/success.jsp");
                 rd.forward(request, response);
             } catch (ParseException ex) {
                 request.setAttribute("error", "Something went wrong");
-                RequestDispatcher rd = request.getRequestDispatcher("bookings/add.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("bookingrequests/add.jsp");
                 rd.forward(request, response);
                 Logger.getLogger(RequestBookingServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

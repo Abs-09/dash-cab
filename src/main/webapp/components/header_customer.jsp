@@ -21,7 +21,12 @@
             <li id="bookHistory" class="list-item">
                 <b class="left-curve"></b>
                 <b class="right-curve"></b>
-                <a href="/dash-cab/BookingRequestsServlet">Booking History</a>
+                <a href="BookingRequestsServlet">My Booking Requests</a>
+            </li>
+            <li id="bookHistory" class="list-item">
+                <b class="left-curve"></b>
+                <b class="right-curve"></b>
+                <a href="BookingsServlet">My Bookings</a>
             </li>
         </ul>
     </div>

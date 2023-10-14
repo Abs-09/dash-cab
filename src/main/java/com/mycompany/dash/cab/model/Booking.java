@@ -9,19 +9,34 @@ package com.mycompany.dash.cab.model;
  * @author admin
  */
 public class Booking {
-    
+
     private int booking_request_id;
+    private String created_at;
     private int driver_id;
-    private String assigned_date;
+    private String cancelled_at;
     private String ride_complete_at;
     private String paid_at;
-
-    public Booking(int booking_request_id, int driver_id, String assigned_date, String ride_complete_at, String paid_at) {
+    
+    public Booking(int booking_request_id, int driver_id, String cancelled_at, String ride_complete_at, String paid_at, String created_at) {
         this.booking_request_id = booking_request_id;
         this.driver_id = driver_id;
-        this.assigned_date = assigned_date;
+        this.cancelled_at = cancelled_at;
         this.ride_complete_at = ride_complete_at;
         this.paid_at = paid_at;
+        this.created_at = created_at;
+    }
+
+    public Booking(int booking_request_id, int driver_id, String cancelled_at, String ride_complete_at, String paid_at) {
+        this.booking_request_id = booking_request_id;
+        this.driver_id = driver_id;
+        this.cancelled_at = cancelled_at;
+        this.ride_complete_at = ride_complete_at;
+        this.paid_at = paid_at;
+    }
+    
+    public Booking(int booking_request_id, int driver_id) {
+        this.booking_request_id = booking_request_id;
+        this.driver_id = driver_id;
     }
 
     public int getBooking_request_id() {
@@ -32,6 +47,14 @@ public class Booking {
         this.booking_request_id = booking_request_id;
     }
 
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
     public int getDriver_id() {
         return driver_id;
     }
@@ -40,12 +63,12 @@ public class Booking {
         this.driver_id = driver_id;
     }
 
-    public String getAssigned_date() {
-        return assigned_date;
+    public String getCancelled_at() {
+        return cancelled_at;
     }
 
-    public void setAssigned_date(String assigned_date) {
-        this.assigned_date = assigned_date;
+    public void setCancelled_at(String cancelled_at) {
+        this.cancelled_at = cancelled_at;
     }
 
     public String getRide_complete_at() {
@@ -63,7 +86,5 @@ public class Booking {
     public void setPaid_at(String paid_at) {
         this.paid_at = paid_at;
     }
-    
-    
-    
+
 }
