@@ -14,15 +14,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body>
-        <%@include file = "/components/navigation.jsp"%>
         <section class="home-section">
-            <%@include file = "/components/header.jsp"%>
-
             <div>
-                <h1>title</h1>                
-                <h1>-------------</h1>
-                <h1>Accept OR Reject Booking Request</h1>
-                <h3>Booking Request Detail</h3>
+                <h1>Booking</h1>
+                <h3>Details</h3>
                 <p>Id: ${bookingrequest.id}</p>                
                 <p>USER ID: ${bookingrequest.user_id}</p>
                 <p>USER Name: ${bookedUser.name}</p>
@@ -30,23 +25,11 @@
                 <p>Drop Off To: ${bookingrequest.destination_address}</p>
                 <p>Scheduled For: ${bookingrequest.scheduled_date_time}</p>
                 <p>Status: ${bookingrequest.status}</p>
-                <p>Requested At: ${bookingrequest.created_at}</p></br>
-                <form action="AcceptBookingRequestServlet" method="post">
-                    <input type="hidden" name="booking_request_id" value="${bookingrequest.id}">
-                    <label for="driver_id">Assign Driver</label>
-                    <select id="driver_id" name="driver_id" required>
-                        <c:forEach var="driver" items="${drivers}">
-                            <option value="${driver.id}">${driver.name}</option>
-                        </c:forEach>
-                    </select>
-                    <input type="hidden" name="status" value="2"></br>
-                    <button type="submit">ACcept</button>
-                </form>
-                <form action="RejectBookingRequestServlet" method="post">
-                    <input type="hidden" name="booking_request_id" value="${bookingrequest.id}">
-                    <input type="hidden" name="status" value="3">
-                    <button type="submit">Reject</button>
-                </form>
+                <p>Requested At: ${bookingrequest.created_at}</p>
+                <p>Assigned Driver: ${booking.driver_id} - ${bookedDriver.name}</p>
+                <p>Ride Completed: ${booking.ride_complete_at}</p>
+                <p>Paid: ${booking.paid_at}</p></br>
+                <c:if test="${booking.ride_complete_at == null && booking.cancelled_at == null && user.type == 2}"><a href="CompleteBooking?bookingRequestId=${bookingrequest.id}">Mark Ride as Paid and Completed</a></c:if>
                 <div class="remember-forgot">
                     <span style="color: red; margin-left: 22px; font-weight: bold">${error}</span>
                 </div>

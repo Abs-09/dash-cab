@@ -19,7 +19,7 @@
         %>
         <h1>BOOK A RIDE!</h1>
         <!--<form action="">-->
-        <form action="/Dash-Cab/RequestBookingServlet" method="POST"> 
+        <form action="RequestBookingServlet" method="POST"> 
 
             <div class="input-box">
                 <input type="hidden" name="user_id" value="${user.id}" required>

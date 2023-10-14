@@ -26,26 +26,22 @@
             <div class="container">
                 <div class="inbox-container">
                     <div class="button-container">
-                        <h1>Bookings</h1>
+                        <h1>Invoices</h1>
                     </div>
                     <table>
                         <tr>
+                            <th>Invoice ID</th>
                             <th>Booking Request ID</th>                           
-                            <th>driver id</th>
-                            <th>Booking Created At</th>
-                            <th>cancelled</th>
-                            <th>Ride Completed</th>
-                            <th>Paid at</th>
+                            <th>Total Cost</th>
+                            <th>created_at</th>
                         </tr>
-                        <c:forEach var="booking" items="${bookings}">
+                        <c:forEach var="invoice" items="${invoices}">
                             <tr>                                
-                                <td><c:out value="${booking.booking_request_id}" /></td>
-                                <td><c:out value="${booking.driver_id}" /></td>
-                                <td><c:out value="${booking.created_at}" /></td>
-                                <td><c:out value="${booking.cancelled_at}" /></td>
-                                <td><c:out value="${booking.ride_complete_at}" /></td>                                
-                                <td><c:out value="${booking.paid_at}" /></td>
-                                <td><a href="ShowBookingServlet?bookingRequestId=${booking.booking_request_id}">View Booking</a></td>
+                                <td><c:out value="${invoice.id}" /></td>
+                                <td><c:out value="${invoice.booking_request_id}" /></td>
+                                <td><c:out value="${invoice.total_cost}" /></td>
+                                <td><c:out value="${invoice.created_at}" /></td>
+                                <!--<td><a href="ShowBookingServlet?bookingRequestId=${invoice.booking_request_id}">View Booking</a></td>-->
                             </tr>
                         </c:forEach>
                     </table>

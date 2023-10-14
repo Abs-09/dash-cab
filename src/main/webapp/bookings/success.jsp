@@ -12,13 +12,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Booking SUCCESS</h1>
+        <h1>Booking COMPLETED</h1>
         <p>User: ${user.name}</p>
-        <p>Pick Up: ${bookingrequest.pick_up_address}</p>
-        <p>Destination: ${bookingrequest.destination_address}</p>
-        <p>Date & Time: ${bookingrequest.scheduled_date_time}</p>
-        <p>Amount: ${distance}</p>
+        <p>Booking Request ID ${invoice.booking_request_id}</p>
+        <p>Total Cost: ${invoice.total_cost}</p>
         
-        <a href="BookingRequestsServlet">Go back</a>
+        <a href="welcome.jsp">Go back</a>
     </body>
 </html>
