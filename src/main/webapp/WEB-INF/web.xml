@@ -72,6 +72,10 @@
             <param-value>Value</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>InvoicesServlet</servlet-name>
+        <servlet-class>InvoicesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -139,6 +143,10 @@
     <servlet-mapping>
         <servlet-name>CompleteBooking</servlet-name>
         <url-pattern>/CompleteBooking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InvoicesServlet</servlet-name>
+        <url-pattern>/InvoicesServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

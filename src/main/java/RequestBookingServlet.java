@@ -53,7 +53,7 @@ public class RequestBookingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("i am hereeeeeeeeeeeeeeeeeeeee");
         //assigning attributes from form
         int user_id = Integer.parseInt(request.getParameter("user_id"));
         String pick_up_address = request.getParameter("pick_up_address");

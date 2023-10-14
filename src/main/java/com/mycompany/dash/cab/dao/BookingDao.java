@@ -340,6 +340,35 @@ public class BookingDao {
     }
     
     //INVOICES ==============================================
+    
+    public List<Invoice> getInvoices() {
+        List<Invoice> invoices = new ArrayList<>();
+
+        try {
+            pst = con.prepareStatement("SELECT * from invoices");
+            ResultSet rs = pst.executeQuery();
+            System.out.println("");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int booking_request_id = rs.getInt("booking_request_id");
+                double total_cost = rs.getDouble("total_cost");
+                String created_at = rs.getString("created_at");
+                
+                Invoice invoice = new Invoice(id, booking_request_id, total_cost, created_at);
+
+                invoices.add(invoice);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Data exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            closePreparedStatement();
+        }
+
+        return invoices;
+    }
+    
         //Adding booking request to database
     public boolean insertInvoice(Invoice inv) {
         
