@@ -22,7 +22,6 @@
         <%@include file = "/components/navigation.jsp"%>
         <section class="home-section">
             <%@include file = "/components/header.jsp"%>
-
             <div class="container">
                 <div class="inbox-container">
                     <div class="button-container">

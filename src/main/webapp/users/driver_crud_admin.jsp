@@ -152,6 +152,7 @@
             
             function navigateside() {
                document.getElementById("driverSidebar").classList.toggle('active');
+               document.getElementById("mainName").textContent="Drivers";
             }
         </script>
     </body>
