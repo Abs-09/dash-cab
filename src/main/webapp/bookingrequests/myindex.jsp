@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>All my bookings here</h1>
+        <h1>All my booking request here</h1>
         <a href="RequestBookingServlet">Book a Ride</a>
         <div>
             User ID ${UserID}

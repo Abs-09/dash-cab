@@ -28,7 +28,7 @@ CREATE TABLE `invoices` (
   `booking_request_id` int NOT NULL,
   `total_cost` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +37,7 @@ CREATE TABLE `invoices` (
 
 LOCK TABLES `invoices` WRITE;
 /*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
+INSERT INTO `invoices` VALUES (1,'2023-10-13 17:34:28',633,412),(2,'2023-10-13 17:43:00',634,412),(3,'2023-10-13 19:54:09',635,412),(4,'2023-10-14 17:43:21',642,412),(5,'2023-10-14 18:10:06',644,412),(6,'2023-10-14 18:18:16',645,412);
 /*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-26 15:46:23
+-- Dump completed on 2023-10-14 23:24:32

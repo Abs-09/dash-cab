@@ -42,7 +42,7 @@
                                 <td><c:out value="${user.address}" /></td>
                                 <td>
                                     <a class="button button-secondary" onclick="openEditPopup(<c:out value='${user.id}' />, <c:out value='${user.type}' />)" >Edit</a>
-                                    <a href="UserDeleteServlet?id=<c:out value='${user.id}' />" class="button">Delete</a>
+                                    <!--<a href="UserDeleteServlet?id=<//c:out value='${user.id}' />" class="button">Delete</a>-->
                                 </td>
                             </tr>
                         </c:forEach>

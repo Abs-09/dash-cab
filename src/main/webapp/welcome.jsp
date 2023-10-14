@@ -19,7 +19,7 @@
         <%@include file = "/components/header_customer.jsp"%>
         <div class="mainArea">
             <div class="container" style="max-width: 90%;">
-                <p>Nothing here yet</p>
+                <p>Welcome</p>
             </div>
         </div>
     </body>

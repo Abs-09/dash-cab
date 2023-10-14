@@ -22,7 +22,7 @@
         <%@include file = "/components/navigation.jsp"%>
         <section class="home-section">
             <%@include file = "/components/header.jsp"%>
-            <h1>All bookings here</h1>
+            <h1>All booking requests here</h1>
             <a href="RequestBookingServlet">Book a Ride</a>
             <div>
                 User ID ${UserID}

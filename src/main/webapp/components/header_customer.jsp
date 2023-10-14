@@ -1,4 +1,4 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="navbar">
     <div class="logo-details">
         <i class="logo">
@@ -8,25 +8,27 @@
     </div>
     <div class="nav-list" >
         <ul>
-            <li  id="bookRide" class="list-item">
-                <b class="left-curve"></b>
-                <b class="right-curve"></b>
-                <a href="RequestBookingServlet">BOOK A RIDE</a>
-            </li>
             <li id="currBook" class="list-item">
                 <b class="left-curve"></b>
                 <b class="right-curve"></b>
-                <a href="/dash-cab/welcome.jsp">Current Booking</a>
+                <a href="/dash-cab/welcome.jsp">Welcome</a>
+            </li>
+            <c:if test="${user.type == 3}">
+            <li  id="bookRide" class="list-item">
+                <b class="left-curve"></b>
+                <b class="right-curve"></b>
+                <a href="/dash-cab/RequestBookingServlet">BOOK A RIDE</a>
             </li>
             <li id="bookHistory" class="list-item">
                 <b class="left-curve"></b>
                 <b class="right-curve"></b>
-                <a href="BookingRequestsServlet">My Booking Requests</a>
+                <a href="/dash-cab/BookingRequestsServlet">My Booking Requests</a>
             </li>
+            </c:if>
             <li id="bookHistory" class="list-item">
                 <b class="left-curve"></b>
                 <b class="right-curve"></b>
-                <a href="BookingsServlet">My Bookings</a>
+                <a href="/dash-cab/BookingsServlet">My Bookings</a>
             </li>
         </ul>
     </div>

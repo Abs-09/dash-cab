@@ -26,11 +26,11 @@ CREATE TABLE `bookings` (
   `booking_request_id` int unsigned NOT NULL AUTO_INCREMENT,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `driver_id` int NOT NULL,
-  `assigned_date` date NOT NULL,
+  `cancelled_at` datetime DEFAULT NULL,
   `ride_completed_at` datetime DEFAULT NULL,
   `paid_at` datetime DEFAULT NULL,
   PRIMARY KEY (`booking_request_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=646 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `bookings` (
 
 LOCK TABLES `bookings` WRITE;
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
+INSERT INTO `bookings` VALUES (633,'2023-10-11 16:30:09',2,NULL,'2023-10-13 22:34:29','2023-10-13 22:34:29'),(634,'2023-10-11 16:32:44',4,NULL,'2023-10-13 22:43:00','2023-10-13 22:43:00'),(635,'2023-10-13 19:52:52',4,NULL,'2023-10-14 00:54:09','2023-10-14 00:54:09'),(642,'2023-10-14 17:33:01',4,NULL,'2023-10-14 22:43:21','2023-10-14 22:43:21'),(644,'2023-10-14 18:06:35',7,NULL,'2023-10-14 23:10:06','2023-10-14 23:10:06'),(645,'2023-10-14 18:17:16',8,NULL,'2023-10-14 23:18:17','2023-10-14 23:18:17');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-26 15:46:24
+-- Dump completed on 2023-10-14 23:24:32

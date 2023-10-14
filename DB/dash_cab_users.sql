@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `password` varchar(54) NOT NULL,
   `name` varchar(54) NOT NULL,
   `address` varchar(54) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `license_number_UNIQUE` (`license_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'password','Absal','Male','absal@live.com','752342',1,1,'dom',0,1,'Absal','2023-07-11 19:00:00','2023-07-11 19:00:00'),(2,'password1','Ahzam','hamle','ahzam@live.com','712616',1,2,NULL,NULL,1,NULL,NULL,NULL),(3,'password2','Affan','Male','affan@live.com','912121',1,3,'asdasd',1,1,NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,'password','Absal','Male','absal@live.com','752342',1,1,'dom',0,1,'Absal','2023-07-11 19:00:00','2023-07-11 19:00:00'),(2,'password1','Ahzam','hamle','ahzam@live.com','712616',1,2,'undefined',0,1,'Absal',NULL,'2023-10-11 20:41:16'),(3,'password2','Affan','Hmale','affaan@live.com','792131',1,3,NULL,NULL,1,'Absal','2023-07-11 19:00:00','2023-10-11 20:40:56'),(4,'password','Raj','Maldi','Raj@live.com','754321',NULL,2,'A232211',0,1,'Absal','2023-10-09 18:05:08','2023-10-09 18:05:08'),(5,'password','Aswaaru','Male','aswaaru@live.com','7666677',NULL,3,NULL,NULL,1,'Absal','2023-10-13 22:51:02','2023-10-13 22:51:02'),(6,'123','Ali Naaif','Roasvaadhee','naaif@live.com','8797944',NULL,3,NULL,NULL,1,'Absal','2023-10-14 22:47:39','2023-10-14 22:47:58'),(7,'1234','Ibrahim Mohamed','ISsege ge','ibbe@live.com','9855252',NULL,2,'A0985951',0,1,'Absal','2023-10-14 22:48:58','2023-10-14 22:51:22'),(8,'password','danil ahmed','vaadhee','danil@live.com','7849562',NULL,2,'788787',0,1,'Absal','2023-10-14 23:13:13','2023-10-14 23:15:27'),(9,'1234','cusin ahmed','geege','cusi@live.com','7898485',NULL,3,NULL,NULL,1,'Absal','2023-10-14 23:15:01','2023-10-14 23:15:01');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -62,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-22 20:05:31
+-- Dump completed on 2023-10-14 23:24:32
