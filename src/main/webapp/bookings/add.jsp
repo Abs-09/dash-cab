@@ -9,39 +9,53 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer_style.css" />
         <title>JSP Page</title>
     </head>
-    <body>
+    <body onload="navigateside()">
         <%
     if (session.getAttribute("user") == null) {
         response.sendRedirect("../index.jsp");
     }   
         %>
-        <h1>BOOK A RIDE!</h1>
+        <%@include file = "/components/header_customer.jsp"%>
+
+                
+        <div class="mainArea">
         <!--<form action="">-->
-        <form action="/Dash-Cab/RequestBookingServlet" method="POST"> 
+        <form action="/dash-cab/RequestBookingServlet" method="POST"> 
+
+            <div class="map-container left">
+                <div class="map-heading">Pick Up</div>
+                <div id="map1" class="map">Map1</div>
+            </div>
+            <div class="map-container right">
+                <div class="map-heading">Destination</div>
+                <div id="map2" class="map">Map2</div>
+            </div>
 
             <div class="input-box">
                 <input type="hidden" name="user_id" value="${user.id}" required>
                 <i class='bx bxs-user'></i>
             </div>
-            
-            <div id="map1" style="height:250px; width:30%;">Map1</div>
-            <div class="input-box">
-                <input type="text" placeholder="from" name="pick_up_address" id="pick_up_address" required>
-                <i class='bx bxs-lock-open-alt'></i>
-            </div>
-            <div id="map2" style="height:250px; width:30%;">Map2</div>
-            <div class="input-box">
-                <input type="text" placeholder="To" name="destination_address" id="destination_address" required>
-                <i class='bx bxs-lock-open-alt'></i>
-            </div>
-            <div class="input-box">
-                <input type="date" placeholder="pick up date" name="date" required>
-                <i class='bx bxs-lock-open-alt'></i>
+            <div class="date-time-container">
+                <div class="input-box">
+                    <label for="pick_up_date">Pick Up Date</label>
+                    <input type="date" name="date" id="pick_up_date" required>
+                    <i class='bx bxs-calendar'></i>
+                </div>
+                <div class="input-box">
+                    <label for="pick_up_time">Pick Up Time</label>
+                    <input type="time" name="time" id="pick_up_time" required>
+                    <i class='bx bxs-time'></i>   
+                </div>
             </div>
             <div class="input-box">
-                <input type="time" placeholder="pick up time" name="time" required>
+                <input type="hidden" placeholder="from" name="pick_up_address" id="pick_up_address" required>
+                <i class='bx bxs-lock-open-alt'></i>
+            </div>
+            <div class="input-box">
+                <input type="hidden" placeholder="To" name="destination_address" id="destination_address" required>
                 <i class='bx bxs-lock-open-alt'></i>
             </div>
 
@@ -56,12 +70,13 @@
             <button type="submit" class="btn">Make Booking Request</button>
 
         </form>
+            </div>
     </body>
     <script type='text/javascript' src='https://www.google.com/jsapi'></script>
     <script>
         //API Loading
         google.load("maps", "3.exp", {
-            "callback": initMap, 
+            "callback": initMap,
             "key": "AIzaSyAd3T6I7teyv_qI3Dy6nJf4sSw93vYb_Dk",
             "libraries": "places,visualization"
         });
@@ -104,5 +119,9 @@
 //            });
         }
         
+        function navigateside() {
+               document.getElementById("bookRide").classList.toggle('active');
+            }
+
     </script>
 </html>
