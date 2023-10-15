@@ -18,6 +18,12 @@
             </a>
         </li>
         <li>
+            <a href="UserShowServlet?type=2" id="driverSidebar" class="menu-link">
+                <i class="healthicons:truck-driver-outline"><iconify-icon icon="healthicons:truck-driver-outline"></iconify-icon></i>
+                <span class="links_name">Drivers</span>
+            </a>
+        </li>
+        <li>
             <a href="BookingRequestsServlet" id="bookingReqSidebar" class="menu-link">
                 <i class="bx bx-box"></i>
                 <span class="links_name">Booking Requests</span>
@@ -29,16 +35,10 @@
                 <span class="links_name">Booking</span>
             </a>
         </li>
-                <li>
-            <a href="InvoicesServlet" id="bookingSidebar" class="menu-link">
+        <li>
+            <a href="InvoicesServlet" id="invoiceSidebar" class="menu-link">
                 <i class="bx bx-box"></i>
                 <span class="links_name">Invoices</span>
-            </a>
-        </li>
-        <li>
-            <a href="UserShowServlet?type=2" id="driverSidebar" class="menu-link">
-                <i class="healthicons:truck-driver-outline"><iconify-icon icon="healthicons:truck-driver-outline"></iconify-icon></i>
-                <span class="links_name">Drivers</span>
             </a>
         </li>
         <li>
@@ -50,33 +50,33 @@
         <li>
             <a href="#" class="menu-link">
                 <i class="bx bx-book-alt"></i>
-                <span class="links_name">User Reports</span>
+                <span class="links_name">Reports</span>
             </a>
         </li>
-        <li>
-            <a href="#" class="menu-link">
-                <i class="bx bx-user"></i>
-                <span class="links_name">Team</span>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="menu-link">
-                <i class="bx bx-message"></i>
-                <span class="links_name">Messages</span>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="menu-link">
-                <i class="bx bx-heart"></i>
-                <span class="links_name">Favrorites</span>
-            </a>
-        </li>
-        <li>
-            <a href="TestServlet" class="menu-link">
-                <i class="bx bx-cog"></i>
-                <span class="links_name">Setting</span>
-            </a>
-        </li>
+        <!--        <li>
+                    <a href="#" class="menu-link">
+                        <i class="bx bx-user"></i>
+                        <span class="links_name">Team</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="menu-link">
+                        <i class="bx bx-message"></i>
+                        <span class="links_name">Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="menu-link">
+                        <i class="bx bx-heart"></i>
+                        <span class="links_name">Favrorites</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="TestServlet" class="menu-link">
+                        <i class="bx bx-cog"></i>
+                        <span class="links_name">Setting</span>
+                    </a>
+                </li>-->
         <li class="log_out">
             <a href="LogoutServlet">
                 <i class="bx bx-log-out"></i>

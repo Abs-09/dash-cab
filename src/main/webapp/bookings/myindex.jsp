@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer_style.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-style.css" />
-        <title>Booking History</title>
+        <title>Bookings</title>
     </head>
     <body onload="navigateside()" >
         <%@include file = "/components/header_customer.jsp"%>
@@ -39,7 +39,7 @@
                                 <td><c:out value="${booking.cancelled_at}" /></td>
                                 <td><c:out value="${booking.ride_complete_at}" /></td>                                
                                 <td><c:out value="${booking.paid_at}" /></td>
-                                <td><a href="ShowBookingServlet?bookingRequestId=${booking.booking_request_id}">View Booking</a></td>
+                                <td><a class="button" href="ShowBookingServlet?bookingRequestId=${booking.booking_request_id}">View Booking</a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -49,7 +49,7 @@
     </body>
     <script>
         function navigateside() {
-            document.getElementById("bookHistory").classList.toggle('active');
+            document.getElementById("myBookings").classList.toggle('active');
         }
     </script>
 </html>

@@ -50,7 +50,7 @@
         </section>
         <<script>
             function navigateside() {
-                document.getElementById("bookingReqSidebar").classList.toggle('active');
+                document.getElementById("invoiceSidebar").classList.toggle('active');
                 document.getElementById("mainName").textContent = "Booking Requests";
             }
         </script>

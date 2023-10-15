@@ -25,7 +25,7 @@
                 <a href="/dash-cab/BookingRequestsServlet">My Booking Requests</a>
             </li>
             </c:if>
-            <li id="bookHistory" class="list-item">
+            <li id="myBookings" class="list-item">
                 <b class="left-curve"></b>
                 <b class="right-curve"></b>
                 <a href="/dash-cab/BookingsServlet">My Bookings</a>

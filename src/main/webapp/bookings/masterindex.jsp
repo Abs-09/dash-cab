@@ -35,6 +35,7 @@
                             <th>cancelled</th>
                             <th>Ride Completed</th>
                             <th>Paid at</th>
+                            <th>Action</th>
                         </tr>
                         <c:forEach var="booking" items="${bookings}">
                             <tr>                                
@@ -44,7 +45,7 @@
                                 <td><c:out value="${booking.cancelled_at}" /></td>
                                 <td><c:out value="${booking.ride_complete_at}" /></td>                                
                                 <td><c:out value="${booking.paid_at}" /></td>
-                                <td><a href="ShowBookingServlet?bookingRequestId=${booking.booking_request_id}">View Booking</a></td>
+                                <td><a class="button" href="ShowBookingServlet?bookingRequestId=${booking.booking_request_id}">View Booking</a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -53,7 +54,7 @@
         </section>
         <<script>
             function navigateside() {
-                document.getElementById("bookingReqSidebar").classList.toggle('active');
+                document.getElementById("bookingSidebar").classList.toggle('active');
                 document.getElementById("mainName").textContent = "Booking Requests";
             }
         </script>
