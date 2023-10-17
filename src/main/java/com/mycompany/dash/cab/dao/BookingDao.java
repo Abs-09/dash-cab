@@ -230,7 +230,39 @@ public class BookingDao {
         return bookings;
     }
     
-    //get all booking requsts from db by userid
+    //get active bookings from db by by driver id
+    public List<Booking> getActiveBookingsByDriverID(int input_driver_id) {
+        List<Booking> bookings = new ArrayList<>();
+
+        try {
+            pst = con.prepareStatement("select * from bookings where driver_id = ? AND ride_completed_at IS NULL");
+            pst.setString(1, Integer.toString(input_driver_id));            
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int booking_request_id = rs.getInt("booking_request_id");
+                int driver_id = rs.getInt("driver_id");
+                String cancelled_at = rs.getString("cancelled_at");
+                String ride_complete_at = rs.getString("ride_completed_at");
+                String paid_at = rs.getString("paid_at");                
+                String created_at = rs.getString("created_at");
+
+                Booking booking = new Booking(booking_request_id, driver_id, cancelled_at, ride_complete_at, paid_at, created_at);
+                bookings.add(booking);
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Data exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            closePreparedStatement();
+        }
+
+        return bookings;
+    }
+    
+    //get active bookings from db by userid
     public List<Booking> getBookingsByUserID(int input_id) {
         List<Booking> bookings = new ArrayList<>();
 
