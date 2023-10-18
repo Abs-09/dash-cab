@@ -70,7 +70,7 @@ public class UserEditServlet extends HttpServlet {
 
             if (type == 1) {
                 Admin user = new Admin(id, name, password, email, contact, address, enabled, type);  // 3 for customer type
-//                dao.updateAdmin(user);
+                dao.updateAdmin(user);
             }
 
             if (type == 2) {

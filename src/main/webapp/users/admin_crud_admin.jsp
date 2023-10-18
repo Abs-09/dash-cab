@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="UTF-8" />
-        <title>Customer info</title>
+        <title>My Team</title>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-style.css" />
         <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
@@ -18,8 +18,8 @@
             <div class="container">
                 <div class="inbox-container">
                     <div class="button-container">
-                        <h1>Customer Details</h1>
-                        <button class="button" onclick="openEditPopup(null)">Add New Customer</button>
+                        <h1>Admin Details</h1>
+                        <button class="button" onclick="openEditPopup(null)">Add New Admin</button>
                     </div>
                     <table>
                         <tr>
@@ -39,7 +39,7 @@
                                 <td><c:out value="${user.address}" /></td>
                                 <td>
                                     <a class="button button-secondary" onclick="openEditPopup(<c:out value='${user.id}' />, <c:out value='${user.type}' />)" >Edit</a>
-                                    <a href="UserDeleteServlet?id=<c:out value='${user.id}' />" class="button">Delete</a>
+                                    
                                 </td>
                             </tr>
                         </c:forEach>
@@ -49,11 +49,11 @@
 
             <div class="overlay" id="overlay">
                 <div class="popup">
-                    <h2 id="popupTitle" >Add New Customer</h2>
+                    <h2 id="popupTitle" >Add New Admin</h2>
                     <form id="userForm" action="UserAddServlet" method="post" onsubmit="return validateForm()">
                         <input type="hidden" id="id" name="id" value="" />
 
-                        <input type="hidden" id="type" name="type" value="3" />
+                        <input type="hidden" id="type" name="type" value="1" />
 
                         <label for="name">Name:</label>
                         <input type="text" id="name" name="name" value="" />
@@ -86,7 +86,7 @@
                             <span id="error" style="color: red; margin-left: 22px; font-weight: bold">${error}</span>
                         </div>
 
-                        <button type="submit" onclick="nullError()">Save</button>
+                        <button type="submit" >Save</button>
                         <button type="button" onclick="closePopup()">Cancel</button>
                     </form>
                 </div>
@@ -110,12 +110,16 @@
                 document.getElementById("overlay").style.display = "none";
                 document.getElementById("error").textContent = "";
             }
-
             
+            function openPopup(){
+                document.getElementById('overlay').style.display = "flex";
+            }
+
+
             function openEditPopup(id) {
                 if (id !== null) {
                     document.getElementById("userForm").action = "UserEditServlet";
-                    document.getElementById("popupTitle").textContent = "Editing User: " + id;
+                    document.getElementById("popupTitle").textContent = "Editing Admin: " + id;
 
 
                     fetch('UserEditServlet?' + new URLSearchParams({id: id, type: type}))
@@ -163,8 +167,8 @@
 
             window.addEventListener('load', function () {
 
-                document.getElementById("customerSidebar").classList.toggle('active');
-                document.getElementById("mainName").textContent = "Customers";
+                document.getElementById("adminSidebar").classList.toggle('active');
+                document.getElementById("mainName").textContent = "Admin";
 
             });
 
