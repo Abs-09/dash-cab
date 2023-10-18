@@ -57,10 +57,10 @@
                         <input type="hidden" id="id" name="id" value="" />
                         <input type="hidden" id="type" name="type" value="2" />
                         <input type="hidden" id="availability" name="availability" value="0" /> <!<!-- Deafult availability as No(0) -->
-                        
+
                         <label for="name">Name:</label>
                         <input type="text" id="name" name="name" value="" />
-                        
+
                         <label for="licenseNumber">License:</label>
                         <input type="text" id="licenseNumber" name="licenseNumber" value="" />
 
@@ -116,7 +116,7 @@
                 if (id !== null) {
                     document.getElementById("userForm").action = "UserEditServlet";
                     document.getElementById("popupTitle").textContent = "Editing Driver: " + id;
-                    
+
 
                     fetch('UserEditServlet?' + new URLSearchParams({id: id, type: type}))
                             .then(response => response.json())
@@ -149,10 +149,35 @@
                 }
 
             }
-            
+
             function navigateside() {
-               document.getElementById("driverSidebar").classList.toggle('active');
-               document.getElementById("mainName").textContent="Drivers";
+                document.getElementById("driverSidebar").classList.toggle('active');
+                document.getElementById("mainName").textContent = "Drivers";
+            }
+
+            function validateForm() {
+                var name = document.getElementById("name").value;
+                var email = document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+                var contact = document.getElementById("contact").value;
+                var address = document.getElementById("address").value;
+                var enabled = document.getElementById("enabled").value;
+                var licenseNumber = document.getElementById("licenseNumber").value;
+
+                // Check if all fields are null or empty
+                if (name.trim() === "" || email.trim() === "" || password.trim() === "" || contact.trim() === "" || address.trim() === "" || enabled.trim === "" || licenseNumber.trim === "") {
+                    // Display an error message
+                    document.getElementById('error').textContent = "All fields required.";
+                    return false; // Prevent form submission
+                }
+                if (!/^\d+$/.test(contact)) {
+                     document.getElementById('error').textContent = "Enter a valid contact";
+                    return false; // Prevent form submission
+                }
+
+                // If the form is valid, clear any previous error message and allow submission
+                document.getElementById('error').textContent = "";
+                return true;
             }
         </script>
     </body>

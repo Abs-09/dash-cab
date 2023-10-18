@@ -36,6 +36,7 @@ public class UserAddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int type = 0;
+        String error = null; // Initialize error message to null
         try {
             UserDao dao = new UserDao();
             String name = request.getParameter("name");
@@ -44,31 +45,38 @@ public class UserAddServlet extends HttpServlet {
             String contact = request.getParameter("contact");
             String address = request.getParameter("address");
             type = Integer.parseInt(request.getParameter("type"));
-            System.out.println("Type: "+type);
+            System.out.println("Type: " + type);
             int enabled = Integer.parseInt(request.getParameter("enabled")); // Assuming 0 or 1
-            String licenseNumber = request.getParameter("licenseNumber");            
+            String licenseNumber = request.getParameter("licenseNumber");
             int availability = 0;
 
+            int existing_user_type = dao.getType(email);
 
-            if (type == 1) {
-                Admin user = new Admin(0, name, password, email, contact, address, enabled, type);  // 3 for customer type
+            if (existing_user_type == 1 || existing_user_type == 2 || existing_user_type == 3) {
+                error = "Email already exists.";
+            } else {
+                if (type == 1) {
+                    Admin user = new Admin(0, name, password, email, contact, address, enabled, type);  // 3 for customer type
 //                dao.insertAdmin(user);
+                }
+
+                if (type == 2) {
+                    Driver user = new Driver(0, name, password, email, contact, address, enabled, type, licenseNumber, availability);  // 3 for customer type
+                    dao.insertDriver(user);
+                }
+
+                if (type == 3) {
+                    Customer user = new Customer(0, name, password, email, contact, address, enabled, type);  // 3 for customer type
+                    dao.insertCustomer(user);
+                }
+
             }
-            
-            if (type == 2) {
-                Driver user = new Driver(0, name, password, email, contact, address, enabled, type, licenseNumber, availability);  // 3 for customer type
-                dao.insertDriver(user);
-            }
-                
-            if (type == 3) {
-                Customer user = new Customer(0, name, password, email, contact, address, enabled, type);  // 3 for customer type
-                dao.insertCustomer(user);
-            }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(UserAddServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("type", type);
+        request.setAttribute("error", error);
         RequestDispatcher dispatcher = request.getRequestDispatcher("UserShowServlet");
         dispatcher.forward(request, response);
     }

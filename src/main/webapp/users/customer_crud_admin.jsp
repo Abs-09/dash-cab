@@ -10,7 +10,7 @@
             href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
-    <body onload="navigateside()">
+    <body >
         <%@include file = "/components/navigation.jsp"%>
         <section class="home-section">
             <%@include file = "/components/header.jsp"%>
@@ -39,7 +39,7 @@
                                 <td><c:out value="${user.address}" /></td>
                                 <td>
                                     <a class="button button-secondary" onclick="openEditPopup(<c:out value='${user.id}' />, <c:out value='${user.type}' />)" >Edit</a>
-                                    <!--<a href="UserDeleteServlet?id=<//c:out value='${user.id}' />" class="button">Delete</a>-->
+                                    <a href="UserDeleteServlet?id=<c:out value='${user.id}' />" class="button">Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -50,11 +50,11 @@
             <div class="overlay" id="overlay">
                 <div class="popup">
                     <h2 id="popupTitle" >Add New Customer</h2>
-                    <form id="userForm" action="UserAddServlet" method="post">
+                    <form id="userForm" action="UserAddServlet" method="post" onsubmit="return validateForm()">
                         <input type="hidden" id="id" name="id" value="" />
-                        
+
                         <input type="hidden" id="type" name="type" value="3" />
-                        
+
                         <label for="name">Name:</label>
                         <input type="text" id="name" name="name" value="" />
 
@@ -81,7 +81,12 @@
                             <option value="1">Yes</option> 
                         </select>
 
-                        <button type="submit">Save</button>
+                        <label for="nothing"></label>
+                        <div class="remember-forgot">
+                            <span id="error" style="color: red; margin-left: 22px; font-weight: bold">${error}</span>
+                        </div>
+
+                        <button type="submit" onclick="nullError()">Save</button>
                         <button type="button" onclick="closePopup()">Cancel</button>
                     </form>
                 </div>
@@ -103,6 +108,7 @@
             // Function to close the pop-up form
             function closePopup() {
                 document.getElementById("overlay").style.display = "none";
+                document.getElementById("error").textContent = "";
             }
 
 
@@ -110,13 +116,14 @@
                 if (id !== null) {
                     document.getElementById("userForm").action = "UserEditServlet";
                     document.getElementById("popupTitle").textContent = "Editing User: " + id;
-                    
+
 
                     fetch('UserEditServlet?' + new URLSearchParams({id: id, type: type}))
                             .then(response => response.json())
                             .then(data => {
                                 document.getElementById("name").value = data.name;
                                 document.getElementById("email").value = data.email;
+                                document.getElementById('email').readOnly = true; 
                                 document.getElementById("password").value = data.password;
                                 document.getElementById("contact").value = data.contact;
                                 document.getElementById("address").value = data.address;
@@ -129,6 +136,7 @@
                     document.getElementById("id").value = "";
                     document.getElementById("name").value = "";
                     document.getElementById("email").value = "";
+                    document.getElementById('email').readOnly = false; 
                     document.getElementById("password").value = "";
                     document.getElementById("contact").value = "";
                     document.getElementById("address").value = "";
@@ -141,9 +149,47 @@
                 }
 
             }
-            function navigateside() {
-               document.getElementById("customerSidebar").classList.toggle('active');
-               document.getElementById("mainName").textContent="Customers";
+            
+
+            // Automatically open the popup if there's an error
+            window.addEventListener('load', function () {
+                var errorMessage = document.getElementById("error").textContent;
+
+                if (errorMessage.trim() !== "") {
+                    document.getElementById('overlay').style.display = "flex";
+                }
+
+            });
+
+            window.addEventListener('load', function () {
+
+                document.getElementById("customerSidebar").classList.toggle('active');
+                document.getElementById("mainName").textContent = "Customers";
+
+            });
+
+            function validateForm() {
+                var name = document.getElementById("name").value;
+                var email = document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+                var contact = document.getElementById("contact").value;
+                var address = document.getElementById("address").value;
+                var enabled = document.getElementById("enabled").value;
+
+                // Check if all fields are null or empty
+                if (name.trim() === "" || email.trim() === "" || password.trim() === "" || contact.trim() === "" || address.trim() === "" || enabled.trim === "") {
+                    // Display an error message
+                    document.getElementById('error').textContent = "All fields required.";
+                    return false; // Prevent form submission
+                }
+                if (!/^\d+$/.test(contact)) {
+                     document.getElementById('error').textContent = "Enter a valid contact";
+                    return false; // Prevent form submission
+                }
+
+                // If the form is valid, clear any previous error message and allow submission
+                document.getElementById('error').textContent = "";
+                return true;
             }
         </script>
     </body>

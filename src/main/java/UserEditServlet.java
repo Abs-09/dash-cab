@@ -74,7 +74,7 @@ public class UserEditServlet extends HttpServlet {
             }
 
             if (type == 2) {
-                Driver user = new Driver(id, name, password, email, contact, address, enabled, type, licenseNumber, availability);  // 3 for customer type
+                Driver user = new Driver(id, name, password, email, contact, address, enabled, type, licenseNumber, availability);  // 2 for driver type
                 dao.updateDriver(user);
             }
 
