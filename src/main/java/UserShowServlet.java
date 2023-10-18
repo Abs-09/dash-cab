@@ -4,6 +4,7 @@
  */
 
 import com.mycompany.dash.cab.dao.UserDao;
+import com.mycompany.dash.cab.model.Admin;
 import com.mycompany.dash.cab.model.Customer;
 import com.mycompany.dash.cab.model.Driver;
 import jakarta.servlet.RequestDispatcher;
@@ -52,8 +53,12 @@ public class UserShowServlet extends HttpServlet {
             List<Driver> driverList = dao.showAllDrivers();
             request.setAttribute("userList", driverList);
             url = "users/driver_crud_admin.jsp";
+        }else if (type == 1) {
+            List<Admin> adminList = dao.showAllAdmins();
+            request.setAttribute("userList", adminList);
+            url = "users/admin_crud_admin.jsp";
         }
-
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

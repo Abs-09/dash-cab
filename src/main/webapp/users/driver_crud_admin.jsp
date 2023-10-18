@@ -10,7 +10,7 @@
             href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
-    <body onload="navigateside()">
+    <body>
         <%@include file = "/components/navigation.jsp"%>
         <section class="home-section">
             <%@include file = "/components/header.jsp"%>
@@ -53,7 +53,7 @@
             <div class="overlay" id="overlay">
                 <div class="popup">
                     <h2 id="popupTitle" >Add New Driver</h2>
-                    <form id="userForm" action="UserAddServlet" method="post">
+                    <form id="userForm" action="UserAddServlet" method="post" onsubmit="return validateForm()">
                         <input type="hidden" id="id" name="id" value="" />
                         <input type="hidden" id="type" name="type" value="2" />
                         <input type="hidden" id="availability" name="availability" value="0" /> <!<!-- Deafult availability as No(0) -->
@@ -86,6 +86,11 @@
                             <option value="0">No</option>
                             <option value="1">Yes</option> 
                         </select>
+
+                        <label for="nothing"></label>
+                        <div class="remember-forgot">
+                            <span id="error" style="color: red; margin-left: 22px; font-weight: bold">${error}</span>
+                        </div>
 
                         <button type="submit">Save</button>
                         <button type="button" onclick="closePopup()">Cancel</button>
@@ -123,6 +128,7 @@
                             .then(data => {
                                 document.getElementById("name").value = data.name;
                                 document.getElementById("email").value = data.email;
+                                document.getElementById('email').readOnly = true;
                                 document.getElementById("password").value = data.password;
                                 document.getElementById("contact").value = data.contact;
                                 document.getElementById("address").value = data.address;
@@ -136,6 +142,7 @@
                     document.getElementById("id").value = "";
                     document.getElementById("name").value = "";
                     document.getElementById("email").value = "";
+                    document.getElementById('email').readOnly = false;
                     document.getElementById("password").value = "";
                     document.getElementById("contact").value = "";
                     document.getElementById("address").value = "";
@@ -150,10 +157,21 @@
 
             }
 
-            function navigateside() {
+
+            // Automatically open the popup if there's an error
+            window.addEventListener('load', function () {
+                var errorMessage = document.getElementById("error").textContent;
+
+                if (errorMessage.trim() !== "") {
+                    document.getElementById('overlay').style.display = "flex";
+                }
+
+            });
+
+            window.addEventListener('load', function () {
                 document.getElementById("driverSidebar").classList.toggle('active');
                 document.getElementById("mainName").textContent = "Drivers";
-            }
+            });
 
             function validateForm() {
                 var name = document.getElementById("name").value;
@@ -171,7 +189,7 @@
                     return false; // Prevent form submission
                 }
                 if (!/^\d+$/.test(contact)) {
-                     document.getElementById('error').textContent = "Enter a valid contact";
+                    document.getElementById('error').textContent = "Enter a valid contact";
                     return false; // Prevent form submission
                 }
 

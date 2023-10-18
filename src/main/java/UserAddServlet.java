@@ -56,8 +56,8 @@ public class UserAddServlet extends HttpServlet {
                 error = "Email already exists.";
             } else {
                 if (type == 1) {
-                    Admin user = new Admin(0, name, password, email, contact, address, enabled, type);  // 3 for customer type
-//                dao.insertAdmin(user);
+                    Customer user = new Customer(0, name, password, email, contact, address, enabled, type);  // 3 for customer type
+                dao.insertCustomer(user);
                 }
 
                 if (type == 2) {

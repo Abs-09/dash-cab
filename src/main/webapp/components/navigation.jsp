@@ -53,30 +53,30 @@
                 <span class="links_name">Reports</span>
             </a>
         </li>
-        <!--        <li>
-                    <a href="#" class="menu-link">
-                        <i class="bx bx-user"></i>
-                        <span class="links_name">Team</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="menu-link">
-                        <i class="bx bx-message"></i>
-                        <span class="links_name">Messages</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="menu-link">
-                        <i class="bx bx-heart"></i>
-                        <span class="links_name">Favrorites</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="TestServlet" class="menu-link">
-                        <i class="bx bx-cog"></i>
-                        <span class="links_name">Setting</span>
-                    </a>
-                </li>-->
+        <li>
+            <a href="UserShowServlet?type=1" id="adminSidebar" class="menu-link">
+                <i class="bx bx-user"></i>
+                <span class="links_name">Team</span>
+            </a>
+        </li>
+        <!--                <li>
+                            <a href="#" class="menu-link">
+                                <i class="bx bx-message"></i>
+                                <span class="links_name">Messages</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-link">
+                                <i class="bx bx-heart"></i>
+                                <span class="links_name">Favrorites</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="TestServlet" class="menu-link">
+                                <i class="bx bx-cog"></i>
+                                <span class="links_name">Setting</span>
+                            </a>
+                        </li>-->
         <li class="log_out">
             <a href="LogoutServlet">
                 <i class="bx bx-log-out"></i>
