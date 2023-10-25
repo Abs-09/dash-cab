@@ -32,23 +32,16 @@ public class UserDeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = null;
-        try {
-            UserDao dao = new UserDao();
-            int id = Integer.parseInt(request.getParameter("id"));
-            
-            //Write other types here
-            
-            if(dao.getTypebyID(id) == 3) {
-                url = "UserShowServlet?type=3";
-            }else if (dao.getTypebyID(id) == 2) {
-                url = "UserShowServlet?type=2";
-            }
-        dao.deleteUser(id);
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        UserDao dao = new UserDao();
+        int id = Integer.parseInt(request.getParameter("id"));
+        //Write other types here
+        if (dao.getTypebyID(id) == 3) {
+            url = "UserShowServlet?type=3";
+        } else if (dao.getTypebyID(id) == 2) {
+            url = "UserShowServlet?type=2";
         }
-        
+        dao.deleteUser(id);
+
         response.sendRedirect(url);
     }
 }

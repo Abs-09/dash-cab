@@ -108,7 +108,7 @@ public class UserDao {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                return new Driver(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("email"), rs.getString("contact"), rs.getString("address"), rs.getInt("enabled"), rs.getInt("type"), rs.getString("license_number"), rs.getInt("availability"));
+                return new Driver(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("email"), rs.getString("contact"), rs.getString("address"), rs.getInt("enabled"), rs.getInt("type"), rs.getString("license_number"), rs.getInt("availability"), rs.getString("deleted_at"));
             } else {
                 System.out.println("user not found");
                 return null;
@@ -146,7 +146,7 @@ public class UserDao {
         List<Customer> customerList = new ArrayList<>();
 
         try {
-            pst = con.prepareStatement("SELECT * from users where type = 3");
+            pst = con.prepareStatement("SELECT * from users where type = 3  AND deleted_at is null");
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
@@ -174,14 +174,19 @@ public class UserDao {
         return customerList;
     }
 
-    public boolean deleteUser(int id) throws SQLException {
-        boolean rowDeleted;
-        pst = con.prepareStatement("delete from users where id = ?;");
-        pst.setInt(1, id);
-
-        rowDeleted = pst.executeUpdate() > 0;
-
-        return rowDeleted;
+    public boolean deleteUser(int id) {
+        try {
+            String currentDateTimeAsString = currentDateTime.toString();
+            pst = con.prepareStatement("update users set deleted_at = ?, enabled = ? where id = ?;");
+            pst.setString(1, currentDateTimeAsString);            
+            pst.setInt(2, 0);            
+            pst.setInt(3, id);
+            pst.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 
     public void insertCustomer(Customer user) throws SQLException {
@@ -249,7 +254,7 @@ public class UserDao {
         List<Driver> driverList = new ArrayList<>();
 
         try {
-            pst = con.prepareStatement("SELECT * from users where type = 2");
+            pst = con.prepareStatement("SELECT * from users where type = 2 AND deleted_at is null");
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
