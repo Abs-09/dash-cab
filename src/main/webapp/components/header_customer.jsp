@@ -1,4 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+%>
 <div class="navbar">
     <div class="logo-details">
         <i class="logo">
