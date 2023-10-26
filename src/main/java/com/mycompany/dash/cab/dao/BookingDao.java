@@ -98,6 +98,35 @@ public class BookingDao {
         return bookingRequests;
     }
 
+    public BookingRequest getLatestBookingRequest() {
+        BookingRequest bookingRequest = null;
+        try {
+            pst = con.prepareStatement("SELECT * from booking_requests ORDER BY id DESC LIMIT 1;");
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int user_id = rs.getInt("user_id");
+                String pick_up_address = rs.getString("pick_up_address");
+                String destination_address = rs.getString("destination_address");
+                String scheduled_date_time = rs.getString("scheduled_date_time");
+                int status = rs.getInt("status");
+                String created_at = rs.getString("created_at");
+
+                bookingRequest = new BookingRequest(id, user_id, pick_up_address, destination_address, scheduled_date_time, status, created_at);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("Data showAllCustomer exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            closePreparedStatement();
+        }
+
+        return bookingRequest;
+    }
+
     //get a booking requst from db by id
     public BookingRequest getBookingRequestByID(int input_id) {
         BookingRequest bookingRequest = null;
@@ -166,7 +195,6 @@ public class BookingDao {
     }
 
     //BOOKINGS =============================
-    
     public List<Booking> getBookings() {
         List<Booking> bookings = new ArrayList<>();
 
@@ -179,9 +207,8 @@ public class BookingDao {
                 int driver_id = rs.getInt("driver_id");
                 String cancelled_at = rs.getString("cancelled_at");
                 String ride_complete_at = rs.getString("ride_completed_at");
-                String paid_at = rs.getString("paid_at");                
+                String paid_at = rs.getString("paid_at");
                 String created_at = rs.getString("created_at");
-
 
                 Booking booking = new Booking(booking_request_id, driver_id, cancelled_at, ride_complete_at, paid_at, created_at);
 
@@ -197,7 +224,7 @@ public class BookingDao {
 
         return bookings;
     }
-    
+
     //get all booking requsts from db by by driver id
     public List<Booking> getBookingsByDriverID(int input_id) {
         List<Booking> bookings = new ArrayList<>();
@@ -212,7 +239,7 @@ public class BookingDao {
                 int driver_id = rs.getInt("driver_id");
                 String cancelled_at = rs.getString("cancelled_at");
                 String ride_complete_at = rs.getString("ride_completed_at");
-                String paid_at = rs.getString("paid_at");                
+                String paid_at = rs.getString("paid_at");
                 String created_at = rs.getString("created_at");
 
                 Booking booking = new Booking(booking_request_id, driver_id, cancelled_at, ride_complete_at, paid_at, created_at);
@@ -229,14 +256,14 @@ public class BookingDao {
 
         return bookings;
     }
-    
+
     //get active bookings from db by by driver id
     public List<Booking> getActiveBookingsByDriverID(int input_driver_id) {
         List<Booking> bookings = new ArrayList<>();
 
         try {
             pst = con.prepareStatement("select * from bookings where driver_id = ? AND ride_completed_at IS NULL");
-            pst.setString(1, Integer.toString(input_driver_id));            
+            pst.setString(1, Integer.toString(input_driver_id));
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
@@ -244,13 +271,13 @@ public class BookingDao {
                 int driver_id = rs.getInt("driver_id");
                 String cancelled_at = rs.getString("cancelled_at");
                 String ride_complete_at = rs.getString("ride_completed_at");
-                String paid_at = rs.getString("paid_at");                
+                String paid_at = rs.getString("paid_at");
                 String created_at = rs.getString("created_at");
 
                 Booking booking = new Booking(booking_request_id, driver_id, cancelled_at, ride_complete_at, paid_at, created_at);
                 bookings.add(booking);
             }
-            
+
         } catch (SQLException ex) {
             System.out.println("Data exception occoured");
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -261,7 +288,7 @@ public class BookingDao {
 
         return bookings;
     }
-    
+
     //get active bookings from db by userid
     public List<Booking> getBookingsByUserID(int input_id) {
         List<Booking> bookings = new ArrayList<>();
@@ -276,7 +303,7 @@ public class BookingDao {
                 int driver_id = rs.getInt("driver_id");
                 String cancelled_at = rs.getString("cancelled_at");
                 String ride_complete_at = rs.getString("ride_completed_at");
-                String paid_at = rs.getString("paid_at");                
+                String paid_at = rs.getString("paid_at");
                 String created_at = rs.getString("created_at");
 
                 Booking booking = new Booking(booking_request_id, driver_id, cancelled_at, ride_complete_at, paid_at, created_at);
@@ -293,7 +320,7 @@ public class BookingDao {
 
         return bookings;
     }
-    
+
     //get a booking requst from db by id
     public Booking getBookingByID(int input_id) {
         Booking booking = null;
@@ -307,7 +334,7 @@ public class BookingDao {
                 int driver_id = rs.getInt("driver_id");
                 String cancelled_at = rs.getString("cancelled_at");
                 String ride_complete_at = rs.getString("ride_completed_at");
-                String paid_at = rs.getString("paid_at");                
+                String paid_at = rs.getString("paid_at");
                 String created_at = rs.getString("created_at");
 
                 booking = new Booking(booking_request_id, driver_id, cancelled_at, ride_complete_at, paid_at, created_at);
@@ -323,13 +350,13 @@ public class BookingDao {
 
         return booking;
     }
-    
+
     //setting completed at time
     public boolean setBookingCompletedAt(int booking_request_id) {
         String currentDateTimeAsString = currentDateTime.toString();
         try {
             pst = con.prepareStatement("UPDATE bookings SET ride_completed_at = ? WHERE booking_request_id = ?;");
-            pst.setString(1, currentDateTimeAsString);            
+            pst.setString(1, currentDateTimeAsString);
             pst.setString(2, Integer.toString(booking_request_id));
             System.out.println(pst);
             pst.executeUpdate();
@@ -339,13 +366,13 @@ public class BookingDao {
             return false;
         }
     }
-    
-        //setting completed at time
+
+    //setting completed at time
     public boolean setBookingPaidAt(int booking_request_id) {
         String currentDateTimeAsString = currentDateTime.toString();
         try {
             pst = con.prepareStatement("UPDATE bookings SET paid_at = ? WHERE booking_request_id = ?;");
-            pst.setString(1, currentDateTimeAsString);            
+            pst.setString(1, currentDateTimeAsString);
             pst.setString(2, Integer.toString(booking_request_id));
             System.out.println(pst);
             pst.executeUpdate();
@@ -355,7 +382,7 @@ public class BookingDao {
             return false;
         }
     }
-    
+
     public boolean insertBooking(Booking b) {
         String currentDateTimeAsString = currentDateTime.toString();
         try {
@@ -370,14 +397,13 @@ public class BookingDao {
             return false;
         }
     }
-    
+
     //INVOICES ==============================================
-    
-    public List<Invoice> getInvoices() {
+    public List<Invoice> getCompletedInvoices() {
         List<Invoice> invoices = new ArrayList<>();
 
         try {
-            pst = con.prepareStatement("SELECT * from invoices");
+            pst = con.prepareStatement("SELECT * from invoices where booking_status = 2");
             ResultSet rs = pst.executeQuery();
             System.out.println("");
             while (rs.next()) {
@@ -385,7 +411,7 @@ public class BookingDao {
                 int booking_request_id = rs.getInt("booking_request_id");
                 double total_cost = rs.getDouble("total_cost");
                 String created_at = rs.getString("created_at");
-                
+
                 Invoice invoice = new Invoice(id, booking_request_id, total_cost, created_at);
 
                 invoices.add(invoice);
@@ -400,14 +426,43 @@ public class BookingDao {
 
         return invoices;
     }
-    
-        //Adding booking request to database
+
+    //get invoice by booking reuewst id
+    public Invoice getInvoiceByBookingRequestID(int bookingrequestid) {
+
+        Invoice invoice = null;
+        try {
+            pst = con.prepareStatement("SELECT * from invoices where booking_request_id = ?");
+            pst.setInt(1, bookingrequestid);
+            ResultSet rs = pst.executeQuery();
+            System.out.println("");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int booking_request_id = rs.getInt("booking_request_id");
+                double total_cost = rs.getDouble("total_cost");
+                String created_at = rs.getString("created_at");
+
+                invoice = new Invoice(id, booking_request_id, total_cost, created_at);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("Data exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            closePreparedStatement();
+        }
+
+        return invoice;
+    }
+
+    //Adding booking request to database
     public boolean insertInvoice(Invoice inv) {
-        
+
         String currentDateTimeAsString = currentDateTime.toString();
         try {
             pst = con.prepareStatement("INSERT INTO invoices" + " (booking_request_id, total_cost) VALUES " + "(?, ?);");
-            pst.setString(1, Integer.toString(inv.getBooking_request_id()));            
+            pst.setString(1, Integer.toString(inv.getBooking_request_id()));
             pst.setString(2, Double.toString(inv.getTotal_cost()));
             System.out.println(pst);
             pst.executeUpdate();
@@ -416,6 +471,22 @@ public class BookingDao {
             Logger.getLogger(BookingDao.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+
+    //Settingn invoice booking sttatus
+    public boolean setInvoiceBookingStatus(int bookingRequestID, int status) {
+        try {
+            pst = con.prepareStatement("UPDATE invoices SET booking_status = ? WHERE booking_request_id = ?;");
+            pst.setInt(1, status);
+            pst.setInt(2, bookingRequestID);
+            System.out.println(pst);
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 
     private void closePreparedStatement() {

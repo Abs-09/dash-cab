@@ -24,27 +24,28 @@ public class CompleteBooking extends HttpServlet {
             throws ServletException, IOException {
         int bookingRequestID = Integer.parseInt(request.getParameter("bookingRequestId"));
         BookingDao bDao = new BookingDao();
+
+        //set booking completed at and paid at
         boolean completeSuccess = bDao.setBookingCompletedAt(bookingRequestID);
         boolean paidSuccess = bDao.setBookingPaidAt(bookingRequestID);
 
-        //change here
         if (completeSuccess && paidSuccess) {
-            Invoice invoice = new Invoice(bookingRequestID, 412.00);
-            boolean insertInvoice = bDao.insertInvoice(invoice);
-
-            if (insertInvoice) {
-                request.setAttribute("error", "Successfull");                
+            boolean setInvoiceBookingStatus = bDao.setInvoiceBookingStatus(bookingRequestID, 2);
+            if (setInvoiceBookingStatus) {
+                Invoice invoice = bDao.getInvoiceByBookingRequestID(bookingRequestID);
                 request.setAttribute("invoice", invoice);
+                request.setAttribute("error", "Successfull");
                 RequestDispatcher rd = request.getRequestDispatcher("bookings/success.jsp");
                 rd.forward(request, response);
             } else {
-                request.setAttribute("error", "Something went wrong with inserting booking request");
-                RequestDispatcher rd = request.getRequestDispatcher("ShowBookingServelet?bookingRequestId="+request.getParameter("bookingRequestId"));
+                request.setAttribute("error", "Something went wrong with setting invoice status");
+                RequestDispatcher rd = request.getRequestDispatcher("ShowBookingServelet?bookingRequestId=" + request.getParameter("bookingRequestId"));
                 rd.forward(request, response);
             }
+
         } else {
             request.setAttribute("error", "Something went wrong with setting completed or paid");
-            RequestDispatcher rd = request.getRequestDispatcher("ShowBookingServelet?bookingRequestId="+request.getParameter("bookingRequestId"));
+            RequestDispatcher rd = request.getRequestDispatcher("ShowBookingServelet?bookingRequestId=" + request.getParameter("bookingRequestId"));
             rd.forward(request, response);
         }
 
