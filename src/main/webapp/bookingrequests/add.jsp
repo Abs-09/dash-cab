@@ -25,7 +25,7 @@
                 <input type="hidden" name="user_id" value="${user.id}" required>
                 <i class='bx bxs-user'></i>
             </div>
-            
+
             <div id="map1" style="height:250px; width:30%;">Map1</div>
             <div class="input-box">
                 <input type="text" placeholder="from" name="pick_up_address" id="pick_up_address" required>
@@ -61,7 +61,7 @@
     <script>
         //API Loading
         google.load("maps", "3.exp", {
-            "callback": initMap, 
+            "callback": initMap,
             "key": "AIzaSyAd3T6I7teyv_qI3Dy6nJf4sSw93vYb_Dk",
             "libraries": "places,visualization"
         });
@@ -103,6 +103,6 @@
 //                document.getElementById('current').innerHTML = '<p>Currently dragging marker...</p>';
 //            });
         }
-        
+
     </script>
 </html>

@@ -14,7 +14,7 @@
                 response.sendRedirect("index.jsp");
             }   
         %>
-        
+
         <span class="admin_name">${user.name}</span>
     </div>
 </nav>
