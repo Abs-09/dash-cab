@@ -39,6 +39,7 @@ public class LoginServlet extends HttpServlet {
             url = "welcome.jsp";
         }
 
+        response.sendRedirect(url);
     }
 
 }
