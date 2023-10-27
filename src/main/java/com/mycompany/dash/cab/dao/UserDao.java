@@ -178,8 +178,8 @@ public class UserDao {
         try {
             String currentDateTimeAsString = currentDateTime.toString();
             pst = con.prepareStatement("update users set deleted_at = ?, enabled = ? where id = ?;");
-            pst.setString(1, currentDateTimeAsString);            
-            pst.setInt(2, 0);            
+            pst.setString(1, currentDateTimeAsString);
+            pst.setInt(2, 0);
             pst.setInt(3, id);
             pst.execute();
         } catch (SQLException ex) {
@@ -362,12 +362,52 @@ public class UserDao {
                 user = new Customer(id, name, password, email, contact, address, enabled, type);
             } else if (type == 2) {
                 user = new Driver(id, name, password, email, contact, address, enabled, type, licenseNumber, availability);
-            }else if (type == 1) {
+            } else if (type == 1) {
                 user = new Admin(id, name, password, email, contact, address, enabled, type);
             }
         }
 
         return user;
+    }
+
+    public User selectUserByMail(String input_email) {
+        User user = null;
+
+        try {
+            pst = con.prepareStatement("select id, name, password, email, contact, address, enabled, type, license_number, availability from users where email =?;");
+            pst.setString(1, input_email);
+            System.out.println(pst);
+            // Step 3: Execute the query or update query
+            ResultSet rs = pst.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String contact = rs.getString("contact");
+                String address = rs.getString("address");
+                int enabled = rs.getInt("enabled");
+                int type = rs.getInt("type");
+                String licenseNumber = rs.getString("license_number");
+                int availability = rs.getInt("availability");
+
+                // Determine the user type based on the "type" field in the database
+                if (type == 3) {
+                    user = new Customer(id, name, password, email, contact, address, enabled, type);
+                } else if (type == 2) {
+                    user = new Driver(id, name, password, email, contact, address, enabled, type, licenseNumber, availability);
+                } else if (type == 1) {
+                    user = new Admin(id, name, password, email, contact, address, enabled, type);
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return user;
+
     }
 
     public boolean updateDriver(Driver user) throws SQLException {

@@ -28,6 +28,7 @@
                             <th>Email</th>
                             <th>Contact</th>
                             <th>Address</th>
+                            <th>Enabled</th>
                             <th>Actions</th>
                         </tr>
                         <c:forEach var="user" items="${userList}">
@@ -37,8 +38,10 @@
                                 <td><c:out value="${user.email}" /></td>
                                 <td><c:out value="${user.contact}" /></td>
                                 <td><c:out value="${user.address}" /></td>
-                                <td>
-                                    <a class="button button-secondary" onclick="openEditPopup(<c:out value='${user.id}' />, <c:out value='${user.type}' />)" >Edit</a>
+                                <td><c:if test="${user.isEnabled() == 1}">YES</c:if> <c:if test="${user.isEnabled() == 0}">NO</c:if></td>
+
+                                    <td>
+                                        <a class="button button-secondary" onclick="openEditPopup(<c:out value='${user.id}' />, <c:out value='${user.type}' />)" >Edit</a>
                                     <a href="UserDeleteServlet?id=<c:out value='${user.id}' />" class="button">Delete</a>
                                 </td>
                             </tr>
@@ -111,7 +114,7 @@
                 document.getElementById("error").textContent = "";
             }
 
-            
+
             function openEditPopup(id) {
                 if (id !== null) {
                     document.getElementById("userForm").action = "UserEditServlet";
@@ -123,7 +126,7 @@
                             .then(data => {
                                 document.getElementById("name").value = data.name;
                                 document.getElementById("email").value = data.email;
-                                document.getElementById('email').readOnly = true; 
+                                document.getElementById('email').readOnly = true;
                                 document.getElementById("password").value = data.password;
                                 document.getElementById("contact").value = data.contact;
                                 document.getElementById("address").value = data.address;
@@ -136,7 +139,7 @@
                     document.getElementById("id").value = "";
                     document.getElementById("name").value = "";
                     document.getElementById("email").value = "";
-                    document.getElementById('email').readOnly = false; 
+                    document.getElementById('email').readOnly = false;
                     document.getElementById("password").value = "";
                     document.getElementById("contact").value = "";
                     document.getElementById("address").value = "";
@@ -149,7 +152,7 @@
                 }
 
             }
-            
+
 
             // Automatically open the popup if there's an error
             window.addEventListener('load', function () {
@@ -183,7 +186,7 @@
                     return false; // Prevent form submission
                 }
                 if (!/^\d+$/.test(contact)) {
-                     document.getElementById('error').textContent = "Enter a valid contact";
+                    document.getElementById('error').textContent = "Enter a valid contact";
                     return false; // Prevent form submission
                 }
 
