@@ -1,3 +1,7 @@
+
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+%>
 <nav>
     <div class="sidebar-button">
         <i class="bx bx-menu sidebarBtn"></i>
@@ -14,7 +18,7 @@
                 response.sendRedirect("index.jsp");
             }   
         %>
-        
+
         <span class="admin_name">${user.name}</span>
     </div>
 </nav>
