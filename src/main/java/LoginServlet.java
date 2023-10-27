@@ -47,12 +47,12 @@ public class LoginServlet extends HttpServlet {
         }
 
         //Validation
-        if(!isUserEnabled(user)){
-            request.setAttribute("error", "User is disabled");
+        if(user == null || !validatePassword(typedPassword, user.getPassword()) ) {
+            request.setAttribute("error", "User or password is incorrect ");
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
-        }else if (user == null || !validatePassword(typedPassword, user.getPassword()) ) {
-            request.setAttribute("error", "User or password is incorrect ");
+        }else if (!isUserEnabled(user)){
+            request.setAttribute("error", "User is disabled");
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }else if (type == 1 && validatePassword(typedPassword, user.getPassword())){
