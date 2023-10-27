@@ -59,13 +59,13 @@ public class AcceptBookingRequestServlet extends HttpServlet {
         boolean bookingCollides = doesBookingRequestsCollision(requestedBooking, driver_id);
         System.out.println("booking collides = " + bookingCollides);
         if(bookingCollides) {
-            System.out.println("Inside booking collide");
             response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Booking Collision for the selected driver");
             return;
         }
 
         boolean setStatusSuccess = bDao.setBookingRequestStatus(booking_request_id, status);
-        if (!setStatusSuccess) {
+        boolean setInvoiceBookingStatus = bDao.setInvoiceBookingStatus(booking_request_id, 1);
+        if (!setStatusSuccess || !setInvoiceBookingStatus) {
             response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Something Went wrong. Contact IT admin");
             return;
         }

@@ -30,6 +30,7 @@
                             <th>Email</th>
                             <th>Contact</th>
                             <th>Address</th>
+                            <th>Enabled</th>
                             <th>Actions</th>
                         </tr>
                         <c:forEach var="user" items="${userList}">
@@ -40,8 +41,9 @@
                                 <td><c:out value="${user.email}" /></td>
                                 <td><c:out value="${user.contact}" /></td>
                                 <td><c:out value="${user.address}" /></td>
-                                <td>
-                                    <a class="button button-secondary" onclick="openEditPopup(<c:out value='${user.id}' />, <c:out value='${user.type}' />)" >Edit</a>
+                                <td><c:if test="${user.isEnabled() == 1}">YES</c:if> <c:if test="${user.isEnabled() == 0}">NO</c:if></td>
+                                    <td>
+                                            <a class="button button-secondary" onclick="openEditPopup(<c:out value='${user.id}' />, <c:out value='${user.type}' />)" >Edit</a>
                                     <a href="UserDeleteServlet?id=<c:out value='${user.id}' />" class="button">Delete</a>
                                 </td>
                             </tr>

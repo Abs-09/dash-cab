@@ -50,8 +50,9 @@ public class RejectBookingRequestServlet extends HttpServlet {
         int booking_request_id = Integer.parseInt(request.getParameter("booking_request_id"));
         BookingDao bDao = new BookingDao();
         boolean success = bDao.setBookingRequestStatus(booking_request_id, status);
+        boolean setInvoiceBookingStatus = bDao.setInvoiceBookingStatus(booking_request_id, 3);
 
-        if (success == true) {
+        if (success && setInvoiceBookingStatus) {
             response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Rejected");
         } else {
             response.sendRedirect("AcceptOrRejectBookingRequest?bookingRequestId=" + Integer.toString(booking_request_id) + "&error=Something Went wrong. Contact IT admin");

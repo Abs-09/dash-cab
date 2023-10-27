@@ -34,7 +34,7 @@ public class InvoicesServlet extends HttpServlet {
         List<Invoice> invoices;
 
         if (user.getType() == 1) {
-            invoices = dao.getInvoices();
+            invoices = dao.getCompletedInvoices();
             request.setAttribute("UserID", user.getId());
             request.setAttribute("invoices", invoices);
             RequestDispatcher rd = request.getRequestDispatcher("invoices/masterindex.jsp");

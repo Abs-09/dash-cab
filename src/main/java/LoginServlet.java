@@ -24,62 +24,21 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        User user;
-        //getting parameters from view
         String email = request.getParameter("email");
-        String typedPassword = request.getParameter("password");
 
-        PrintWriter out = response.getWriter();
-        
         UserDao dao = new UserDao();
+        User user = dao.selectUserByMail(email);
 
-        int type = dao.getType(email);
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
 
-        //Return Admin || Driver || Customer type object
-        if (type == 1) {
-            user = dao.getAdmin(email);
-        } else if (type == 2) {
-            user = dao.getDriver(email);
-        } else if (type == 3) {
-            user = dao.getCustomer(email);
+        String url = null;
+        if (user.getType() == 1) {
+            url = "admin.jsp";
         } else {
-            user = null;
+            url = "welcome.jsp";
         }
 
-        //Validation
-        if(user == null || !validatePassword(typedPassword, user.getPassword()) ) {
-            request.setAttribute("error", "User or password is incorrect ");
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-            rd.forward(request, response);
-        }else if (!isUserEnabled(user)){
-            request.setAttribute("error", "User is disabled");
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-            rd.forward(request, response);
-        }else if (type == 1 && validatePassword(typedPassword, user.getPassword())){
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            response.sendRedirect("admin.jsp");           
-        }else {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            response.sendRedirect("welcome.jsp");
-        }
-        
-    }
-
-    private boolean isUserEnabled(User user) {
-        if (user.isEnabled() == 0) {
-            return false;
-        }
-        return true;
-    }
-    
-    private boolean validatePassword(String typedPassword, String actualPassword) {
-        if(typedPassword.contentEquals(actualPassword)){
-            return true;
-        } else {
-            return false;
-        }
     }
 
 }

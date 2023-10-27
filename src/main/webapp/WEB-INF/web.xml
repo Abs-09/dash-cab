@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <filter-mapping>
+        <filter-name>DoesUserExist</filter-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>IsUserEnabledFilter</filter-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>LoginServlet</servlet-class>
@@ -148,6 +160,18 @@
         <servlet-name>InvoicesServlet</servlet-name>
         <url-pattern>/InvoicesServlet</url-pattern>
     </servlet-mapping>
+    <filter>
+        <filter-name>DoesUserExist</filter-name>
+        <filter-class>com.mycompany.dash.cab.filters.DoesUserExist</filter-class>
+    </filter>
+    <filter>
+        <filter-name>IsUserEnabledFilter</filter-name>
+        <filter-class>com.mycompany.dash.cab.filters.IsUserEnabledFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.mycompany.dash.cab.filters.AuthenticationFilter</filter-class>
+    </filter>
     <session-config>
         <session-timeout>
             20

@@ -6,6 +6,7 @@
 import com.mycompany.dash.cab.dao.BookingDao;
 import com.mycompany.dash.cab.dao.UserDao;
 import com.mycompany.dash.cab.model.BookingRequest;
+import com.mycompany.dash.cab.model.Invoice;
 import com.mycompany.dash.cab.model.User;
 import com.mycompany.dash.cab.service.GoogleMapsApiService;
 import jakarta.servlet.RequestDispatcher;
@@ -53,7 +54,6 @@ public class RequestBookingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("i am hereeeeeeeeeeeeeeeeeeeee");
         //assigning attributes from form
         int user_id = Integer.parseInt(request.getParameter("user_id"));
         String pick_up_address = request.getParameter("pick_up_address");
@@ -61,12 +61,12 @@ public class RequestBookingServlet extends HttpServlet {
         String scheduled_date_time = request.getParameter("date") + " " + request.getParameter("time");
 
         //creating new object with attributes
-        BookingRequest bookingrequest = new BookingRequest(user_id, pick_up_address, destination_address, scheduled_date_time, 1);
+        BookingRequest newbookingrequest = new BookingRequest(user_id, pick_up_address, destination_address, scheduled_date_time, 1);
 
         //inserting to database
         BookingDao bdao = new BookingDao();
-        boolean success = bdao.insertBookingRequest(bookingrequest);
-        
+        boolean success = bdao.insertBookingRequest(newbookingrequest);
+
         //getting User
         UserDao udao = new UserDao();
         User user = null;
@@ -79,6 +79,11 @@ public class RequestBookingServlet extends HttpServlet {
         if (success) {
             try {
                 GoogleMapsApiService mapsApi = new GoogleMapsApiService(pick_up_address, destination_address);
+                //getting latest booking request
+                BookingRequest bookingrequest = bdao.getLatestBookingRequest();
+                //inserting invoice
+                Invoice invoice = new Invoice(bookingrequest.getId(), 412.00);
+                boolean insertInvoice = bdao.insertInvoice(invoice);
                 request.setAttribute("bookingrequest", bookingrequest);
                 request.setAttribute("user", user);
                 request.setAttribute("distance", mapsApi.getDistance());
