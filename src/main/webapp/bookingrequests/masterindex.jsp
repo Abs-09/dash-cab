@@ -18,6 +18,26 @@
             href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
+    <script>
+        function calculateDaysLeft(scheduledTime) {
+            var currentTime = new Date();
+            var scheduledDate = new Date(scheduledTime);
+            var daysLeft = Math.floor((scheduledDate - currentTime) / (1000 * 60 * 60 * 24));
+            return daysLeft;
+        }
+
+        function displayDaysLeft(scheduledTime) {
+            var daysLeft = calculateDaysLeft(scheduledTime);
+
+            if (daysLeft < 0) {
+                return "<span style='color: red;'><strong>Overdue</strong></span>";
+            } else if (daysLeft <= 5) {
+                return "<span style='color: orange;'><strong>" + daysLeft + " days</strong></span>";
+            } else {
+                return "<span style='color: green;'><strong>" + daysLeft + " days</strong></span>";
+            }
+        }
+    </script>
     <body onload="navigateside()">
         <%@include file = "/components/navigation.jsp"%>
         <section class="home-section">
@@ -32,23 +52,26 @@
                     <table>
                         <tr>
                             <th>ID</th>
-                            <th>user_id</th>
-                            <th>pick up</th>
-                            <th>destination</th>
-                            <th>time</th>
-                            <th>request made at</th>
+                            <th>Customer ID</th>
+                            <th>Scheduled time</th>
+                            <th>Days left</th>
                             <th>Action</th>
                         </tr>
                         <c:forEach var="bookingRequest" items="${bookingRequests}">
                             <tr>
                                 <td><c:out value="${bookingRequest.id}" /></td>
                                 <td><c:out value="${bookingRequest.user_id}" /></td>
-                                <td><c:out value="${bookingRequest.pick_up_address}" /></td>
-                                <td><c:out value="${bookingRequest.destination_address}" /></td>
                                 <td><c:out value="${bookingRequest.scheduled_date_time}" /></td>
-                                <td><c:out value="${created_at}" /></td>
-                                <td><c:if test="${bookingRequest.status == 1}"><a class="button" href="AcceptOrRejectBookingRequest?bookingRequestId=${bookingRequest.id}">Assign Driver</a></c:if></td>
-                                </tr>
+                                <td>
+                                    <script>
+                                        var scheduledTime = "<c:out value="${bookingRequest.scheduled_date_time}" />";
+                                        document.write(displayDaysLeft(scheduledTime));
+                                    </script>
+                                </td>
+                                <td><c:if test="${bookingRequest.status == 1}"><a class="button" href="AcceptOrRejectBookingRequest?bookingRequestId=${bookingRequest.id}">Assign Driver</a></c:if>
+                                <c:if test="${bookingRequest.status == 2}">Driver Assigned</c:if>
+                                <c:if test="${bookingRequest.status == 3}">Rejected</c:if></td>
+                            </tr>
                         </c:forEach>
                     </table>
                 </div>
