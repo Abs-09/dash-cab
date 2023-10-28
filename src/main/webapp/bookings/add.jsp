@@ -25,12 +25,15 @@
             /* Style for container of textboxes and buttons */
             .text-container {
                 position: absolute;
-                z-index: 1; /* Bring textboxes and buttons to the front */
-                background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
-                padding: 20px;
-                margin: 10px;
-                margin-left: 150px;
+                z-index: 1;
+                background-color: rgba(255, 255, 255, 0.85);
+                padding: 5px;
                 display: none; /* Initially hidden */
+
+                /* Center horizontally and vertically */
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
 
             }
             .searchField {
@@ -64,7 +67,7 @@
             <button id="showTextButton" class="btn">Confirm</button>
             <div class="text-container">
 
-                <form action="/dash-cab/RequestBookingServlet" method="POST"> 
+                <form action="/dash-cab/RequestBookingServlet" method="POST" onsubmit="return validateForm()"> 
 
                     <div class="input-box">
                         <input type="hidden" name="user_id" value="${user.id}" required>
@@ -92,7 +95,7 @@
                     </div>
 
                     <div class="remember-forgot">
-                        <span style="color: red; margin-left: 22px; font-weight: bold">${error}</span>
+                        <span id="error" style="color: red; margin-left: 22px; font-weight: bold">${error}</span>
                     </div>
 
                     <button type="submit" class="btn">Make Booking Request</button>
@@ -164,12 +167,12 @@
 
             // Add a listener to update marker position when dragged
             google.maps.event.addListener(marker1, 'dragend', function (evt) {
-                 let latlng= evt.latLng.lat().toFixed(3) + ',' + evt.latLng.lng().toFixed(3);
+                let latlng = evt.latLng.lat().toFixed(3) + ',' + evt.latLng.lng().toFixed(3);
                 getPlaceName(latlng, 'pick_up_address');
             });
 
             google.maps.event.addListener(marker2, 'dragend', function (evt) {
-                let latlng= evt.latLng.lat().toFixed(3) + ',' + evt.latLng.lng().toFixed(3);
+                let latlng = evt.latLng.lat().toFixed(3) + ',' + evt.latLng.lng().toFixed(3);
                 getPlaceName(latlng, 'destination_address');
             });
 
@@ -202,7 +205,7 @@
                 let lng = place.geometry.location.lng().toFixed(3);
 
 //                document.getElementById(output).value = lat + ',' + lng;
-                let latlng= lat + ',' + lng;
+                let latlng = lat + ',' + lng;
                 getPlaceName(latlng, output);
 
 
@@ -217,15 +220,12 @@
         const backbtn = document.getElementById("backbtn");
         const textContainer = document.querySelector(".text-container");
 
-        showTextButton.addEventListener("click", function () {
-            textContainer.style.display = "block"; // Show the text container
-        });
         backbtn.addEventListener("click", function () {
             textContainer.style.display = "none"; // Show the text container
         });
 
         function getPlaceName(latlng, output) {
-            const apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latlng+"&key=AIzaSyAd3T6I7teyv_qI3Dy6nJf4sSw93vYb_Dk";
+            const apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latlng + "&key=AIzaSyAd3T6I7teyv_qI3Dy6nJf4sSw93vYb_Dk";
 
             fetch(apiUrl)
                     .then(response => response.json())
@@ -235,12 +235,43 @@
                             document.getElementById(output).value = placeName;
 //                            window.alert("Location found:"+ placeName+latlng);
                         } else {
-                             window.alert("Location not found");
+                            window.alert("Location not found");
                         }
                     })
                     .catch(error => {
-                         window.alert("Error:", error);
+                        window.alert("Error:", error);
                     });
         }
+
+        const confirmButton = document.getElementById("showTextButton");
+        const pickUpField = document.getElementById("pick_up_address");
+        const destinationField = document.getElementById("destination_address");
+
+        confirmButton.addEventListener("click", function () {
+            if (pickUpField.value.trim() === "" || destinationField.value.trim() === "") {
+                alert("Please search or mark with marker the pickup and destination");
+                return;
+                textContainer.style.display = "none";
+            } else {
+                textContainer.style.display = "block";
+            }
+
+        });
+
+// Add an onsubmit event handler to the form
+        function validateForm() {
+            const pickUpDate = document.getElementById("pick_up_date");
+            const pickUpTime = document.getElementById("pick_up_time");
+            const currentDate = new Date();
+            const selectedDate = new Date(pickUpDate.value + " " + pickUpTime.value);
+
+            if (selectedDate <= currentDate) {
+                document.getElementById('error').textContent = "Please select a future date and time.";
+                return false;
+            }
+            // If the form is valid, clear any previous error message and allow submission
+                document.getElementById('error').textContent = "";
+                return true;
+        };
     </script>
 </html>
