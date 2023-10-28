@@ -29,8 +29,9 @@ public class LoginServlet extends HttpServlet {
         UserDao dao = new UserDao();
         User user = dao.selectUserByMail(email);
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
         session.setAttribute("user", user);
+        session.setMaxInactiveInterval(1*60);
 
         String url = null;
         if (user.getType() == 1) {

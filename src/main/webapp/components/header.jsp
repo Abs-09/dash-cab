@@ -14,9 +14,9 @@
     <div class="profile-details">
         <i class="bx bx-user"></i>
         <%
-            if (session == null) {
+            if (session == null || session.getAttribute("user") == null) {
                 response.sendRedirect("index.jsp");
-            }   
+            }  
         %>
 
         <span class="admin_name">${user.name}</span>

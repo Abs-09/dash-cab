@@ -28,6 +28,11 @@ public class BookingRequestsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
+        if (session == null || user == null) {
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
+        }
+
         BookingDao dao = new BookingDao();
         List<BookingRequest> bookingRequests;
 
