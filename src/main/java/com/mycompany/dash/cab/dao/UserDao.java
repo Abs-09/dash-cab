@@ -339,33 +339,34 @@ public class UserDao {
 
     public User selectUser(int id) throws SQLException {
         User user = null;
-        pst = con.prepareStatement("select name, password, email, contact, address, enabled, type, license_number, availability from users where id =?;");
-        pst.setInt(1, id);
-        System.out.println(pst);
-        // Step 3: Execute the query or update query
-        ResultSet rs = pst.executeQuery();
 
-        // Step 4: Process the ResultSet object.
-        while (rs.next()) {
-            String name = rs.getString("name");
-            String password = rs.getString("password");
-            String email = rs.getString("email");
-            String contact = rs.getString("contact");
-            String address = rs.getString("address");
-            int enabled = rs.getInt("enabled");
-            int type = rs.getInt("type");
-            String licenseNumber = rs.getString("license_number");
-            int availability = rs.getInt("availability");
+            pst = con.prepareStatement("select name, password, email, contact, address, enabled, type, license_number, availability from users where id =?;");
+            pst.setInt(1, id);
+            System.out.println(pst);
+            // Step 3: Execute the query or update query
+            ResultSet rs = pst.executeQuery();
 
-            // Determine the user type based on the "type" field in the database
-            if (type == 3) {
-                user = new Customer(id, name, password, email, contact, address, enabled, type);
-            } else if (type == 2) {
-                user = new Driver(id, name, password, email, contact, address, enabled, type, licenseNumber, availability);
-            } else if (type == 1) {
-                user = new Admin(id, name, password, email, contact, address, enabled, type);
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String contact = rs.getString("contact");
+                String address = rs.getString("address");
+                int enabled = rs.getInt("enabled");
+                int type = rs.getInt("type");
+                String licenseNumber = rs.getString("license_number");
+                int availability = rs.getInt("availability");
+
+                // Determine the user type based on the "type" field in the database
+                if (type == 3) {
+                    user = new Customer(id, name, password, email, contact, address, enabled, type);
+                } else if (type == 2) {
+                    user = new Driver(id, name, password, email, contact, address, enabled, type, licenseNumber, availability);
+                } else if (type == 1) {
+                    user = new Admin(id, name, password, email, contact, address, enabled, type);
+                }
             }
-        }
 
         return user;
     }

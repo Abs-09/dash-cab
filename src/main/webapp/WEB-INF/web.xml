@@ -88,6 +88,26 @@
         <servlet-name>InvoicesServlet</servlet-name>
         <servlet-class>InvoicesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowReportsMenuServlet</servlet-name>
+        <servlet-class>ShowReportsMenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowDriverSummaryReportForm</servlet-name>
+        <servlet-class>ShowDriverSummaryReportForm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowDriverSummaryReport</servlet-name>
+        <servlet-class>ShowDriverSummaryReport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCustomersServedReportForm</servlet-name>
+        <servlet-class>ShowCustomersServedReportForm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCustomersServedReport</servlet-name>
+        <servlet-class>ShowCustomersServedReport</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -172,6 +192,26 @@
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>com.mycompany.dash.cab.filters.AuthenticationFilter</filter-class>
     </filter>
+    <servlet-mapping>
+        <servlet-name>ShowReportsMenuServlet</servlet-name>
+        <url-pattern>/ShowReportsMenuServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowDriverSummaryReportForm</servlet-name>
+        <url-pattern>/ShowDriverSummaryReportForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowDriverSummaryReport</servlet-name>
+        <url-pattern>/ShowDriverSummaryReport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCustomersServedReportForm</servlet-name>
+        <url-pattern>/ShowCustomersServedReportForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCustomersServedReport</servlet-name>
+        <url-pattern>/ShowCustomersServedReport</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             20

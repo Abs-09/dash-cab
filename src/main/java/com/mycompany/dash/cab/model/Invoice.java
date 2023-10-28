@@ -13,26 +13,30 @@ public class Invoice {
     private int id;
     private int booking_request_id;
     private double total_cost;
+    private double cost;
     private int booking_status;
     private String created_at;
 
-    public Invoice(int id, int booking_request_id, double total_cost, String created_at, int booking_status) {
+    public Invoice(int id, int booking_request_id, double cost, double total_cost, String created_at, int booking_status) {
         this.id = id;
         this.booking_request_id = booking_request_id;
+        this.cost = cost;
         this.total_cost = total_cost;
         this.created_at = created_at;
         this.booking_status = booking_status;
     }
 
-    public Invoice(int id, int booking_request_id, double total_cost, String created_at) {
+    public Invoice(int id, int booking_request_id, double cost, double total_cost, String created_at) {
         this.id = id;
         this.booking_request_id = booking_request_id;
+        this.cost = cost;
         this.total_cost = total_cost;
         this.created_at = created_at;
     }
 
-    public Invoice(int booking_request_id, double total_cost) {
+    public Invoice(int booking_request_id, double cost, double total_cost) {
         this.booking_request_id = booking_request_id;
+        this.cost = cost;
         this.total_cost = total_cost;
     }
 
@@ -74,6 +78,14 @@ public class Invoice {
 
     public void setBooking_status(int booking_status) {
         this.booking_status = booking_status;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
     }
     
     
