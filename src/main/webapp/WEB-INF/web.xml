@@ -76,6 +76,10 @@
         <servlet-name>InvoicesServlet</servlet-name>
         <servlet-class>InvoicesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CarsServlet</servlet-name>
+        <servlet-class>CarsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -147,6 +151,10 @@
     <servlet-mapping>
         <servlet-name>InvoicesServlet</servlet-name>
         <url-pattern>/InvoicesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CarsServlet</servlet-name>
+        <url-pattern>/CarsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

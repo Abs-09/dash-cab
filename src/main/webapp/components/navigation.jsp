@@ -42,7 +42,7 @@
             </a>
         </li>
         <li>
-            <a href="#" id="carSidebar" class="menu-link" >
+            <a href="CarsServlet" id="carSidebar" class="menu-link" >
                 <i class="bx bx-coin-stack"></i>
                 <span class="links_name">Cars</span>
             </a>
