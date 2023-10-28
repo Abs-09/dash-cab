@@ -23,18 +23,22 @@ import java.util.List;
  */
 public class InvoicesServlet extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
+        if (session == null || user == null) {
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
+        }
+
         BookingDao dao = new BookingDao();
         List<Invoice> invoices;
 
         if (user.getType() == 1) {
-            invoices = dao.getInvoices();
+            invoices = dao.getCompletedInvoices();
             request.setAttribute("UserID", user.getId());
             request.setAttribute("invoices", invoices);
             RequestDispatcher rd = request.getRequestDispatcher("invoices/masterindex.jsp");
@@ -58,12 +62,10 @@ public class InvoicesServlet extends HttpServlet {
 //        }
     }
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-    }
 
+    }
 
 }

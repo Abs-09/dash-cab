@@ -15,45 +15,45 @@
         <title>Welcome Page</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer_style.css" />
         <style>
-          body {
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        h1 {
-            margin: 0;
-        }
-        main {
-            flex-grow: 1;
-            max-width: 100%;
-            background-color: #fff;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        h2, p {
-            text-align: center;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            width: 100%;
-        }
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #f2f2f2;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            h1 {
+                margin: 0;
+            }
+            main {
+                flex-grow: 1;
+                max-width: 100%;
+                background-color: #fff;
+                padding: 20px;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            h2, p {
+                text-align: center;
+            }
+            footer {
+                background-color: #333;
+                color: #fff;
+                text-align: center;
+                padding: 10px 0;
+                width: 100%;
+            }
         </style>
     </head>
     <body onload="navigateside()" >
         <%@include file = "/components/header_customer.jsp"%>
 
-       
-
+        
+        
         <main>
             <h2>WELCOME TO DASHCAB</h2>
             <p>Your convenience is our priority.</p>

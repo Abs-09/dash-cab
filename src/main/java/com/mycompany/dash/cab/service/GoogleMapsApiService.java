@@ -32,10 +32,14 @@ public class GoogleMapsApiService {
     }
 
     public boolean intiateDistanceApiURL(String origin, String destination) {
+        String plusOrigin = replaceSpacesWithPlus(origin.trim());
+        String plusDestination = replaceSpacesWithPlus(destination.trim());
         String apiUrl = "https://maps.googleapis.com/maps/api/distancematrix/json"
-                + "?origins=" + origin
-                + "&destinations=" + destination
+                + "?origins=" + plusOrigin
+                + "&destinations=" + plusDestination
                 + "&key=" + this.apiKey;
+
+        System.out.println("APi URL =" + apiUrl);
 
         // Create a URL object and open a connection
         try {
@@ -89,12 +93,28 @@ public class GoogleMapsApiService {
 //            connection.disconnect();
             return apiresponse.toString();
 
+        } else if (responseCode == 400) {
+            System.out.println("Error: Bad Request (HTTP Response Code 400)");
+            Scanner errorScan = new Scanner(connection.getErrorStream());
+            while (errorScan.hasNext()) {
+                System.out.println(errorScan.nextLine());
+            }
+            errorScan.close();
+            return null;
         } else {
             System.out.println("Error: HTTP Response Code " + responseCode);
             return null;
         }
 
-       
+    }
+
+    public static String replaceSpacesWithPlus(String input) {
+        if (input == null) {
+            return null;
+        }
+        String in = input.replace(" ", "%");
+        return in;
+
     }
 
 }

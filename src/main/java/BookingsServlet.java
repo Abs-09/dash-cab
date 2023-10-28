@@ -23,7 +23,6 @@ import java.util.List;
  */
 public class BookingsServlet extends HttpServlet {
 
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -38,6 +37,11 @@ public class BookingsServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+
+        if (session == null || user == null) {
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
+        }
 
         BookingDao dao = new BookingDao();
         List<Booking> bookings;
@@ -57,7 +61,7 @@ public class BookingsServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("bookings/myindex.jsp");
             rd.forward(request, response);
         }
-        
+
         if (user.getType() == 2) {
             bookings = dao.getBookingsByDriverID(user.getId());
             request.setAttribute("UserID", user.getId());
@@ -78,7 +82,7 @@ public class BookingsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

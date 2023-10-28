@@ -3,25 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-import com.mycompany.dash.cab.dao.UserDao;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author 96096
+ * @author admin
  */
-public class UserDeleteServlet extends HttpServlet {
+public class ShowReportsMenuServlet extends HttpServlet {
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -31,17 +29,8 @@ public class UserDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = null;
-        UserDao dao = new UserDao();
-        int id = Integer.parseInt(request.getParameter("id"));
-        //Write other types here
-        if (dao.getTypebyID(id) == 3) {
-            url = "UserShowServlet?type=3";
-        } else if (dao.getTypebyID(id) == 2) {
-            url = "UserShowServlet?type=2";
-        }
-        dao.deleteUser(id);
-
-        response.sendRedirect(url);
+        RequestDispatcher rd = request.getRequestDispatcher("reports/menu.jsp");
+        rd.forward(request, response);
     }
+
 }
