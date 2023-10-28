@@ -82,7 +82,7 @@ public class RequestBookingServlet extends HttpServlet {
                 //getting latest booking request
                 BookingRequest bookingrequest = bdao.getLatestBookingRequest();
                 //inserting invoice
-                Invoice invoice = new Invoice(bookingrequest.getId(), 412.00);
+                Invoice invoice = new Invoice(bookingrequest.getId(), 400.00, 448.00);
                 boolean insertInvoice = bdao.insertInvoice(invoice);
                 request.setAttribute("bookingrequest", bookingrequest);
                 request.setAttribute("user", user);

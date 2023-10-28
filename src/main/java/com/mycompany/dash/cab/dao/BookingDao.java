@@ -6,6 +6,7 @@ package com.mycompany.dash.cab.dao;
 
 import com.mycompany.dash.cab.model.Booking;
 import com.mycompany.dash.cab.model.BookingRequest;
+import com.mycompany.dash.cab.model.CompleteBooking;
 import com.mycompany.dash.cab.model.Customer;
 import com.mycompany.dash.cab.model.Invoice;
 import java.sql.Connection;
@@ -13,7 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -409,10 +412,11 @@ public class BookingDao {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 int booking_request_id = rs.getInt("booking_request_id");
+                double cost = rs.getDouble("cost");
                 double total_cost = rs.getDouble("total_cost");
                 String created_at = rs.getString("created_at");
 
-                Invoice invoice = new Invoice(id, booking_request_id, total_cost, created_at);
+                Invoice invoice = new Invoice(id, booking_request_id, cost, total_cost, created_at);
 
                 invoices.add(invoice);
             }
@@ -440,9 +444,10 @@ public class BookingDao {
                 int id = rs.getInt("id");
                 int booking_request_id = rs.getInt("booking_request_id");
                 double total_cost = rs.getDouble("total_cost");
+                double cost = rs.getDouble("cost");
                 String created_at = rs.getString("created_at");
 
-                invoice = new Invoice(id, booking_request_id, total_cost, created_at);
+                invoice = new Invoice(id, booking_request_id, cost, total_cost, created_at);
 
             }
         } catch (SQLException ex) {
@@ -461,9 +466,10 @@ public class BookingDao {
 
         String currentDateTimeAsString = currentDateTime.toString();
         try {
-            pst = con.prepareStatement("INSERT INTO invoices" + " (booking_request_id, total_cost) VALUES " + "(?, ?);");
+            pst = con.prepareStatement("INSERT INTO invoices" + " (booking_request_id, cost, total_cost) VALUES " + "(?, ?, ?);");
             pst.setString(1, Integer.toString(inv.getBooking_request_id()));
-            pst.setString(2, Double.toString(inv.getTotal_cost()));
+            pst.setString(2, Double.toString(inv.getCost()));
+            pst.setString(3, Double.toString(inv.getTotal_cost()));
             System.out.println(pst);
             pst.executeUpdate();
             return true;
@@ -489,6 +495,281 @@ public class BookingDao {
         return true;
     }
 
+    //COMPLETE BOOKING ===================================================
+    public List<CompleteBooking> getCompleteBookingsByDriverAndDate(int driverID, String fromDate, String toDate) {
+        
+        //SQL does not show the dates that are equal to todate so we increment todate by 1 Day
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(toDate, formatter);
+        LocalDate toDateIncrementedByOne = date.plusDays(1);
+        
+        
+        List<CompleteBooking> completebookings = new ArrayList<>();
+     
+        try {
+            pst = con.prepareStatement("select "
+                    + "  br.user_id as customer_id, "
+                    + "  customers.name as customer_name, "
+                    + "  br.pick_up_address, "
+                    + "  br.destination_address, "
+                    + "  br.scheduled_date_time, "
+                    + "  br.status as booking_request_status, "
+                    + "  br.created_at as booking_request_created_at, "
+                    + "  b.created_at as booking_created_at, "
+                    + "  b.driver_id as driver_id, "
+                    + "  drivers.name as driver_name, "
+                    + "  b.ride_completed_at, "
+                    + "  b.paid_at, "
+                    + "  i.id as invoice_id, "
+                    + "  i.created_at as invoice_created_at, "
+                    + "  i.booking_request_id, "
+                    + "  i.cost, "
+                    + "  i.total_cost, "
+                    + "  i.booking_status "
+                    + "from invoices i "
+                    + "inner join booking_requests br on i.booking_request_id = br.id "
+                    + "inner join bookings b on i.booking_request_id = b.booking_request_id "
+                    + "inner join users as customers on br.user_id = customers.id "
+                    + "inner join users as drivers on b.driver_id = drivers.id "
+                    + "where "
+                    + "i.booking_status = 2 and "
+                    + "b.driver_id = ? and "
+                    + "b.ride_completed_at >= ? and "
+                    + "b.ride_completed_at < ?");
+            pst.setInt(1, driverID);
+            pst.setString(2, fromDate);
+            pst.setString(3, toDateIncrementedByOne.format(formatter));
+            ResultSet rs = pst.executeQuery();
+            
+            System.out.println("");
+            while (rs.next()) {
+                int customer_id = rs.getInt("customer_id");
+                String customer_name = rs.getString("customer_name");
+                String pick_up_address = rs.getString("pick_up_address");
+                String destination_address = rs.getString("destination_address");
+                String scheduled_date_time = rs.getString("scheduled_date_time");
+                int booking_request_status = rs.getInt("booking_request_status");
+                String booking_request_created_at = rs.getString("booking_request_created_at");
+                String booking_created_at = rs.getString("booking_created_at");
+                int driver_id = rs.getInt("driver_id");
+                String driver_name = rs.getString("driver_name");
+                String ride_completed_at = rs.getString("ride_completed_at");
+                String paid_at = rs.getString("paid_at");
+                int invoice_id = rs.getInt("invoice_id");
+                String invoice_created_at = rs.getString("invoice_created_at");
+                int booking_request_id = rs.getInt("booking_request_id");
+                double cost = rs.getDouble("cost");
+                double total_cost = rs.getDouble("total_cost");
+                int booking_status = rs.getInt("booking_status");
+                
+                CompleteBooking completeBooking = new CompleteBooking(
+                        customer_id,
+                        customer_name,
+                        pick_up_address,
+                        destination_address,
+                        scheduled_date_time,
+                        booking_request_status,
+                        booking_request_created_at,
+                        booking_created_at,
+                        driver_id,
+                        driver_name,
+                        ride_completed_at,
+                        paid_at,
+                        invoice_id,
+                        invoice_created_at,
+                        booking_request_id,
+                        cost,
+                        total_cost,
+                        booking_status
+                );
+
+                completebookings.add(completeBooking);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Data exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            closePreparedStatement();
+        }
+
+        return completebookings;
+    }
+
+    public int getDistictNumberOfCustomersServedByDriverAndDate(int driverID, String fromDate, String toDate) {
+        //SQL does not show the dates that are equal to todate so we increment todate by 1 Day
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(toDate, formatter);
+        LocalDate toDateIncrementedByOne = date.plusDays(1);
+        
+        int count = 0;
+        try {
+            pst = con.prepareStatement("select distinct"
+                    + "  br.user_id as customer_id "
+                    + "from invoices i "
+                    + "inner join booking_requests br on i.booking_request_id = br.id "
+                    + "inner join bookings b on i.booking_request_id = b.booking_request_id "
+                    + "inner join users as customers on br.user_id = customers.id "
+                    + "inner join users as drivers on b.driver_id = drivers.id "
+                    + "where "
+                    + "i.booking_status = 2 and "
+                    + "b.driver_id = ? and "
+                    + "b.ride_completed_at >= ? and "
+                    + "b.ride_completed_at < ?");
+            pst.setInt(1, driverID);
+            pst.setString(2, fromDate);
+            pst.setString(3, toDateIncrementedByOne.format(formatter));
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()) {
+                count ++;
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Data exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closePreparedStatement();
+        }
+        return count;
+    }
+    
+        //COMPLETE BOOKING ===================================================
+    public List<CompleteBooking> getCompleteBookingsByDate(String fromDate, String toDate) {
+        
+        //SQL does not show the dates that are equal to todate so we increment todate by 1 Day
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(toDate, formatter);
+        LocalDate toDateIncrementedByOne = date.plusDays(1);
+        
+        
+        List<CompleteBooking> completebookings = new ArrayList<>();
+     
+        try {
+            pst = con.prepareStatement("select "
+                    + "  br.user_id as customer_id, "
+                    + "  customers.name as customer_name, "
+                    + "  br.pick_up_address, "
+                    + "  br.destination_address, "
+                    + "  br.scheduled_date_time, "
+                    + "  br.status as booking_request_status, "
+                    + "  br.created_at as booking_request_created_at, "
+                    + "  b.created_at as booking_created_at, "
+                    + "  b.driver_id as driver_id, "
+                    + "  drivers.name as driver_name, "
+                    + "  b.ride_completed_at, "
+                    + "  b.paid_at, "
+                    + "  i.id as invoice_id, "
+                    + "  i.created_at as invoice_created_at, "
+                    + "  i.booking_request_id, "
+                    + "  i.cost, "
+                    + "  i.total_cost, "
+                    + "  i.booking_status "
+                    + "from invoices i "
+                    + "inner join booking_requests br on i.booking_request_id = br.id "
+                    + "inner join bookings b on i.booking_request_id = b.booking_request_id "
+                    + "inner join users as customers on br.user_id = customers.id "
+                    + "inner join users as drivers on b.driver_id = drivers.id "
+                    + "where "
+                    + "i.booking_status = 2 and "
+                    + "b.ride_completed_at >= ? and "
+                    + "b.ride_completed_at < ?");
+            pst.setString(1, fromDate);
+            pst.setString(2, toDateIncrementedByOne.format(formatter));
+            ResultSet rs = pst.executeQuery();
+            
+            System.out.println("");
+            while (rs.next()) {
+                int customer_id = rs.getInt("customer_id");
+                String customer_name = rs.getString("customer_name");
+                String pick_up_address = rs.getString("pick_up_address");
+                String destination_address = rs.getString("destination_address");
+                String scheduled_date_time = rs.getString("scheduled_date_time");
+                int booking_request_status = rs.getInt("booking_request_status");
+                String booking_request_created_at = rs.getString("booking_request_created_at");
+                String booking_created_at = rs.getString("booking_created_at");
+                int driver_id = rs.getInt("driver_id");
+                String driver_name = rs.getString("driver_name");
+                String ride_completed_at = rs.getString("ride_completed_at");
+                String paid_at = rs.getString("paid_at");
+                int invoice_id = rs.getInt("invoice_id");
+                String invoice_created_at = rs.getString("invoice_created_at");
+                int booking_request_id = rs.getInt("booking_request_id");
+                double cost = rs.getDouble("cost");
+                double total_cost = rs.getDouble("total_cost");
+                int booking_status = rs.getInt("booking_status");
+                
+                CompleteBooking completeBooking = new CompleteBooking(
+                        customer_id,
+                        customer_name,
+                        pick_up_address,
+                        destination_address,
+                        scheduled_date_time,
+                        booking_request_status,
+                        booking_request_created_at,
+                        booking_created_at,
+                        driver_id,
+                        driver_name,
+                        ride_completed_at,
+                        paid_at,
+                        invoice_id,
+                        invoice_created_at,
+                        booking_request_id,
+                        cost,
+                        total_cost,
+                        booking_status
+                );
+
+                completebookings.add(completeBooking);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Data exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            closePreparedStatement();
+        }
+
+        return completebookings;
+    }
+
+    public int getDistictNumberOfCustomersServedByDate(String fromDate, String toDate) {
+        //SQL does not show the dates that are equal to todate so we increment todate by 1 Day
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(toDate, formatter);
+        LocalDate toDateIncrementedByOne = date.plusDays(1);
+        
+        int count = 0;
+        try {
+            pst = con.prepareStatement("select distinct"
+                    + "  br.user_id as customer_id "
+                    + "from invoices i "
+                    + "inner join booking_requests br on i.booking_request_id = br.id "
+                    + "inner join bookings b on i.booking_request_id = b.booking_request_id "
+                    + "inner join users as customers on br.user_id = customers.id "
+                    + "inner join users as drivers on b.driver_id = drivers.id "
+                    + "where "
+                    + "i.booking_status = 2 and "
+                    + "b.ride_completed_at >= ? and "
+                    + "b.ride_completed_at < ?");
+            pst.setString(1, fromDate);
+            pst.setString(2, toDateIncrementedByOne.format(formatter));
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()) {
+                count ++;
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Data exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closePreparedStatement();
+        }
+        return count;
+    }
+    
+    //HELPER FUNCTION  ===============================
     private void closePreparedStatement() {
         try {
             this.pst.close();

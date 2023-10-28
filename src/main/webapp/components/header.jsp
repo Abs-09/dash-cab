@@ -14,7 +14,7 @@
     <div class="profile-details">
         <i class="bx bx-user"></i>
         <%
-            if (session.getAttribute("user") == null) {
+            if (session == null) {
                 response.sendRedirect("index.jsp");
             }   
         %>

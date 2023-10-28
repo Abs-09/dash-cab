@@ -37,7 +37,7 @@
     </div>
     <div class="profile-details">
         <%
-    if (session.getAttribute("user") == null) {
+    if (session == null) {
         response.sendRedirect("index.jsp");
     }   
         %>
