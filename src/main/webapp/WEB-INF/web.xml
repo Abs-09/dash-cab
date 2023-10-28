@@ -222,7 +222,7 @@
     </filter-mapping>-->
     <session-config>
         <session-timeout>
-            01
+            20
         </session-timeout>
     </session-config>
 </web-app>

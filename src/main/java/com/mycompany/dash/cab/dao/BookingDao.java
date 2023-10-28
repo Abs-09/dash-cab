@@ -40,7 +40,7 @@ public class BookingDao {
         List<BookingRequest> bookingRequests = new ArrayList<>();
 
         try {
-            pst = con.prepareStatement("SELECT * from booking_requests");
+            pst = con.prepareStatement("SELECT * from booking_requests order by id desc;");
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
@@ -202,7 +202,7 @@ public class BookingDao {
         List<Booking> bookings = new ArrayList<>();
 
         try {
-            pst = con.prepareStatement("SELECT * from bookings");
+            pst = con.prepareStatement("SELECT * from bookings order by booking_request_id desc;");
             ResultSet rs = pst.executeQuery();
             System.out.println("");
             while (rs.next()) {
@@ -406,7 +406,7 @@ public class BookingDao {
         List<Invoice> invoices = new ArrayList<>();
 
         try {
-            pst = con.prepareStatement("SELECT * from invoices where booking_status = 2");
+            pst = con.prepareStatement("SELECT * from invoices where booking_status = 2 order by booking_request_id desc");
             ResultSet rs = pst.executeQuery();
             System.out.println("");
             while (rs.next()) {
