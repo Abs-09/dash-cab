@@ -29,6 +29,7 @@
                 background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
                 padding: 20px;
                 margin: 10px;
+                margin-left: 150px;
                 display: none; /* Initially hidden */
 
             }
@@ -163,11 +164,13 @@
 
             // Add a listener to update marker position when dragged
             google.maps.event.addListener(marker1, 'dragend', function (evt) {
-                document.getElementById('pick_up_address').value = evt.latLng.lat().toFixed(3) + ',' + evt.latLng.lng().toFixed(3);
+                 let latlng= evt.latLng.lat().toFixed(3) + ',' + evt.latLng.lng().toFixed(3);
+                getPlaceName(latlng, 'pick_up_address');
             });
 
             google.maps.event.addListener(marker2, 'dragend', function (evt) {
-                document.getElementById('destination_address').value = evt.latLng.lat().toFixed(3) + ',' + evt.latLng.lng().toFixed(3);
+                let latlng= evt.latLng.lat().toFixed(3) + ',' + evt.latLng.lng().toFixed(3);
+                getPlaceName(latlng, 'destination_address');
             });
 
             // Autocomplete for search inputs
@@ -198,7 +201,11 @@
                 let lat = place.geometry.location.lat().toFixed(3);
                 let lng = place.geometry.location.lng().toFixed(3);
 
-                document.getElementById(output).value = lat + ',' + lng;
+//                document.getElementById(output).value = lat + ',' + lng;
+                let latlng= lat + ',' + lng;
+                getPlaceName(latlng, output);
+
+
             });
         }
 
@@ -216,5 +223,24 @@
         backbtn.addEventListener("click", function () {
             textContainer.style.display = "none"; // Show the text container
         });
+
+        function getPlaceName(latlng, output) {
+            const apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latlng+"&key=AIzaSyAd3T6I7teyv_qI3Dy6nJf4sSw93vYb_Dk";
+
+            fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === "OK" && data.results.length > 0) {
+                            const placeName = data.results[0].formatted_address;
+                            document.getElementById(output).value = placeName;
+//                            window.alert("Location found:"+ placeName+latlng);
+                        } else {
+                             window.alert("Location not found");
+                        }
+                    })
+                    .catch(error => {
+                         window.alert("Error:", error);
+                    });
+        }
     </script>
 </html>
