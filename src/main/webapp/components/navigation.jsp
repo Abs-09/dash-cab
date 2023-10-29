@@ -48,7 +48,7 @@
             </a>
         </li>
         <li>
-            <a href="ShowReportsMenuServlet" class="menu-link">
+            <a href="ShowReportsMenuServlet" id="ReportsSidebar" class="menu-link">
                 <i class="bx bx-book-alt"></i>
                 <span class="links_name">Reports</span>
             </a>

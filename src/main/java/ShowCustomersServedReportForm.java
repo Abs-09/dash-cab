@@ -29,7 +29,8 @@ public class ShowCustomersServedReportForm extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("reports/customersservedform.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("reports/menu.jsp");
+        request.setAttribute("showOverlay", false);
         rd.forward(request, response);
     }
 
