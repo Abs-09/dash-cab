@@ -34,7 +34,8 @@ public class ShowDriverSummaryReportForm extends HttpServlet {
 
         UserDao uDao = new UserDao();
         List drivers = uDao.showEnabledAllDrivers();
-        RequestDispatcher rd = request.getRequestDispatcher("reports/driversummaryform.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("reports/menu.jsp");
+        request.setAttribute("showOverlay", true);
         request.setAttribute("drivers", drivers);
         rd.forward(request, response);
         
