@@ -25,7 +25,6 @@
                     <table>
                         <tr>
                             <th>ID</th>
-                            <th>user_id</th>
                             <th>pick up</th>
                             <th>destination</th>
                             <th>time</th>
@@ -34,7 +33,6 @@
                         <c:forEach var="bookingRequest" items="${bookingRequests}">
                             <tr>
                                 <td><c:out value="${bookingRequest.id}" /></td>
-                                <td><c:out value="${bookingRequest.user_id}" /></td>
                                 <td><c:out value="${bookingRequest.pick_up_address}" /></td>
                                 <td><c:out value="${bookingRequest.destination_address}" /></td>
                                 <td><c:out value="${bookingRequest.scheduled_date_time}" /></td>

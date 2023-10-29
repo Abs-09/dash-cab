@@ -1,24 +1,22 @@
-<%-- 
-    Document   : success
-    Created on : Oct 6, 2023, 8:18:01 PM
-    Author     : admin
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Booking SUCCESS</h1>
-        <p>User: ${user.name}</p>
-        <p>Pick Up: ${bookingrequest.pick_up_address}</p>
-        <p>Destination: ${bookingrequest.destination_address}</p>
-        <p>Date & Time: ${bookingrequest.scheduled_date_time}</p>
-        <p>Amount: ${distance}</p>
-        
-        <a href="BookingRequestsServlet">Go back</a>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Success</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/succsess_style.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Booking Successful</h1>
+        <div class="success-info">
+            <p>User: <span>${user.name}</span></p>
+            <p>Pick Up: <span>${bookingrequest.pick_up_address}</span></p>
+            <p>Destination: <span>${bookingrequest.destination_address}</span></p>
+            <p>Date & Time: <span>${bookingrequest.scheduled_date_time}</span></p>
+            <p>Amount: <span>${distance}</span></p>
+        </div>
+        <a class="back-button" href="BookingRequestsServlet">Go Back</a>
+    </div>
+</body>
 </html>

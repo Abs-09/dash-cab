@@ -27,7 +27,7 @@
             <div class="container" style="max-width: 90%;">
                 <div class="inbox-container">
                     <div class="button-container">
-                        <h1>All Bookings</h1>
+                        <h1>Bookings</h1>
                         <button class="button" id="filterButton" onclick="toggleBookingDisplay()">Show Pending Bookings</button>
                     </div>
                     <table>
