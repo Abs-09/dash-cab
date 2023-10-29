@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by XML-WS Runtime (https://github.com/eclipse-ee4j/metro-jax-ws). Runtime's version is Eclipse Metro/4.0.2 (RELEASE-4.0.2-ffda8c0; 2023-01-31T10:50:38+0000) XMLWS-Impl/4.0.1 XMLWS-API/4.0.0 XMLB-Impl/4.0.2 XMLB-API/4.0.0 git-revision#ffda8c0. --><xs:schema xmlns:tns="http://webservice.mycompany.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webservice.mycompany.com/">
+
+<xs:element name="CalculateCost" type="tns:CalculateCost"/>
+
+<xs:element name="CalculateCostResponse" type="tns:CalculateCostResponse"/>
+
+<xs:element name="CalculateTotalCost" type="tns:CalculateTotalCost"/>
+
+<xs:element name="CalculateTotalCostResponse" type="tns:CalculateTotalCostResponse"/>
+
+<xs:complexType name="CalculateCost">
+<xs:sequence>
+<xs:element name="distance" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CalculateCostResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CalculateTotalCost">
+<xs:sequence>
+<xs:element name="distance" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CalculateTotalCostResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

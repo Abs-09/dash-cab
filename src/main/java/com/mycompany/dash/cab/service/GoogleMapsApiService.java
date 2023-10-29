@@ -4,6 +4,8 @@
  */
 package com.mycompany.dash.cab.service;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import static com.mysql.cj.exceptions.MysqlErrorNumbers.get;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -72,26 +74,22 @@ public class GoogleMapsApiService {
 
             scan.close();
 
-//            JSONParser parser = new JSONParser();
-//            // Get the 'rows' array
-//            JSONArray rows = (JSONArray) jsonObject.get("rows");
-//
-//            // Get the first element from the 'rows' array
-//            JSONObject row = (JSONObject) rows.get(0);
-//
-//            // Get the 'elements' array from the first element in 'rows'
-//            JSONArray elements = (JSONArray) row.get("elements");
-//
-//            // Get the first element from 'elements' array
-//            JSONObject element = (JSONObject) elements.get(0);
-//
-//            // Get the 'distance' object
-//            JSONObject distance = (JSONObject) element.get("distance");
-//
-//            // Get the 'value' field from the 'distance' object
-//            long distanceValue = (long) distance.get("value");
-//            connection.disconnect();
-            return apiresponse.toString();
+            // Parse the JSON string
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(apiresponse.toString(), JsonObject.class);
+
+            // Extract the value field from the JSON object
+            double value = jsonObject.getAsJsonArray("rows")
+                    .get(0).getAsJsonObject()
+                    .getAsJsonArray("elements")
+                    .get(0).getAsJsonObject()
+                    .getAsJsonObject("distance")
+                    .get("value").getAsInt();
+            
+            String distance = Double.toString(value);
+            
+            System.out.println("Distance is" + distance);
+            return distance;
 
         } else if (responseCode == 400) {
             System.out.println("Error: Bad Request (HTTP Response Code 400)");
@@ -112,7 +110,7 @@ public class GoogleMapsApiService {
         if (input == null) {
             return null;
         }
-        String in = input.replace(" ", "%");
+        String in = input.replace(" ", "+");
         return in;
 
     }
