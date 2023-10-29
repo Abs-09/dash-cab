@@ -36,6 +36,29 @@ public class BookingDao {
 
     // BOOKING REQUESTS ==========================================
     //get all booking requsts from db
+    public int getNumberOfBookingRequests() {
+        int count = 0;
+
+        try {
+            pst = con.prepareStatement("SELECT * from booking_requests order by id desc;");
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                count++;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Data showAllCustomer exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            closePreparedStatement();
+        }
+
+        return count;
+    }
+
+    //get all booking requsts from db
     public List<BookingRequest> getBookingRequests() {
         List<BookingRequest> bookingRequests = new ArrayList<>();
 
@@ -72,7 +95,7 @@ public class BookingDao {
         List<BookingRequest> bookingRequests = new ArrayList<>();
 
         try {
-            pst = con.prepareStatement("SELECT * from booking_requests WHERE user_id = ?");
+            pst = con.prepareStatement("SELECT * from booking_requests WHERE user_id = ? order by id desc");
             pst.setString(1, Integer.toString(input_id));
             ResultSet rs = pst.executeQuery();
 
@@ -233,7 +256,7 @@ public class BookingDao {
         List<Booking> bookings = new ArrayList<>();
 
         try {
-            pst = con.prepareStatement("select * from bookings where driver_id = ?");
+            pst = con.prepareStatement("select * from bookings where driver_id = ? order by booking_request_id desc");
             pst.setString(1, Integer.toString(input_id));
             ResultSet rs = pst.executeQuery();
 
@@ -431,6 +454,27 @@ public class BookingDao {
         return invoices;
     }
 
+    public int getTotalCompletedInvoices() {
+        int count = 0;
+
+        try {
+            pst = con.prepareStatement("SELECT * from invoices where booking_status = 2 order by booking_request_id desc");
+            ResultSet rs = pst.executeQuery();
+            System.out.println("");
+            while (rs.next()) {
+                count ++;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Data exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } finally {
+            closePreparedStatement();
+        }
+
+        return count;
+    }
+
     //get invoice by booking reuewst id
     public Invoice getInvoiceByBookingRequestID(int bookingrequestid) {
 
@@ -497,15 +541,14 @@ public class BookingDao {
 
     //COMPLETE BOOKING ===================================================
     public List<CompleteBooking> getCompleteBookingsByDriverAndDate(int driverID, String fromDate, String toDate) {
-        
+
         //SQL does not show the dates that are equal to todate so we increment todate by 1 Day
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(toDate, formatter);
         LocalDate toDateIncrementedByOne = date.plusDays(1);
-        
-        
+
         List<CompleteBooking> completebookings = new ArrayList<>();
-     
+
         try {
             pst = con.prepareStatement("select "
                     + "  br.user_id as customer_id, "
@@ -540,7 +583,7 @@ public class BookingDao {
             pst.setString(2, fromDate);
             pst.setString(3, toDateIncrementedByOne.format(formatter));
             ResultSet rs = pst.executeQuery();
-            
+
             System.out.println("");
             while (rs.next()) {
                 int customer_id = rs.getInt("customer_id");
@@ -561,7 +604,7 @@ public class BookingDao {
                 double cost = rs.getDouble("cost");
                 double total_cost = rs.getDouble("total_cost");
                 int booking_status = rs.getInt("booking_status");
-                
+
                 CompleteBooking completeBooking = new CompleteBooking(
                         customer_id,
                         customer_name,
@@ -601,7 +644,7 @@ public class BookingDao {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(toDate, formatter);
         LocalDate toDateIncrementedByOne = date.plusDays(1);
-        
+
         int count = 0;
         try {
             pst = con.prepareStatement("select distinct"
@@ -620,11 +663,11 @@ public class BookingDao {
             pst.setString(2, fromDate);
             pst.setString(3, toDateIncrementedByOne.format(formatter));
             ResultSet rs = pst.executeQuery();
-            
-            while(rs.next()) {
-                count ++;
+
+            while (rs.next()) {
+                count++;
             }
-            
+
         } catch (SQLException ex) {
             System.out.println("Data exception occoured");
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -633,18 +676,17 @@ public class BookingDao {
         }
         return count;
     }
-    
-        //COMPLETE BOOKING ===================================================
+
+    //COMPLETE BOOKING ===================================================
     public List<CompleteBooking> getCompleteBookingsByDate(String fromDate, String toDate) {
-        
+
         //SQL does not show the dates that are equal to todate so we increment todate by 1 Day
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(toDate, formatter);
         LocalDate toDateIncrementedByOne = date.plusDays(1);
-        
-        
+
         List<CompleteBooking> completebookings = new ArrayList<>();
-     
+
         try {
             pst = con.prepareStatement("select "
                     + "  br.user_id as customer_id, "
@@ -677,7 +719,7 @@ public class BookingDao {
             pst.setString(1, fromDate);
             pst.setString(2, toDateIncrementedByOne.format(formatter));
             ResultSet rs = pst.executeQuery();
-            
+
             System.out.println("");
             while (rs.next()) {
                 int customer_id = rs.getInt("customer_id");
@@ -698,7 +740,7 @@ public class BookingDao {
                 double cost = rs.getDouble("cost");
                 double total_cost = rs.getDouble("total_cost");
                 int booking_status = rs.getInt("booking_status");
-                
+
                 CompleteBooking completeBooking = new CompleteBooking(
                         customer_id,
                         customer_name,
@@ -738,7 +780,7 @@ public class BookingDao {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(toDate, formatter);
         LocalDate toDateIncrementedByOne = date.plusDays(1);
-        
+
         int count = 0;
         try {
             pst = con.prepareStatement("select distinct"
@@ -755,11 +797,11 @@ public class BookingDao {
             pst.setString(1, fromDate);
             pst.setString(2, toDateIncrementedByOne.format(formatter));
             ResultSet rs = pst.executeQuery();
-            
-            while(rs.next()) {
-                count ++;
+
+            while (rs.next()) {
+                count++;
             }
-            
+
         } catch (SQLException ex) {
             System.out.println("Data exception occoured");
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -768,7 +810,35 @@ public class BookingDao {
         }
         return count;
     }
-    
+
+    public int getDistictNumberOfCustomersServed() {
+
+        int count = 0;
+        try {
+            pst = con.prepareStatement("select distinct"
+                    + "  br.user_id as customer_id "
+                    + "from invoices i "
+                    + "inner join booking_requests br on i.booking_request_id = br.id "
+                    + "inner join bookings b on i.booking_request_id = b.booking_request_id "
+                    + "inner join users as customers on br.user_id = customers.id "
+                    + "inner join users as drivers on b.driver_id = drivers.id "
+                    + "where "
+                    + "i.booking_status = 2");
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                count++;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Data exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closePreparedStatement();
+        }
+        return count;
+    }
+
     //HELPER FUNCTION  ===============================
     private void closePreparedStatement() {
         try {

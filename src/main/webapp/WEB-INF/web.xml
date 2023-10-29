@@ -108,6 +108,10 @@
         <servlet-name>ShowCustomersServedReport</servlet-name>
         <servlet-class>ShowCustomersServedReport</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowDashBoard</servlet-name>
+        <servlet-class>ShowDashBoard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -212,7 +216,7 @@
         <servlet-name>ShowCustomersServedReport</servlet-name>
         <url-pattern>/ShowCustomersServedReport</url-pattern>
     </servlet-mapping>
-<!--    <filter>
+    <!--    <filter>
         <filter-name>SessionFilter</filter-name>
         <filter-class>com.mycompany.dash.cab.filters.SessionFilter</filter-class>
     </filter>
@@ -220,6 +224,10 @@
         <filter-name>SessionFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>-->
+    <servlet-mapping>
+        <servlet-name>ShowDashBoard</servlet-name>
+        <url-pattern>/ShowDashBoard</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             20

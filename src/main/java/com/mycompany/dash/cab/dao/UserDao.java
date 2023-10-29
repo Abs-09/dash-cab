@@ -284,6 +284,27 @@ public class UserDao {
         return driverList;
     }
 
+    
+    public int showTotalNumberOfAllDrivers() {
+        int count = 0;
+        try {
+            pst = con.prepareStatement("SELECT * from users where type = 2 AND deleted_at is null");
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                count ++;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Data showAllDriver exception occoured");
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closePreparedStatement();
+        }
+        
+        return count;
+    }
+    
+    
     public List<Driver> showEnabledAllDrivers() {
         List<Driver> driverList = new ArrayList<>();
 

@@ -96,7 +96,9 @@ public class RequestBookingServlet extends HttpServlet {
                 boolean insertInvoice = bdao.insertInvoice(invoice);
                 request.setAttribute("bookingrequest", bookingrequest);
                 request.setAttribute("user", user);
-                request.setAttribute("distance", distance);
+                request.setAttribute("cost", cost);                
+                request.setAttribute("totalCost", totalCost);
+
                 RequestDispatcher rd = request.getRequestDispatcher("bookingrequests/success.jsp");
                 rd.forward(request, response);
             } catch (ParseException ex) {

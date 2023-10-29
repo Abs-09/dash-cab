@@ -24,7 +24,7 @@
                 <p>Pick up from: ${bookingrequest.pick_up_address}</p>
                 <p>Drop Off To: ${bookingrequest.destination_address}</p>
                 <p>Scheduled For: ${bookingrequest.scheduled_date_time}</p>
-                <p>Status: ${bookingrequest.status}</p>
+                <p>Status: <c:if test="${bookingrequest.status == 1}">Pending</c:if> <c:if test="${bookingrequest.status == 2}">Accepted</c:if> <c:if test="${bookingrequest.status == 3}">Rejected</c:if></p>
                 <p>Requested At: ${bookingrequest.created_at}</p></br>
                 <div class="form-container">
                     <form action="AcceptBookingRequestServlet" method="post">
