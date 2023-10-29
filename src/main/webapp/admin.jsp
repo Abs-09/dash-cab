@@ -19,14 +19,14 @@
                     <div class="box">
                         <div class="right-side">
                             <div class="box-topic">Booking Requests</div>
-                            <div class="number">40,876</div>
+                            <div class="number">${totalBookingRequests}</div>
                         </div>
                         <i class="bx bx-cart-alt cart"></i>
                     </div>
                     <div class="box">
                         <div class="right-side">
                             <div class="box-topic">Bookings Completed</div>
-                            <div class="number">38,876</div>
+                            <div class="number">${totalBookingsCompleted}</div>
                         </div>
                         <i class="bx bxs-cart-add cart two"></i>
                     </div>
@@ -35,15 +35,15 @@
                     
                     <div class="box">
                         <div class="right-side">
-                            <div class="box-topic">Total Customers</div>
-                            <div class="number">12,876</div>
+                            <div class="box-topic">Total Distinct Customer Served</div>
+                            <div class="number">${totalCustomersServed}</div>
                         </div>
                         <i class="bx bx-user cart three"></i>
                     </div>
                     <div class="box">
                         <div class="right-side">
                             <div class="box-topic">Total Drivers</div>
-                            <div class="number">11,086</div>
+                            <div class="number">${totalDrivers}</div>
                         </div>
                         <i class="bx bxs-car cart four"></i>
                     </div>

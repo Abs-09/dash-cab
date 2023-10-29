@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 
         String url = null;
         if (user.getType() == 1) {
-            url = "admin.jsp";
+            url = "ShowDashBoard";
         } else {
             url = "welcome.jsp";
         }

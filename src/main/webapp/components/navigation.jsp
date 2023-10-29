@@ -6,7 +6,7 @@
     </div>
     <ul class="nav-links">
         <li>
-            <a href="admin.jsp" id="dashboardSidebar" class="menu-link">
+            <a href="ShowDashBoard" id="dashboardSidebar" class="menu-link">
                 <i class="bx bx-grid-alt"></i>
                 <span class="links_name">Dashboard</span>
             </a>

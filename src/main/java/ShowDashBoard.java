@@ -34,11 +34,20 @@ public class ShowDashBoard extends HttpServlet {
         BookingDao bDao = new BookingDao();
         UserDao uDao = new UserDao();
         
+        int totalCustomersServed = bDao.getDistictNumberOfCustomersServed();
+        int totalBookingRequests = bDao.getNumberOfBookingRequests();
+        int totalBookingsCompleted = bDao.getTotalCompletedInvoices();
+        int totalDrivers = uDao.showTotalNumberOfAllDrivers();
+        System.out.println("totalCustomersServed" + totalCustomersServed);
+        System.out.println("totalBookingRequests" + totalBookingRequests);
+        System.out.println("totalBookingsCompleted" + totalBookingsCompleted);
+        System.out.println("totalDrivers" + totalDrivers);
+        
         RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
-        request.setAttribute("totalCustomersServed", bDao.getDistictNumberOfCustomersServed());        
-        request.setAttribute("totalBookingRequests", bDao.getNumberOfBookingRequests());
-        request.setAttribute("totalBookingsCompleted", bDao.getTotalCompletedInvoices());        
-        request.setAttribute("totalDrivers", uDao.showTotalNumberOfAllDrivers());
+        request.setAttribute("totalCustomersServed", totalCustomersServed);        
+        request.setAttribute("totalBookingRequests", totalBookingRequests);
+        request.setAttribute("totalBookingsCompleted", totalBookingsCompleted);        
+        request.setAttribute("totalDrivers", totalDrivers);
 
 
         rd.forward(request, response);
