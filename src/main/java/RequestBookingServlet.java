@@ -8,6 +8,9 @@ import com.mycompany.dash.cab.dao.UserDao;
 import com.mycompany.dash.cab.model.BookingRequest;
 import com.mycompany.dash.cab.model.Invoice;
 import com.mycompany.dash.cab.model.User;
+import com.mycompany.dash.cab.service.Calculator;
+import com.mycompany.dash.cab.service.CalculatorService;
+import com.mycompany.dash.cab.service.Calculator_Service;
 import com.mycompany.dash.cab.service.GoogleMapsApiService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -28,6 +31,7 @@ import org.json.simple.parser.ParseException;
  */
 public class RequestBookingServlet extends HttpServlet {
 
+    CalculatorService proxy = new CalculatorService();
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -79,14 +83,20 @@ public class RequestBookingServlet extends HttpServlet {
         if (success) {
             try {
                 GoogleMapsApiService mapsApi = new GoogleMapsApiService(pick_up_address, destination_address);
+                String distanceInString = mapsApi.getDistance();
+                double distance = Double.parseDouble(distanceInString);
+                
+                double cost = proxy.calculateCost(distance);
+                double totalCost = proxy.calculateTotalCost(distance);
+                
                 //getting latest booking request
                 BookingRequest bookingrequest = bdao.getLatestBookingRequest();
                 //inserting invoice
-                Invoice invoice = new Invoice(bookingrequest.getId(), 400.00, 448.00);
+                Invoice invoice = new Invoice(bookingrequest.getId(), cost, totalCost);
                 boolean insertInvoice = bdao.insertInvoice(invoice);
                 request.setAttribute("bookingrequest", bookingrequest);
                 request.setAttribute("user", user);
-                request.setAttribute("distance", mapsApi.getDistance());
+                request.setAttribute("distance", distance);
                 RequestDispatcher rd = request.getRequestDispatcher("bookingrequests/success.jsp");
                 rd.forward(request, response);
             } catch (ParseException ex) {
