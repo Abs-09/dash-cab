@@ -8,8 +8,10 @@
         <span id="mainName" class="dashboard">Dashboard</span>
     </div>
     <div class="search-box">
-        <input type="text" placeholder="Search..." />
-        <i class="bx bx-search"></i>
+        <form id="searchForm" action="searchServlet" method="post"> <!-- Modify the 'action' attribute with the correct servlet URL -->
+            <input id="searchQuery" type="text" name="query" placeholder="Search..." />
+            <i class="bx bx-search"></i>
+        </form>
     </div>
     <div class="profile-details">
         <i class="bx bx-user"></i>
