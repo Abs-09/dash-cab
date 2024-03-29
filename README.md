@@ -1,4 +1,7 @@
-# DASHCAB SETUP
+# DASHCAB
+A VIP Taxi booking web platform made using Java.
+
+## DASHCAB SETUP
 
 
 1. Extract the files
